@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cubaback.unete">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,24 +22,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.activity.main.MainActivity"
+            android:name=".presentation.activity.intro.IntroActivity"
+            android:label="@string/title_activity_intro"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TestBottomBar"
+            android:label="@string/title_activity_test_bottom_bar" />
+        <activity
+            android:name=".presentation.activity.main.ui.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".presentation.activity.test.TestDrawer"
-            android:label="@string/title_activity_test_drawer"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".presentation.activity.test.TestNavBottom"
-            android:label="@string/title_activity_test_nav_bottom" />
-        <activity
-            android:name=".presentation.activity.main.MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".presentation.activity.login.LoginActivity"
-            android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".presentation.activity.business.BusinessDetailActivity"
+            android:label="@string/title_activity_business_detail"></activity>
     </application>
 
 </manifest>

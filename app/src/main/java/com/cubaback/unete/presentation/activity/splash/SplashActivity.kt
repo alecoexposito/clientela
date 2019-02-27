@@ -2,9 +2,8 @@ package com.cubaback.unete.presentation.activity.splash
 
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
-import com.cubaback.unete.presentation.activity.login.LoginActivity
-import com.cubaback.unete.presentation.activity.main.MainActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.cubaback.unete.presentation.activity.intro.IntroActivity
 import com.cubaback.unete.presentation.activity.splash.ui.SplashActivityUi
 import org.jetbrains.anko.setContentView
 import org.jetbrains.anko.startActivity
@@ -20,7 +19,7 @@ class SplashActivity : AppCompatActivity() {
         splashUi.setContentView(this)
 
         val handler : Handler = Handler()
-        handler.postDelayed({startActivity<LoginActivity>()}, 1000)
+        handler.postDelayed({startActivity<IntroActivity>()}, 1000)
 
     }
 }

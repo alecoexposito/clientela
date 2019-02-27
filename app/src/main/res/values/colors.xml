@@ -4,5 +4,9 @@
     <color name="colorPrimaryDark">#fd7d00</color>
     <color name="colorAccent">#0ab801</color>
     <color name="white">#ffffff</color>
+    <color name="white_bg">#bdbdbd</color>
     <color name="textColor">#000000</color>
+    <color name="black">#000000</color>
+    <color name="ligther_green">#b9f6ca</color>
+    <color name="ligther_orange">#ffab91</color>
 </resources>
