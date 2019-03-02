@@ -38,4 +38,6 @@ interface IBusinessCache {
      * retorna true, si la cache ha espirado, de lo contrario retorna false
      * */
     fun isExpired() : Boolean
+
+    fun getBusinessById(id : Long): Single<EntityBusiness>
 }

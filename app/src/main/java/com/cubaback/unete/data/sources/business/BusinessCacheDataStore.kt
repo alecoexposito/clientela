@@ -24,4 +24,8 @@ open class BusinessCacheDataStore(private val businessCache : IBusinessCache) : 
     override fun isCached(): Single<Boolean> {
         return businessCache.isCached()
     }
+
+    override fun getBusinessById(id: Long): Single<EntityBusiness> {
+        return businessCache.getBusinessById(id)
+    }
 }

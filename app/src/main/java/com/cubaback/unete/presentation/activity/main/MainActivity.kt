@@ -1,85 +1,120 @@
 package com.cubaback.unete.presentation.activity.main
 
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.cubaback.unete.R
+import com.cubaback.unete.data.model.Business
+import com.cubaback.unete.presentation.activity.business.BusinessDetailActivity
+import com.cubaback.unete.presentation.dialog.SelectQrDialog
+import com.cubaback.unete.presentation.dialog.ShowIdDialog
+import com.cubaback.unete.presentation.fragment.business.BusinessFragment
+import com.cubaback.unete.presentation.fragment.notification.NotificationFragment
+import com.cubaback.unete.presentation.fragment.publicity.PublishFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
+import org.jetbrains.anko.startActivity
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), SelectQrDialog.SelectQrCallback,
+        BusinessFragment.BusinessFragmentCallback{
+
+    private var publishFragment : PublishFragment? = null
+    private var businessFragment : BusinessFragment? = null
+    private var notificationFragment : NotificationFragment? = null
+
+    private var bmpQr : Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.setDisplayShowHomeEnabled(false)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
+        bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        bottomNavigation.selectedItemId = R.id.navigation_home
 
-        nav_view.setNavigationItemSelectedListener(this)
+        setupCenterButton()
     }
 
-    override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
+    private fun openBusinessFragment(){
+        val fragmentTransition = supportFragmentManager.beginTransaction()
+        businessFragment = BusinessFragment.newInstance(1)
+        businessFragment?.let { it.setBusinessFragmentCallback(this)  }
+        businessFragment?.let { fragmentTransition.replace(R.id.fragment_container, it) }
+        fragmentTransition.commit()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
+
+    private fun openPublishFragment(){
+        val fragmentTransition = supportFragmentManager.beginTransaction()
+        publishFragment = PublishFragment.newInstance(1)
+        publishFragment?.let { fragmentTransition.replace(R.id.fragment_container, it) }
+        fragmentTransition.commit()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+    private fun openNotificationFragment(){
+        val fragmentTransition = supportFragmentManager.beginTransaction()
+        notificationFragment = NotificationFragment.newInstance(1)
+        notificationFragment?.let { fragmentTransition.replace(R.id.fragment_container, it) }
+        fragmentTransition.commit()
+    }
+
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.action_settings -> return true
-            else -> return super.onOptionsItemSelected(item)
+            R.id.navigation_home -> {
+                openPublishFragment()
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_business -> {
+                openBusinessFragment()
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_notifications -> {
+                openNotificationFragment()
+                return@OnNavigationItemSelectedListener true
+            }
+
+            R.id.navigation_space -> {
+                openSelectQrDialog( )
+                return@OnNavigationItemSelectedListener true
+            }
         }
+        false
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
+    private fun setupCenterButton(){
+        fab!!.setOnClickListener{openSelectQrDialog( )}
+    }
 
-            }
-            R.id.nav_slideshow -> {
+    private fun openSelectQrDialog(){
+        val qrSelectDialog = SelectQrDialog()
+        qrSelectDialog.setDialogFragmentListener(this)
+        qrSelectDialog.show(supportFragmentManager, SelectQrDialog.TAG )
+    }
 
-            }
-            R.id.nav_manage -> {
+    private fun openBusinessDetailActivity(business : Business){
+        Companion.business = business
+        startActivity<BusinessDetailActivity>(
+               /* BusinessDetailActivity.EXTRA_BUSINESS to business*/)
+    }
 
-            }
-            R.id.nav_share -> {
+    override fun onBusinessClick(item: Business) {
+        openBusinessDetailActivity(item)
+    }
 
-            }
-            R.id.nav_send -> {
+    override fun onScanClick() {
+    }
 
-            }
-        }
+    override fun onShowIdClick() {
+        val showIdDialog = ShowIdDialog()
+        showIdDialog.show(supportFragmentManager, ShowIdDialog.TAG )
+    }
 
-        drawer_layout.closeDrawer(GravityCompat.START)
-        return true
+    companion object {
+        var business : Business? = null
     }
 }

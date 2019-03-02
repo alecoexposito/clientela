@@ -6,8 +6,8 @@ import com.cubaback.unete.data.model.TransactionBo
 import org.buffer.android.boilerplate.data.mapper.Mapper
 import java.util.*
 
-open class EntityTransactionMapper : Mapper<EntityTransaction, TransactionBo> {
-    constructor()
+open class EntityTransactionMapper() : Mapper<EntityTransaction, TransactionBo> {
+    //constructor()
 
     override fun map(type: EntityTransaction): TransactionBo {
         val createAt = Date()

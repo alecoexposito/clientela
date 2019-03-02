@@ -13,7 +13,7 @@ open class DependenceBoMapper : Mapper<DependencesBo, Dependences>{
     }
 
     override fun reverseMap(type: Dependences): DependencesBo {
-        return return DependencesBo(type.id, type.name, type.description, type.main, type.businessId)
+        return  DependencesBo(type.id, type.name, type.description, type.main, type.businessId)
     }
 
 }

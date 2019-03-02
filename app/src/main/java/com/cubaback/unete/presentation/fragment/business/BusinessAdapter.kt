@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cubaback.unete.R
+import com.cubaback.unete.data.model.Business
 import kotlinx.android.synthetic.main.fragment_business.view.*
 
 /**
@@ -41,7 +42,7 @@ class BusinessAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
         holder.mIdView.text = "Perla Negra"
-        holder.mContentView.text = item.content
+        holder.mContentView.text = item.description
 
         with(holder.mView) {
             tag = item

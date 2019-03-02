@@ -14,5 +14,5 @@ interface IBusinessDataStore {
 
     fun isCached(): Single<Boolean>
 
-    fun getBusinessById(id : Long)
+    fun getBusinessById(id : Long) : Single<EntityBusiness>
 }

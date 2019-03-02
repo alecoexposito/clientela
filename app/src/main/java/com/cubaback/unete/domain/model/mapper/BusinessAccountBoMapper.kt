@@ -2,14 +2,9 @@ package com.cubaback.unete.data.model.mapper
 
 import com.cubaback.unete.data.model.BusinessAccount
 import com.cubaback.unete.data.model.BusinessAccountBo
-import com.cubaback.unete.data.model.EntityBusinessAccount
 import org.buffer.android.boilerplate.data.mapper.Mapper
 
-open class BusinessAccountBoMapper : Mapper<BusinessAccountBo, BusinessAccount> {
-
-    constructor()
-
-
+open class BusinessAccountBoMapper() : Mapper<BusinessAccountBo, BusinessAccount> {
 
 
     override fun map(type: BusinessAccountBo): BusinessAccount {

@@ -29,7 +29,7 @@
             android:name=".TestBottomBar"
             android:label="@string/title_activity_test_bottom_bar" />
         <activity
-            android:name=".presentation.activity.main.ui.MainActivity"
+            android:name=".presentation.activity.main.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

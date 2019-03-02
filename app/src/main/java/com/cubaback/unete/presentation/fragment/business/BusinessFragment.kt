@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cubaback.unete.R
+import com.cubaback.unete.data.model.Business
 import com.cubaback.unete.presentation.fragment.business.dummy.DummyContent
 import kotlinx.android.synthetic.main.fragment_business_list.view.*
 

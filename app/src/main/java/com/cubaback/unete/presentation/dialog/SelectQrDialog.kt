@@ -11,6 +11,7 @@ import com.cubaback.unete.R
 import kotlinx.android.synthetic.main.dialog_qr_selector.view.*
 import org.jetbrains.anko.layoutInflater
 
+@Suppress("JAVA_CLASS_ON_COMPANION")
 class SelectQrDialog : DialogFragment {
     constructor() : super()
 

@@ -24,7 +24,7 @@ open class BusinessRemoteDataStore(private val businessRemote : IBusinessRemote)
         throw UnsupportedOperationException()
     }
 
-    override fun getBusinessById(id: Long) {
-        businessRemote.getBusinessById(id)
+    override fun getBusinessById(id: Long): Single<EntityBusiness> {
+        return businessRemote.getBusinessById(id)
     }
 }

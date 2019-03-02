@@ -1,5 +1,6 @@
 package com.cubaback.unete.presentation.fragment.business.dummy
 
+import com.cubaback.unete.data.model.Business
 import java.util.ArrayList
 import java.util.HashMap
 
@@ -32,11 +33,11 @@ object DummyContent {
 
     private fun addItem(item: Business) {
         ITEMS.add(item)
-        ITEM_MAP.put(item.id, item)
+        ITEM_MAP.put(item.name, item)
     }
 
     private fun createDummyItem(position: Int): Business {
-        return Business(position.toString(), "Un islon por visita", makeDetails(position))
+        return Business(position.toLong() , "Un islon por visita", makeDetails(position))
     }
 
     private fun makeDetails(position: Int): String {

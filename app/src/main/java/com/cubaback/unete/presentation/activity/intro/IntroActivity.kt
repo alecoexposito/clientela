@@ -3,7 +3,7 @@ package com.cubaback.unete.presentation.activity.intro
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cubaback.unete.R
-import com.cubaback.unete.presentation.activity.main.ui.MainActivity
+import com.cubaback.unete.presentation.activity.main.MainActivity
 import com.cubaback.unete.presentation.fragment.IntroFragment
 import com.cubaback.unete.presentation.fragment.LoginFragment
 import com.cubaback.unete.presentation.fragment.RegisterFragment
