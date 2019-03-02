@@ -1,5 +1,6 @@
 package com.cubaback.unete.data.model.mapper
 
+import com.cubaback.unete.data.model.Client
 import com.cubaback.unete.data.model.ClientBo
 import com.cubaback.unete.data.model.EntityClient
 import org.buffer.android.boilerplate.data.mapper.Mapper

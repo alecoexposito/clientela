@@ -1,6 +1,7 @@
 package com.cubaback.unete.data.model.mapper
 
 import com.cubaback.unete.data.model.EntityProdServs
+import com.cubaback.unete.data.model.ProdServs
 import com.cubaback.unete.data.model.ProdServsBo
 import org.buffer.android.boilerplate.data.mapper.Mapper
 

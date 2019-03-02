@@ -3,7 +3,6 @@ package com.cubaback.unete.presentation.activity.business
 import android.os.Bundle
 import android.app.Activity
 import com.cubaback.unete.R
-import com.cubaback.unete.presentation.model.Business
 
 class BusinessDetailActivity : Activity() {
 

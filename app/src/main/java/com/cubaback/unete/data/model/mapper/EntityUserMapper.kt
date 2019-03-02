@@ -1,6 +1,7 @@
 package com.cubaback.unete.data.model.mapper
 
 import com.cubaback.unete.data.model.EntityUser
+import com.cubaback.unete.data.model.User
 import com.cubaback.unete.data.model.UserBo
 import org.buffer.android.boilerplate.data.mapper.Mapper
 import java.util.*

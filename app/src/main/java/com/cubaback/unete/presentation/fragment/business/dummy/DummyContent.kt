@@ -1,6 +1,5 @@
 package com.cubaback.unete.presentation.fragment.business.dummy
 
-import com.cubaback.unete.presentation.model.Business
 import java.util.ArrayList
 import java.util.HashMap
 

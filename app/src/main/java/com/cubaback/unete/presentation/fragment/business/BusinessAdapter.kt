@@ -8,7 +8,6 @@ import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cubaback.unete.R
-import com.cubaback.unete.presentation.model.Business
 import kotlinx.android.synthetic.main.fragment_business.view.*
 
 /**

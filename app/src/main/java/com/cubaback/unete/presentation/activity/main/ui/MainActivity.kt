@@ -10,7 +10,6 @@ import com.cubaback.unete.presentation.dialog.ShowIdDialog
 import com.cubaback.unete.presentation.fragment.business.BusinessFragment
 import com.cubaback.unete.presentation.fragment.notification.NotificationFragment
 import com.cubaback.unete.presentation.fragment.publicity.PublishFragment
-import com.cubaback.unete.presentation.model.Business
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.startActivity
