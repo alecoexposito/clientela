@@ -1,15 +1,15 @@
 package com.cubaback.unete.data.sources.business
 
 import com.cubaback.unete.data.model.EntityBusiness
-import com.cubaback.unete.data.repository.IBusinessDataStore
-import com.cubaback.unete.data.repository.IBusinessRemote
+import com.cubaback.unete.data.repository.business.IBusinessDataStore
+import com.cubaback.unete.data.repository.business.IBusinessRemote
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 
-open class BusinessRemoteDataStore(private val businessRemote : IBusinessRemote) : IBusinessDataStore{
+open class BusinessRemoteDataStore(private val businessRemote : IBusinessRemote) : IBusinessDataStore {
     override fun clearBusinesses(): Completable {
-        throw UnsupportedOperationException()
+        throw UnsupportedOperationException() as Throwable
     }
 
     override fun saveBusinesses(businesses: List<EntityBusiness>): Completable {

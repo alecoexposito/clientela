@@ -1,12 +1,11 @@
 package com.cubaback.unete.data.model.mapper
 
 import com.cubaback.unete.data.model.EntityUser
-import com.cubaback.unete.data.model.User
-import com.cubaback.unete.data.model.UserBo
-import org.buffer.android.boilerplate.data.mapper.Mapper
+import com.cubaback.unete.domain.model.UserBo
+import com.cubaback.unete.mapper.Mapper
 import java.util.*
 
-open class EntityUserMapper() : Mapper<EntityUser, UserBo>{
+open class EntityUserMapper() : Mapper<EntityUser, UserBo> {
     //constructor()
 
     override fun map(type: EntityUser): UserBo {

@@ -1,13 +1,13 @@
 package com.cubaback.unete.data.sources.business
 
 import com.cubaback.unete.data.model.EntityBusiness
-import com.cubaback.unete.data.repository.IBusinessCache
-import com.cubaback.unete.data.repository.IBusinessDataStore
+import com.cubaback.unete.data.repository.business.IBusinessCache
+import com.cubaback.unete.data.repository.business.IBusinessDataStore
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 
-open class BusinessCacheDataStore(private val businessCache : IBusinessCache) : IBusinessDataStore{
+open class BusinessCacheDataStore(private val businessCache : IBusinessCache) : IBusinessDataStore {
 
     override fun clearBusinesses(): Completable {
         return businessCache.clearBusinesses()

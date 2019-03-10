@@ -1,17 +1,17 @@
-package com.cubaback.unete.data.model.mapper
+package com.cubaback.unete.domain.model.mapper
 
-import com.cubaback.unete.data.model.Category
-import com.cubaback.unete.data.model.CategoryBo
-import org.buffer.android.boilerplate.data.mapper.Mapper
+import com.cubaback.unete.data.model.CategoryView
+import com.cubaback.unete.domain.model.CategoryBo
+import com.cubaback.unete.mapper.Mapper
 
-open class CategoryBoMapper : Mapper<CategoryBo, Category> {
+open class CategoryBoMapper : Mapper<CategoryBo, CategoryView> {
     constructor()
 
-    override fun map(type: CategoryBo): Category {
-        return Category(type.id, type.name, type.description, type.parentId)
+    override fun map(type: CategoryBo): CategoryView {
+        return CategoryView(type.id, type.name, type.description, type.parentId)
     }
 
-    override fun reverseMap(type: Category): CategoryBo {
+    override fun reverseMap(type: CategoryView): CategoryBo {
         return CategoryBo(type.id, type.name, type.description, type.parentId)
     }
 

@@ -1,19 +1,17 @@
-package com.cubaback.unete.data.model.mapper
+package com.cubaback.unete.domain.model.mapper
 
-import com.cubaback.unete.data.model.Client
-import com.cubaback.unete.data.model.ClientBo
-import com.cubaback.unete.data.model.EntityClient
-import org.buffer.android.boilerplate.data.mapper.Mapper
-import java.util.*
+import com.cubaback.unete.data.model.ClientView
+import com.cubaback.unete.domain.model.ClientBo
+import com.cubaback.unete.mapper.Mapper
 
-open class ClientBoMapper : Mapper<ClientBo, Client>{
+open class ClientBoMapper : Mapper<ClientBo, ClientView> {
     constructor()
 
-    override fun map(type: ClientBo): Client {
-        return Client(type.id, type.phone, type.birthDate)
+    override fun map(type: ClientBo): ClientView {
+        return ClientView(type.id, type.phone, type.birthDate)
     }
 
-    override fun reverseMap(type: Client): ClientBo {
+    override fun reverseMap(type: ClientView): ClientBo {
         return ClientBo(type.id, type.phone, type.birthDate)
     }
 

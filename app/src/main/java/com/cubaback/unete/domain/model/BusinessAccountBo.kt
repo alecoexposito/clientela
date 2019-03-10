@@ -1,6 +1,6 @@
-package com.cubaback.unete.data.model
+package com.cubaback.unete.domain.model
 
-data class BusinessAccountBo(val id : Long,
-                             val accountNumber : String,
-                             val defaultPercent : Int,
-                             val dependenceId : Long)
+data class BusinessAccountBo(val id : Long?,
+                             val accountNumber : String?,
+                             val defaultPercent : Int?,
+                             val dependenceId : Long?)

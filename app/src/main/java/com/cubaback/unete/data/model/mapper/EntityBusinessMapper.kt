@@ -1,11 +1,11 @@
 package com.cubaback.unete.data.model.mapper
 
-import com.cubaback.unete.data.model.BusinessBo
+import com.cubaback.unete.domain.model.BusinessBo
 import com.cubaback.unete.data.model.EntityBusiness
-import org.buffer.android.boilerplate.data.mapper.Mapper
+import com.cubaback.unete.mapper.Mapper
 
 open class EntityBusinessMapper() : Mapper<EntityBusiness, BusinessBo> {
-   // constructor()
+
 
     override fun map(type: EntityBusiness): BusinessBo {
         return BusinessBo(type.id, type.name, type.description)

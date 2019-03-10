@@ -106,6 +106,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$anko_version"
 
     implementation "org.koin:koin-android:$koin_version"
+    implementation "org.koin:koin-android-viewmodel:$koin_version"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation "org.jetbrains.anko:anko-constraint-layout:$anko_version"
 
@@ -179,6 +180,9 @@ dependencies {
     implementation 'com.google.zxing:core:3.2.1'
     implementation 'me.dm7.barcodescanner:zxing:1.9.8'
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
+
+    implementation "javax.annotation:jsr250-api:1.0"
+    implementation "javax.inject:javax.inject:1"
 
 
 }

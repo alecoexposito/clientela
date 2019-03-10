@@ -18,11 +18,13 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="sign_in">Iniciar Sección</string>
-    <string name="register">Registrar</string>
+    <string name="sign_in">Iniciar</string>
+    <string name="register">Regístrate!</string>
     <string name="register_now">Registrar ahora</string>
     <string name="welcome">Bienvenidos a únete</string>
     <string name="label_terms_and_conditions">Términos y condiciones</string>
+
+    <string name="you_can_register">Si aun no eres miembro de Unete: </string>
 
 
     <string name="scan_qr">Escanear QR</string>
@@ -30,6 +32,9 @@
     <string name="scan_for_get_my_id">Escanear para leer Id del usuario</string>
     <string name="search_title">Buscar negocio</string>
     <string name="filters">Filtros</string>
+
+    <string name="register_facebook">Iniciar con facebook</string>
+    <string name="register_google">Iniciar con google</string>
 
 
     <string name="email">Correo electrónico</string>

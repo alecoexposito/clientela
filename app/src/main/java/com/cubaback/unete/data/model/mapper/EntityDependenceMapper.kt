@@ -1,10 +1,10 @@
 package com.cubaback.unete.data.model.mapper
 
-import com.cubaback.unete.data.model.DependencesBo
+import com.cubaback.unete.domain.model.DependencesBo
 import com.cubaback.unete.data.model.EntityDependences
-import org.buffer.android.boilerplate.data.mapper.Mapper
+import com.cubaback.unete.mapper.Mapper
 
-open class EntityDependenceMapper() : Mapper<EntityDependences, DependencesBo>{
+open class EntityDependenceMapper() : Mapper<EntityDependences, DependencesBo> {
    // constructor()
 
     override fun map(type: EntityDependences): DependencesBo {

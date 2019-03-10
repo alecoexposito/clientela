@@ -1,4 +1,4 @@
-package org.buffer.android.boilerplate.presentation.data
+package com.cubaback.unete.presentation.data
 
 open class Resource<out T> constructor(val status: ResourceState, val data: T?, val message: String?) {
 

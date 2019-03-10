@@ -1,6 +1,6 @@
-package org.buffer.android.boilerplate.data.executor
+package com.cubaback.unete.data.executor
 
-import org.buffer.android.boilerplate.domain.executor.ThreadExecutor
+import com.cubaback.unete.domain.executor.ThreadExecutor
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.ThreadPoolExecutor

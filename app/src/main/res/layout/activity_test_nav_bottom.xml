@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.activity.test.TestNavBottom">
+    tools:context=".presentation.ui.activity.test.TestNavBottom">
 
     <TextView
         android:id="@+id/message"

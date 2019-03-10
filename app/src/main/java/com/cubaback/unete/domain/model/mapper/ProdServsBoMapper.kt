@@ -1,19 +1,18 @@
-package com.cubaback.unete.data.model.mapper
+package com.cubaback.unete.domain.model.mapper
 
-import com.cubaback.unete.data.model.EntityProdServs
-import com.cubaback.unete.data.model.ProdServs
-import com.cubaback.unete.data.model.ProdServsBo
-import org.buffer.android.boilerplate.data.mapper.Mapper
+import com.cubaback.unete.data.model.ProdServsView
+import com.cubaback.unete.domain.model.ProdServsBo
+import com.cubaback.unete.mapper.Mapper
 
-open class ProdServsBoMapper : Mapper<ProdServsBo, ProdServs>{
+open class ProdServsBoMapper : Mapper<ProdServsBo, ProdServsView> {
 
     constructor()
 
-    override fun map(type: ProdServsBo): ProdServs {
-        return ProdServs(type.id, type.name, type.description, type.priceMn, type.priceCuc, type.dependenceId)
+    override fun map(type: ProdServsBo): ProdServsView {
+        return ProdServsView(type.id, type.name, type.description, type.priceMn, type.priceCuc, type.dependenceId)
     }
 
-    override fun reverseMap(type: ProdServs): ProdServsBo {
+    override fun reverseMap(type: ProdServsView): ProdServsBo {
         return ProdServsBo(type.id, type.name, type.description, type.priceMn, type.priceCuc, type.dependenceId)
     }
 

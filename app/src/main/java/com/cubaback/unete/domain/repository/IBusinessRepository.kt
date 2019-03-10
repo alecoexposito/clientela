@@ -1,6 +1,6 @@
 package com.cubaback.unete.domain.repository
 
-import com.cubaback.unete.data.model.BusinessBo
+import com.cubaback.unete.domain.model.BusinessBo
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single

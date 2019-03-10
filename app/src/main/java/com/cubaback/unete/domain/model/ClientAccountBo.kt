@@ -1,4 +1,4 @@
-package com.cubaback.unete.data.model
+package com.cubaback.unete.domain.model
 
-data class ClientAccountBo(val id: Long, val accountNumber :  String,
-                           val clientId: Long)
+data class ClientAccountBo(val id: Long?, val accountNumber :  String?,
+                           val clientId: Long?)

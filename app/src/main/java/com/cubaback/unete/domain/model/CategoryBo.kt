@@ -1,5 +1,5 @@
-package com.cubaback.unete.data.model
+package com.cubaback.unete.domain.model
 
-data class CategoryBo(val id : Long, val name : String,
-                      val description : String,
-                      val parentId : Long)
+data class CategoryBo(val id : Long?, val name : String?,
+                      val description : String?,
+                      val parentId : Long?)

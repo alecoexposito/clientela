@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:name="com.cubaback.unete.presentation.fragment.business.BusinessFragment"
-    tools:context=".presentation.fragment.business.BusinessFragment"
+    tools:context=".presentation.ui.fragment.business.BusinessFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 

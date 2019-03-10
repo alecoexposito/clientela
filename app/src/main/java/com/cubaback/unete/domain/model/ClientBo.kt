@@ -1,5 +1,5 @@
-package com.cubaback.unete.data.model
+package com.cubaback.unete.domain.model
 
 import java.util.*
 
-data class ClientBo (val id : Long, val phone : String, val birthDate : Date)
+data class ClientBo (val id : Long?, val phone : String?, val birthDate : Date?)

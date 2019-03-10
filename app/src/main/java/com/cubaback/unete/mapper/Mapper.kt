@@ -1,4 +1,4 @@
-package org.buffer.android.boilerplate.data.mapper
+package com.cubaback.unete.mapper
 
 /**
  * Interface for model mappers. It provides helper methods that facilitate

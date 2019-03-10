@@ -1,11 +1,10 @@
 package com.cubaback.unete.data.model.mapper
 
-import com.cubaback.unete.data.model.ClientAccount
-import com.cubaback.unete.data.model.ClientAccountBo
+import com.cubaback.unete.domain.model.ClientAccountBo
 import com.cubaback.unete.data.model.EntityClientAccount
-import org.buffer.android.boilerplate.data.mapper.Mapper
+import com.cubaback.unete.mapper.Mapper
 
-open class EntityClientAccountMapper() : Mapper<EntityClientAccount, ClientAccountBo>{
+open class EntityClientAccountMapper() : Mapper<EntityClientAccount, ClientAccountBo> {
    // constructor()
 
     override fun map(type: EntityClientAccount): ClientAccountBo {

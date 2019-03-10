@@ -1,4 +1,4 @@
-package org.buffer.android.boilerplate.domain.interactor
+package com.cubaback.unete.domain.interactor.base
 
 import io.reactivex.SingleObserver
 import io.reactivex.disposables.Disposable

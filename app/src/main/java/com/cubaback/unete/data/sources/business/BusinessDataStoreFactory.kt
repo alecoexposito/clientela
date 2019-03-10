@@ -1,15 +1,15 @@
 package com.cubaback.unete.data.sources.business
 
-import com.cubaback.unete.data.repository.IBusinessCache
-import com.cubaback.unete.data.repository.IBusinessDataStore
+import com.cubaback.unete.data.repository.business.IBusinessCache
+import com.cubaback.unete.data.repository.business.IBusinessDataStore
 
-open class BusinessDataStoreFactory (private val businessesCache : IBusinessCache,
-                                     private val businessCacheDataStore : BusinessCacheDataStore,
-                                     private val businessRemoteDataStore : BusinessRemoteDataStore) {
+open class BusinessDataStoreFactory (val businessesCache : IBusinessCache,
+                                     val businessCacheDataStore : BusinessCacheDataStore,
+                                     val businessRemoteDataStore : BusinessRemoteDataStore) {
 
 
     open fun retrieveDataStore(isCached: Boolean): IBusinessDataStore {
-        if (isCached && !businessesCache.isExpired()) {
+        if (isCached) {
             return retrieveCacheDataStore()
         }
         return retrieveRemoteDataStore()

@@ -1,6 +1,6 @@
 package com.cubaback.unete.data.repository.impl
 
-import com.cubaback.unete.data.model.BusinessBo
+import com.cubaback.unete.domain.model.BusinessBo
 import com.cubaback.unete.data.model.EntityBusiness
 import com.cubaback.unete.data.model.mapper.EntityBusinessMapper
 import com.cubaback.unete.data.sources.business.BusinessDataStoreFactory
@@ -23,7 +23,16 @@ open class BusinessDataRepository(private val factory : BusinessDataStoreFactory
     }
 
     override fun getBusinesses(): Flowable<List<BusinessBo>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return factory.businessCacheDataStore.isCached()
+                .flatMapPublisher {
+                    factory.retrieveDataStore(it).getBusinesses()
+                }
+                .flatMap {
+                    Flowable.just(it.map { businessEntityMapper.map(it) })
+                }
+                .flatMap {
+                    saveBusinesses(it).toSingle{it}.toFlowable()
+                }
     }
 
     override fun getBusinessById(id: Long): Single<BusinessBo> {
