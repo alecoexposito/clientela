@@ -21,7 +21,7 @@ class BusinessCache : IBusinessCache {
 
     override fun isCached(): Single<Boolean> {
         // todo: cambiar cuando este la base de datos...
-        return Single.just(false)
+        return Single.defer { Single.just(false) }
     }
 
     override fun setLastCacheTime(lastCache: Long) {

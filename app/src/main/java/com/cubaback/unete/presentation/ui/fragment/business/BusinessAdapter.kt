@@ -24,10 +24,9 @@ class BusinessAdapter(
 
     private val mOnClickListener: View.OnClickListener
 
-    var mValues: List<BusinessView>
-        get() = mValues
+    var mValues: List<BusinessView>? = null
         set(value) {
-            mValues = value
+            field = value
             notifyDataSetChanged()
         }
 
@@ -45,16 +44,19 @@ class BusinessAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mValues[position]
-        holder.mIdView.text = "Perla Negra"
-        holder.mContentView.text = item.description
+        if(mValues != null){
+            val item = mValues?.get(position)
+            holder.mIdView.text = "Perla Negra"
+            holder.mContentView.text = item?.description
 
-        with(holder.mView) {
-            tag = item
-            setOnClickListener(mOnClickListener)
+            with(holder.mView) {
+                tag = item
+                setOnClickListener(mOnClickListener)
+            }
+
+            setAnimation((holder as ViewHolder).itemView, position)
         }
 
-        setAnimation((holder as ViewHolder).itemView, position)
     }
 
     fun setAnimation(viewToAnimate: View, position: Int) {
@@ -63,7 +65,12 @@ class BusinessAdapter(
         //lastPosition = position
     }
 
-    override fun getItemCount(): Int = mValues.size
+    override fun getItemCount(): Int {
+        if(mValues != null){
+           return  mValues!!.size
+        }
+        return 0
+    }
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         val mIdView: TextView = mView.tvBusinessTitle

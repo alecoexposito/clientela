@@ -48,11 +48,12 @@ class BusinessFragment : Fragment() {
                 columnCount <= 1 -> LinearLayoutManager(context)
                 else -> GridLayoutManager(context, columnCount)
             }
-            adapter = BusinessAdapter(listener, context)
+
+
         }
 
-
-
+        adapter = activity?.let { BusinessAdapter(listener, it) }
+        view.list.adapter = this.adapter
         return view
     }
 
@@ -90,11 +91,11 @@ class BusinessFragment : Fragment() {
 
     private fun setupScreenForLoadedBusinesses(data : List<BusinessView>?) {
         var a = data
-//        adapter?.let {
-//            if(data != null){
-//                it.mValues = data
-//            }
-//        }
+        adapter?.let {
+            if(data != null){
+                it.mValues = data
+            }
+        }
     }
 
     private fun setupScreenForLoading() {

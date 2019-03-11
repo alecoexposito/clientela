@@ -11,7 +11,7 @@ open class BusinessRemote ( private val joinService: IJoinUsService,
                             private val businessModelBusinessMapper: ModelBusinessMapper): IBusinessRemote {
 
     override fun getBusinesses(): Flowable<List<EntityBusiness>> {
-        return joinService.getBusinesses("Bearer $Utils.token")
+        return joinService.getBusinesses("Bearer ${Utils.token}")
                 .map {
                     val bsns = mutableListOf<EntityBusiness>()
                     it.forEach{bsns.add(businessModelBusinessMapper.map(it))}
