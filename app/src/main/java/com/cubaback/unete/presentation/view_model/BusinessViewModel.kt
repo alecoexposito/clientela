@@ -35,7 +35,7 @@ class BusinessViewModel(private val getBusinessUC: GetBusinessUC,
         override fun onComplete() { }
 
         override fun onNext(t: List<BusinessBo>?) {
-             businessLiveData.postValue(Resource(ResourceState.SUCCESS, t?.map { businessViewMapper.map(it) }, null))
+            businessLiveData.postValue(Resource(ResourceState.SUCCESS, t?.map { businessViewMapper.map(it) }, null))
         }
 
         override fun onError(t: Throwable?) {

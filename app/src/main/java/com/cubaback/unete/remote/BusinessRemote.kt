@@ -2,6 +2,7 @@ package com.cubaback.unete.remote
 
 import com.cubaback.unete.data.model.EntityBusiness
 import com.cubaback.unete.data.repository.business.IBusinessRemote
+import com.cubaback.unete.data.repository.category.ICategoryRemote
 import com.cubaback.unete.presentation.untils.Utils
 import com.cubaback.unete.remote.model.mapper.ModelBusinessMapper
 import io.reactivex.Flowable

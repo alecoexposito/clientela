@@ -1,8 +1,8 @@
 package com.cubaback.unete.remote
 
 import com.cubaback.unete.data.model.EntityUser
-import com.cubaback.unete.remote.model.mapper.ModelUserMapper
 import com.cubaback.unete.data.repository.user.IUserRemote
+import com.cubaback.unete.remote.model.mapper.ModelUserMapper
 import io.reactivex.Single
 
 open class UserRemote(private val joinService: IJoinUsService,

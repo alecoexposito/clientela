@@ -1,6 +1,5 @@
 package com.cubaback.unete.cache
 
-import com.cubaback.unete.cache.db.JoinUsDatabase
 import com.cubaback.unete.cache.model.mapper.CachedUserMapper
 import com.cubaback.unete.data.model.EntityUser
 import com.cubaback.unete.data.repository.user.IUserCache

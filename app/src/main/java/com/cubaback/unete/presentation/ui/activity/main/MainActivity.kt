@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cubaback.unete.R
 import com.cubaback.unete.data.model.BusinessView
+import com.cubaback.unete.data.model.CategoryView
 import com.cubaback.unete.presentation.ui.activity.business.BusinessDetailActivity
 import com.cubaback.unete.presentation.ui.dialog.SelectQrDialog
 import com.cubaback.unete.presentation.ui.dialog.ShowIdDialog
@@ -13,6 +14,7 @@ import com.cubaback.unete.presentation.ui.fragment.notification.NotificationFrag
 import com.cubaback.unete.presentation.ui.fragment.publicity.PublishFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 
 class MainActivity : AppCompatActivity(), SelectQrDialog.SelectQrCallback,
@@ -104,6 +106,10 @@ class MainActivity : AppCompatActivity(), SelectQrDialog.SelectQrCallback,
 
     override fun onBusinessClick(item: BusinessView) {
         openBusinessDetailActivity(item)
+    }
+
+    override fun onCategoryClick(item: CategoryView) {
+        alert { "Funcionalidad no disponible. Saludos JM" }
     }
 
     override fun onScanClick() {

@@ -4,6 +4,7 @@ import com.cubaback.unete.domain.model.BusinessBo
 import com.cubaback.unete.data.model.EntityBusiness
 import com.cubaback.unete.data.model.mapper.EntityBusinessMapper
 import com.cubaback.unete.data.sources.business.BusinessDataStoreFactory
+import com.cubaback.unete.data.sources.category.CategoryDataStoreFactory
 import com.cubaback.unete.domain.repository.IBusinessRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable

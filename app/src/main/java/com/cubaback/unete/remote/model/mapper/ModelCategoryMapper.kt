@@ -7,11 +7,11 @@ import com.cubaback.unete.mapper.Mapper
 open class ModelCategoryMapper() : Mapper<CategoryModel, EntityCategory> {
     // constructor()
     override fun map(type: CategoryModel): EntityCategory {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return EntityCategory(type.id, type.name, type.description, type.parentId)
     }
 
     override fun reverseMap(type: EntityCategory): CategoryModel {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return CategoryModel(type.id, type.name, type.description, type.parentId)
     }
 
     //    override fun map(type: CategoryModel): CategoryBo {

@@ -12,11 +12,7 @@ import com.cubaback.unete.cache.PreferencesHelper
 import com.cubaback.unete.data.model.BusinessView
 import kotlinx.android.synthetic.main.fragment_business.view.*
 
-/**
- * [RecyclerView.Adapter] that can display a [BusinessView] and makes a call to the
- * specified [OnListFragmentInteractionListener].
- * TODO: Replace the implementation with code for your data type.
- */
+
 class BusinessAdapter(
         private val mListener: BusinessFragment.BusinessFragmentCallback?,
         private val context : Context)
@@ -46,7 +42,7 @@ class BusinessAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(mValues != null){
             val item = mValues?.get(position)
-            holder.mIdView.text = "Perla Negra"
+            holder.mIdView.text = item?.name
             holder.mContentView.text = item?.description
 
             with(holder.mView) {
@@ -54,7 +50,7 @@ class BusinessAdapter(
                 setOnClickListener(mOnClickListener)
             }
 
-            setAnimation((holder as ViewHolder).itemView, position)
+            setAnimation((holder).itemView, position)
         }
 
     }

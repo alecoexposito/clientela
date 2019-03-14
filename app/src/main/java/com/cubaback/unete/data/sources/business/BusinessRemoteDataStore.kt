@@ -3,6 +3,8 @@ package com.cubaback.unete.data.sources.business
 import com.cubaback.unete.data.model.EntityBusiness
 import com.cubaback.unete.data.repository.business.IBusinessDataStore
 import com.cubaback.unete.data.repository.business.IBusinessRemote
+import com.cubaback.unete.data.repository.category.ICategoryDataStore
+import com.cubaback.unete.data.repository.category.ICategoryRemote
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single

@@ -1,14 +1,12 @@
 package com.cubaback.unete
 
 import android.app.Application
-import android.content.Context
 import com.cubaback.unete.cache.BusinessCache
+import com.cubaback.unete.cache.CategoryCache
 import com.cubaback.unete.cache.PreferencesHelper
 import com.cubaback.unete.cache.UserCache
-import com.cubaback.unete.cache.db.JoinUsDatabase
 import com.cubaback.unete.cache.model.mapper.*
 import com.cubaback.unete.data.model.mapper.*
-import com.cubaback.unete.data.repository.business.*
 import com.cubaback.unete.data.repository.impl.BusinessDataRepository
 import com.cubaback.unete.data.repository.impl.UserDataRepository
 import com.cubaback.unete.data.sources.business.*
@@ -20,17 +18,29 @@ import com.cubaback.unete.domain.repository.IUserRepository
 import com.cubaback.unete.presentation.model.mapper.*
 import com.cubaback.unete.presentation.view_model.LoginViewModel
 import com.cubaback.unete.data.executor.JobExecutor
+import com.cubaback.unete.data.repository.business.IBusinessCache
+import com.cubaback.unete.data.repository.business.IBusinessRemote
+import com.cubaback.unete.data.repository.category.ICategoryCache
+import com.cubaback.unete.data.repository.category.ICategoryRemote
+import com.cubaback.unete.data.repository.impl.CategoryDataRepository
 import com.cubaback.unete.data.repository.user.IUserCache
 import com.cubaback.unete.data.repository.user.IUserRemote
+import com.cubaback.unete.data.sources.category.CategoryCacheDataStore
+import com.cubaback.unete.data.sources.category.CategoryDataStoreFactory
+import com.cubaback.unete.data.sources.category.CategoryRemoteDataStore
 import com.cubaback.unete.data.sources.user.UserCacheDataStore
 import com.cubaback.unete.data.sources.user.UserDataStoreFactory
 import com.cubaback.unete.data.sources.user.UserRemoteDataStore
 import com.cubaback.unete.domain.interactor.business.GetBusinessUC
+import com.cubaback.unete.domain.interactor.category.GetCategoriesUC
 import com.cubaback.unete.domain.model.mapper.*
+import com.cubaback.unete.domain.repository.ICategoryRepository
 import org.buffer.android.boilerplate.remote.JoinUsServiceFactory
 import com.cubaback.unete.presentation.ui.UiThread
 import com.cubaback.unete.presentation.view_model.BusinessViewModel
+import com.cubaback.unete.presentation.view_model.CategoryViewModel
 import com.cubaback.unete.remote.BusinessRemote
+import com.cubaback.unete.remote.CategoryRemote
 import com.cubaback.unete.remote.UserRemote
 import com.cubaback.unete.remote.model.mapper.*
 import org.koin.android.ext.android.startKoin
@@ -50,17 +60,23 @@ class JoinUsApplication : Application(){
         factory { UserCacheDataStore(get()) }
 
 
-
-
         // business data stores
         factory<IBusinessRemote> { BusinessRemote(get(), get()) }
         factory<IBusinessCache> { BusinessCache() }
         factory { BusinessRemoteDataStore(get()) }
         factory { BusinessCacheDataStore(get()) }
 
+        // category data stores
+        factory<ICategoryRemote> { CategoryRemote(get(), get()) }
+        factory<ICategoryCache> { CategoryCache() }
+        factory { CategoryRemoteDataStore(get()) }
+        factory { CategoryCacheDataStore(get()) }
+
+
         // data stores factories
         factory { UserDataStoreFactory(get(), get(), get()) }
         factory { BusinessDataStoreFactory(get(), get(), get()) }
+        factory { CategoryDataStoreFactory(get(), get(), get()) }
 
 
         // data mappers...
@@ -131,6 +147,7 @@ class JoinUsApplication : Application(){
         //repositories
         single<IBusinessRepository>{BusinessDataRepository(get(), get())}
         single<IUserRepository>{UserDataRepository(get(), get())}
+        single<ICategoryRepository>{ CategoryDataRepository(get(), get()) }
 
         // executors...
         factory<ThreadExecutor> { JobExecutor() }
@@ -139,6 +156,7 @@ class JoinUsApplication : Application(){
         //uses cases
         factory { LoginUC(get(), get(), get()) }
         factory { GetBusinessUC(get(), get(), get()) }
+        factory { GetCategoriesUC(get(), get(), get()) }
 
         // database
 //        factory { JoinUsDatabase.getIns}
@@ -146,6 +164,7 @@ class JoinUsApplication : Application(){
         // view models
         viewModel{LoginViewModel(get(), get())}
         viewModel{BusinessViewModel(get(), get())}
+        viewModel{ CategoryViewModel(get(), get()) }
     }
 
 

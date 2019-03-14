@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cubaback.unete.R
 import com.cubaback.unete.data.model.BusinessView
+import com.cubaback.unete.data.model.CategoryView
 import com.cubaback.unete.presentation.data.ResourceState
 import com.cubaback.unete.presentation.view_model.BusinessViewModel
+import com.cubaback.unete.presentation.view_model.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_business_list.view.*
 import org.jetbrains.anko.support.v4.toast
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -19,9 +21,11 @@ class BusinessFragment : Fragment() {
 
     private var columnCount = 1
     private var listener: BusinessFragmentCallback? = null
-    private var adapter : BusinessAdapter? = null
+    private var businessAdapter : BusinessAdapter? = null
+    private var categoryAdapter : TopCategoryAdapter? = null
 
     val businessViewModel: BusinessViewModel by viewModel()
+    val categoryViewModel: CategoryViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,24 +47,34 @@ class BusinessFragment : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_business_list, container, false)
 
+        // setup business adapter...
         with(view.list) {
             layoutManager = when {
                 columnCount <= 1 -> LinearLayoutManager(context)
                 else -> GridLayoutManager(context, columnCount)
             }
-
-
         }
 
-        adapter = activity?.let { BusinessAdapter(listener, it) }
-        view.list.adapter = this.adapter
+        businessAdapter = activity?.let { BusinessAdapter(listener, it) }
+        view.list.adapter = this.businessAdapter
+
+        // setup category adapter...
+        with(view.categories){
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false )
+            categoryAdapter = listener?.let { TopCategoryAdapter(it, context) }
+            this.adapter = categoryAdapter
+        }
+
         return view
     }
 
     override fun onStart() {
         super.onStart()
-        setupBusinessViewModel()
+        bindBusinessViewModel()
         businessViewModel.getBusinesses()
+
+        bindCategoryViewModel()
+        categoryViewModel.getCategories()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -68,10 +82,18 @@ class BusinessFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    fun setupBusinessViewModel(){
+    fun bindBusinessViewModel(){
         businessViewModel.businessLiveData.observe(this, Observer {
             if (it != null){
                 handlerBusinessResponse(it.status, it.data, it.message)
+            }
+        })
+    }
+
+    fun bindCategoryViewModel(){
+        categoryViewModel.categoriesLiveData.observe(this, Observer {
+            it?.apply {
+                handlerCategoryResponse(it.status, it.data, it.message)
             }
         })
     }
@@ -82,7 +104,22 @@ class BusinessFragment : Fragment() {
             ResourceState.SUCCESS -> setupScreenForLoadedBusinesses(data)
             ResourceState.ERROR -> setupScreenForError(message)
         }
+    }
 
+    fun handlerCategoryResponse(state: ResourceState?, data : List<CategoryView>?, message : String?){
+        when(state){
+            ResourceState.LOADING -> setupScreenForLoading()
+            ResourceState.SUCCESS -> setupScreenForLoadedCategories(data)
+            ResourceState.ERROR -> setupScreenForError(message)
+        }
+    }
+
+    private fun setupScreenForLoadedCategories(data: List<CategoryView>?) {
+        categoryAdapter?.let {
+            if(data != null){
+                it.mCategories = data
+            }
+        }
     }
 
     private fun setupScreenForError( message : String?) {
@@ -90,8 +127,7 @@ class BusinessFragment : Fragment() {
     }
 
     private fun setupScreenForLoadedBusinesses(data : List<BusinessView>?) {
-        var a = data
-        adapter?.let {
+        businessAdapter?.let {
             if(data != null){
                 it.mValues = data
             }
@@ -99,12 +135,13 @@ class BusinessFragment : Fragment() {
     }
 
     private fun setupScreenForLoading() {
-        toast("Cargando")
+        toast("Cargando...")
     }
 
 
     interface BusinessFragmentCallback {
         fun onBusinessClick(item : BusinessView)
+        fun onCategoryClick(item : CategoryView)
     }
 
 
