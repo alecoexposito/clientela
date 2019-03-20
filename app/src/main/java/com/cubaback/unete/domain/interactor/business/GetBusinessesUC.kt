@@ -7,9 +7,9 @@ import com.cubaback.unete.domain.executor.PostExecutionThread
 import com.cubaback.unete.domain.executor.ThreadExecutor
 import com.cubaback.unete.domain.interactor.base.FlowableUseCase
 
-open class GetBusinessUC(val businessDataRepository: IBusinessRepository,
-                         threadExecutor: ThreadExecutor,
-                         postExecutionThread: PostExecutionThread) : FlowableUseCase<List<BusinessBo>, Void?>(threadExecutor, postExecutionThread) {
+open class GetBusinessesUC(val businessDataRepository: IBusinessRepository,
+                           threadExecutor: ThreadExecutor,
+                           postExecutionThread: PostExecutionThread) : FlowableUseCase<List<BusinessBo>, Void?>(threadExecutor, postExecutionThread) {
 
 
     override fun buildUseCaseObservable(params: Void?): Flowable<List<BusinessBo>> {

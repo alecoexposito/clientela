@@ -1,25 +1,23 @@
 package com.cubaback.unete.presentation.ui.fragment
 
 import android.os.Bundle
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.cubaback.unete.R
 import com.cubaback.unete.data.model.UserView
 import com.cubaback.unete.presentation.data.ResourceState
-import com.cubaback.unete.presentation.view_model.LoginViewModel
+import com.cubaback.unete.presentation.view_model.UserViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_register.view.*
-import org.jetbrains.anko.support.v4.alert
-import org.jetbrains.anko.support.v4.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class LoginFragment : Fragment() {
+class LoginFragment : BaseFragment() {
 
-    var listener : OnLoginListener? = null
-    val loginViewModel: LoginViewModel by viewModel()
+    lateinit var listener : OnLoginListener
+    val loginViewModel: UserViewModel by viewModel()
+    var passwordVisible : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,17 +51,13 @@ class LoginFragment : Fragment() {
         }
     }
 
-    private fun setupScreenForLoginError(message: String?) {
-        alert ("Error")
-    }
+
 
     private fun setupScreenForLoginSuccess(data: UserView?) {
-        listener?.let {  it.openMainActivity()}
+        listener?.let {  it.onLoginSuccess()}
     }
 
-    private fun setupScreenForLoadingState() {
-         toast("Cargando")
-    }
+
 
     private fun setupUi(){
         btnLogin.setOnClickListener{
@@ -73,7 +67,23 @@ class LoginFragment : Fragment() {
         btnRegister.setOnClickListener {
             listener?.let { it.openRegister() }
         }
+
+        togglePassword.setOnClickListener{togglePassword()}
     }
+
+    private fun togglePassword(){
+        val hidePass = PasswordTransformationMethod()
+        if(!passwordVisible){
+            etPassword.transformationMethod = null
+            togglePassword.setBackgroundResource(R.drawable.ic_visibility_off)
+        } else{
+            etPassword.transformationMethod = hidePass
+            togglePassword.setBackgroundResource(R.drawable.ic_visibility)
+        }
+        passwordVisible = !passwordVisible
+    }
+
+
 
     companion object {
         @JvmStatic
@@ -83,7 +93,7 @@ class LoginFragment : Fragment() {
 
 
     interface OnLoginListener{
-        fun openMainActivity()
+        fun onLoginSuccess()
         fun openRegister()
     }
 

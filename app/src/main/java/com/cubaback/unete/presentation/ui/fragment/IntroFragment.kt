@@ -9,7 +9,7 @@ import com.cubaback.unete.R
 import kotlinx.android.synthetic.main.fragment_intro.*
 
 
-class IntroFragment : Fragment() {
+class IntroFragment : BaseFragment() {
 
     var listener: OnIntroFragmentInteractionListener? = null
 

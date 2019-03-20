@@ -10,13 +10,14 @@ import com.cubaback.unete.R
 import com.cubaback.unete.data.model.BusinessView
 import com.cubaback.unete.data.model.CategoryView
 import com.cubaback.unete.presentation.data.ResourceState
+import com.cubaback.unete.presentation.ui.fragment.BaseFragment
 import com.cubaback.unete.presentation.view_model.BusinessViewModel
 import com.cubaback.unete.presentation.view_model.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_business_list.view.*
 import org.jetbrains.anko.support.v4.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class BusinessFragment : Fragment() {
+class BusinessFragment : BaseFragment() {
 
 
     private var columnCount = 1
@@ -100,17 +101,17 @@ class BusinessFragment : Fragment() {
 
     fun handlerBusinessResponse(state: ResourceState?, data : List<BusinessView>?, message : String?){
         when(state){
-            ResourceState.LOADING -> setupScreenForLoading()
+            ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForLoadedBusinesses(data)
-            ResourceState.ERROR -> setupScreenForError(message)
+            ResourceState.ERROR -> setupScreenForLoginError(message)
         }
     }
 
     fun handlerCategoryResponse(state: ResourceState?, data : List<CategoryView>?, message : String?){
         when(state){
-            ResourceState.LOADING -> setupScreenForLoading()
+            ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForLoadedCategories(data)
-            ResourceState.ERROR -> setupScreenForError(message)
+            ResourceState.ERROR -> setupScreenForLoginError(message)
         }
     }
 
@@ -122,10 +123,6 @@ class BusinessFragment : Fragment() {
         }
     }
 
-    private fun setupScreenForError( message : String?) {
-        toast("Error!!!")
-    }
-
     private fun setupScreenForLoadedBusinesses(data : List<BusinessView>?) {
         businessAdapter?.let {
             if(data != null){
@@ -134,9 +131,7 @@ class BusinessFragment : Fragment() {
         }
     }
 
-    private fun setupScreenForLoading() {
-        toast("Cargando...")
-    }
+
 
 
     interface BusinessFragmentCallback {

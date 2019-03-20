@@ -10,7 +10,8 @@ open class ModelUserMapper() : Mapper<UserModel, EntityUser> {
     }
 
     override fun reverseMap(type: EntityUser): UserModel {
-        return UserModel(type.id, type.name, type.lastName, type.email, type.password, type.token, type.createAt, type.updatedAt)
+        return UserModel(type.id, type.name, type.lastName, type.email, type.password, type.token, type.createAt, type.updatedAt, "53725612",
+                "29/05/1987")
     }
 
 }

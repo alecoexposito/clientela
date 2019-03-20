@@ -1,5 +1,6 @@
 package com.cubaback.unete.remote
 
+import com.cubaback.unete.remote.model.AdvertisementModel
 import com.cubaback.unete.remote.model.BusinessModel
 import com.cubaback.unete.remote.model.CategoryModel
 import com.cubaback.unete.remote.model.UserModel
@@ -18,8 +19,11 @@ interface IJoinUsService {
     fun login(@Body userView: UserModel) : Single<UserModel>
 
 
-    @GET("auth/register")
+    @Headers("Content-Type:application/json")
+    @POST("auth/register")
     fun register(@Body userModel: UserModel) : Single<UserModel>
+
+
 
 
     /************************************************************************************
@@ -30,6 +34,9 @@ interface IJoinUsService {
     @GET("business")
     fun getBusinesses(@Header("Authorization") token: String ) : Flowable<List<BusinessModel>>
 
+
+
+
     /************************************************************************************
      *                                      Categories
      * ***********************************************************************************/
@@ -37,6 +44,16 @@ interface IJoinUsService {
     @Headers("Content-Type:application/json")
     @GET("business-category")
     fun getCategories(@Header("Authorization") token: String ) : Flowable<List<CategoryModel>>
+
+
+
+    /************************************************************************************
+     *                                      Advertisements
+     * ***********************************************************************************/
+
+    @Headers("Content-Type:application/json")
+    @GET("advertisement")
+    fun getAdvertisement(@Header("Authorization") token: String ) : Flowable<List<AdvertisementModel>>
 
 
 

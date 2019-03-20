@@ -1,4 +1,4 @@
-package com.cubaback.unete.data.repository.impl
+package com.cubaback.unete.data.repository.domain_repository_impl
 
 import com.cubaback.unete.domain.model.UserBo
 import com.cubaback.unete.data.model.mapper.EntityUserMapper
@@ -28,10 +28,15 @@ class UserDataRepository(private val factory : UserDataStoreFactory,
         return factory.retrieveRemoteDataStore().register(userEntityUserMapper.reverseMap(userBo))
                 .flatMap {
                     Single.just(userEntityUserMapper.map(it))
+                } .doAfterSuccess {
+                    it.token?.let {
+                        it1 -> saveToken(it1)
+                        Utils.token = it.token
+                    }
                 }
-                .flatMap {
-                    saveUser(it).toSingle{it}
-                }
+//                .flatMap {
+//                    saveUser(it).toSingle{it}
+//                }
     }
 
     override fun saveUser(user: UserBo): Completable {

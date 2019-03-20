@@ -64,6 +64,7 @@
             android:drawablePadding="8dp"
             android:ems="10"
             android:hint="@string/name"
+            android:text="Juan Miguel"
             android:inputType="textPersonName" />
 
         <EditText
@@ -80,6 +81,7 @@
             android:drawableLeft="@drawable/ic_person"
             android:drawablePadding="8dp"
             android:ems="10"
+            android:text="Rodriguez"
             android:hint="@string/last_name"
             android:inputType="textPersonName" />
 
@@ -97,27 +99,69 @@
             android:background="@drawable/edit_bg"
             android:drawableLeft="@drawable/ic_email"
             android:drawablePadding="8dp"
+            android:text="juan@gmail.com"
             android:ems="10"
             android:hint="@string/email"
             android:inputType="textEmailAddress" />
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/password"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:background="@drawable/edit_bg"
-            android:drawableLeft="@drawable/ic_password"
-            android:drawablePadding="8dp"
-            android:ems="10"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            android:selectAllOnFocus="false"
-            android:singleLine="false" />
+            android:background="@drawable/edit_bg">
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etPassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="8dp"
+                android:background="@color/transparent"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:text="secret"
+                android:selectAllOnFocus="false"
+                android:singleLine="false"
+                android:layout_weight="9"/>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/togglePassword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                app:srcCompat="@drawable/ic_visibility"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+
+
+
+
+        <!--<com.google.android.material.textfield.TextInputLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--android:layout_marginLeft="8dp"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--app:passwordToggleEnabled="true"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginRight="8dp" >-->
+
+            <!--<com.google.android.material.textfield.TextInputEditText-->
+                <!--android:id="@+id/password"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:drawableLeft="@drawable/ic_password"-->
+                <!--android:hint="@string/password"-->
+                <!--android:inputType="textPassword" />-->
+        <!--</com.google.android.material.textfield.TextInputLayout>-->
 
     </LinearLayout>
 
@@ -142,7 +186,7 @@
         app:layout_constraintGuide_percent=".9" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnRegister"
         android:layout_width="180dp"
         android:layout_height="@dimen/btn_height"
         android:layout_marginTop="16dp"

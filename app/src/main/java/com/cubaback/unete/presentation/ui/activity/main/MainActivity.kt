@@ -20,21 +20,21 @@ import org.jetbrains.anko.startActivity
 class MainActivity : AppCompatActivity(), SelectQrDialog.SelectQrCallback,
         BusinessFragment.BusinessFragmentCallback{
 
-    private var publishFragment : PublishFragment? = null
-    private var businessFragment : BusinessFragment? = null
-    private var notificationFragment : NotificationFragment? = null
+        private var publishFragment : PublishFragment? = null
+        private var businessFragment : BusinessFragment? = null
+        private var notificationFragment : NotificationFragment? = null
 
-    private var bmpQr : Bitmap? = null
+        private var bmpQr : Bitmap? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_main)
 
-        setSupportActionBar(toolbar)
+            setSupportActionBar(toolbar)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        supportActionBar?.setDisplayShowHomeEnabled(false)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            supportActionBar?.setDisplayShowHomeEnabled(false)
+            supportActionBar?.setDisplayShowTitleEnabled(false)
 
         bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
         bottomNavigation.selectedItemId = R.id.navigation_home

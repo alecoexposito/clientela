@@ -15,16 +15,11 @@ import com.cubaback.unete.R
 import com.cubaback.unete.presentation.ui.fragment.publicity.dummy.DummyContent
 import com.cubaback.unete.presentation.ui.fragment.publicity.dummy.DummyContent.DummyItem
 
-/**
- * A fragment representing a list of Items.
- * Activities containing this fragment MUST implement the
- * [PublishFragment.OnListFragmentInteractionListener] interface.
- */
+
 class PublishFragment : Fragment() {
 
     // TODO: Customize parameters
     private var columnCount = 1
-
     private var listener: OnListFragmentInteractionListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,8 +28,6 @@ class PublishFragment : Fragment() {
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
-
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -54,24 +47,7 @@ class PublishFragment : Fragment() {
         return view
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-//        if (context is OnListFragmentInteractionListener) {
-//            listener = context
-//        } else {
-//            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
-//        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-//        listener = null
-    }
-
-
-
     interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         fun onListFragmentInteraction(item: DummyItem?)
     }
 

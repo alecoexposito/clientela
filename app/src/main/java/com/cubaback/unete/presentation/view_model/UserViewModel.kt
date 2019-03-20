@@ -5,13 +5,15 @@ import androidx.lifecycle.ViewModel
 import com.cubaback.unete.domain.model.UserBo
 import com.cubaback.unete.data.model.UserView
 import com.cubaback.unete.domain.interactor.user.LoginUC
+import com.cubaback.unete.domain.interactor.user.RegisterUC
 import com.cubaback.unete.presentation.data.Resource
 import com.cubaback.unete.presentation.data.ResourceState
 import com.cubaback.unete.presentation.model.mapper.UserViewMapper
 import io.reactivex.subscribers.DisposableSubscriber
 
-class LoginViewModel(private val loginUC: LoginUC,
-                     val userViewMapper: UserViewMapper) : ViewModel() {
+class UserViewModel(private val loginUC: LoginUC,
+                    private val registerUC: RegisterUC,
+                    val userViewMapper: UserViewMapper) : ViewModel() {
 
 
     val userLiveData: MutableLiveData<Resource<UserView>> = MutableLiveData()
@@ -20,6 +22,11 @@ class LoginViewModel(private val loginUC: LoginUC,
     fun loginUser(userView: UserView){
         userLiveData.postValue(Resource(ResourceState.LOADING, null, null))
         return loginUC.execute(LoginObserver(), userViewMapper.reverseMap(userView))
+    }
+
+    fun registerUser(userView: UserView){
+        userLiveData.postValue(Resource(ResourceState.LOADING, null, null))
+        return registerUC.execute(LoginObserver(), userViewMapper.reverseMap(userView))
     }
 
 

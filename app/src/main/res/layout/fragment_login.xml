@@ -117,22 +117,42 @@
                 android:text="obie89@price.com"
                 android:inputType="textEmailAddress" />
 
-            <EditText
-                android:id="@+id/etPassword"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:background="@drawable/edit_bg"
-                android:drawableLeft="@drawable/ic_password"
-                android:drawablePadding="8dp"
-                android:ems="10"
-                android:text="secret"
-                android:hint="@string/password"
-                android:inputType="textVisiblePassword" />
+                android:background="@drawable/edit_bg">
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_password"
+                    android:drawablePadding="8dp"
+                    android:background="@color/transparent"
+                    android:ems="10"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:selectAllOnFocus="false"
+                    android:singleLine="false"
+                    android:text="secret"
+                    android:layout_weight="9"/>
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/togglePassword"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent"
+                    app:srcCompat="@drawable/ic_visibility"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
 
         </LinearLayout>
 

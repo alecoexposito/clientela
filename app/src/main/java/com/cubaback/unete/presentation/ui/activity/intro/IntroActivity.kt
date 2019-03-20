@@ -9,11 +9,27 @@ import com.cubaback.unete.presentation.ui.fragment.LoginFragment
 import com.cubaback.unete.presentation.ui.fragment.RegisterFragment
 import org.jetbrains.anko.startActivity
 
-class IntroActivity : AppCompatActivity(),
-        LoginFragment.OnLoginListener{
+class IntroActivity : AppCompatActivity(){
 
     private var loginFragment :  LoginFragment? = null
     private var registerFragment: RegisterFragment? = null
+
+    private val registerListener = object : RegisterFragment.OnRegisterListener{
+        override fun registerSuccess() {
+            openMainActivity()
+        }
+    }
+
+    private val loginListener = object : LoginFragment.OnLoginListener{
+        override fun onLoginSuccess() {
+            openMainActivity()
+        }
+
+        override fun openRegister() {
+            openRegisterFragment()
+        }
+    }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +42,7 @@ class IntroActivity : AppCompatActivity(),
     private fun openLoginFragment(){
         val fragmentTransition = supportFragmentManager.beginTransaction()
         loginFragment = LoginFragment.newInstance()
-        loginFragment?.let { it.listener = this}
+        loginFragment?.let { it.listener = loginListener }
         loginFragment?.let { fragmentTransition.replace(R.id.fragment_container, it) }
         fragmentTransition.commit()
     }
@@ -35,14 +51,12 @@ class IntroActivity : AppCompatActivity(),
         val fragmentTransition = supportFragmentManager.beginTransaction()
         registerFragment = RegisterFragment.newInstance()
         registerFragment?.let { fragmentTransition.replace(R.id.fragment_container, it) }
+        registerFragment?.let { it.listener = registerListener }
         fragmentTransition.commit()
     }
 
-    override fun openRegister() {
-        openRegisterFragment()
-    }
 
-    override fun openMainActivity() {
+    fun openMainActivity() {
         startActivity<MainActivity>()
     }
 }

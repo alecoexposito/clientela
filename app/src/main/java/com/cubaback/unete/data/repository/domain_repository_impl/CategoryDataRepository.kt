@@ -1,4 +1,4 @@
-package com.cubaback.unete.data.repository.impl
+package com.cubaback.unete.data.repository.domain_repository_impl
 
 import com.cubaback.unete.data.model.EntityCategory
 import com.cubaback.unete.data.model.mapper.EntityCategoryMapper
