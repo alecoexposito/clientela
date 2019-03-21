@@ -6,6 +6,7 @@ import com.cubaback.unete.data.repository.category.ICategoryDataStore
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import java.util.*
 
 open class CategoryCacheDataStore(private val categoryCache : ICategoryCache) : ICategoryDataStore {
 
@@ -27,5 +28,13 @@ open class CategoryCacheDataStore(private val categoryCache : ICategoryCache) : 
 
     override fun getCategoryById(id: Long): Single<EntityCategory> {
        return categoryCache.getBusinessById(id)
+    }
+
+    override fun getCategoriesByParentId(parentId: Long): Flowable<List<EntityCategory>> {
+        return categoryCache.getCategoriesByParentId(parentId)
+    }
+
+    override fun hasChanged(date: Date): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

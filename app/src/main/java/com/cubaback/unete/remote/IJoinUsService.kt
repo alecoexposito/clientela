@@ -1,12 +1,10 @@
 package com.cubaback.unete.remote
 
-import com.cubaback.unete.remote.model.AdvertisementModel
-import com.cubaback.unete.remote.model.BusinessModel
-import com.cubaback.unete.remote.model.CategoryModel
-import com.cubaback.unete.remote.model.UserModel
+import com.cubaback.unete.remote.model.*
 import io.reactivex.Flowable
 import io.reactivex.Single
 import retrofit2.http.*
+import java.util.*
 
 interface IJoinUsService {
 
@@ -34,6 +32,10 @@ interface IJoinUsService {
     @GET("business")
     fun getBusinesses(@Header("Authorization") token: String ) : Flowable<List<BusinessModel>>
 
+    @Headers("Content-Type:application/json")
+    @GET("business/has-changed")
+    fun businessesHasChanged(@Header("Authorization") token: String,  @Field("updated_at") date : Date  ) : Single<HasChangedModel>
+
 
 
 
@@ -45,6 +47,10 @@ interface IJoinUsService {
     @GET("business-category")
     fun getCategories(@Header("Authorization") token: String ) : Flowable<List<CategoryModel>>
 
+    @Headers("Content-Type:application/json")
+    @GET("business-category/has-changed")
+    fun categoriesHasChanged(@Header("Authorization") token: String,  @Field("updated_at") date : Date  ) : Single<HasChangedModel>
+
 
 
     /************************************************************************************
@@ -54,6 +60,10 @@ interface IJoinUsService {
     @Headers("Content-Type:application/json")
     @GET("advertisement")
     fun getAdvertisement(@Header("Authorization") token: String ) : Flowable<List<AdvertisementModel>>
+
+    @Headers("Content-Type:application/json")
+    @GET("advertisement/has-changed")
+    fun advertisementsHasChanged(@Header("Authorization") token: String, @Field("updated_at") date : Date ) : Single<HasChangedModel>
 
 
 

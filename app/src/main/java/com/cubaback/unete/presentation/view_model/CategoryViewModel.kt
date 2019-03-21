@@ -15,6 +15,9 @@ open class CategoryViewModel(private val getCategoriesUC: GetCategoriesUC,
 
     val categoriesLiveData : MutableLiveData<Resource<List<CategoryView>>> = MutableLiveData()
 
+    // Solo para sub categorias...
+    val subCategoriesLiveData : MutableLiveData<List<CategoryView>> = MutableLiveData()
+
 
 
     fun getCategories(){
@@ -27,9 +30,13 @@ open class CategoryViewModel(private val getCategoriesUC: GetCategoriesUC,
         super.onCleared()
     }
 
+    // llenar las subcategorias segun una categoria...
+    fun fillSubCategories(parentId : Long){
+        subCategoriesLiveData.postValue(categoriesLiveData.value?.data?.filter { it.parentId == parentId })
+    }
+
 
     /*Observers*/
-
     inner class GetCategoriesObserver : DisposableSubscriber<List<CategoryBo>>(){
         override fun onComplete() {}
 

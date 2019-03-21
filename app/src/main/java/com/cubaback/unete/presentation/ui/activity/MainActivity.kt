@@ -1,4 +1,4 @@
-package com.cubaback.unete.presentation.ui.activity.main
+package com.cubaback.unete.presentation.ui.activity
 
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -6,23 +6,23 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cubaback.unete.R
 import com.cubaback.unete.data.model.BusinessView
 import com.cubaback.unete.data.model.CategoryView
-import com.cubaback.unete.presentation.ui.activity.business.BusinessDetailActivity
 import com.cubaback.unete.presentation.ui.dialog.SelectQrDialog
 import com.cubaback.unete.presentation.ui.dialog.ShowIdDialog
 import com.cubaback.unete.presentation.ui.fragment.business.BusinessFragment
+import com.cubaback.unete.presentation.ui.fragment.business.SubCategoryFragment
 import com.cubaback.unete.presentation.ui.fragment.notification.NotificationFragment
-import com.cubaback.unete.presentation.ui.fragment.publicity.PublishFragment
+import com.cubaback.unete.presentation.ui.fragment.publicity.AdvertisementFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 
-class MainActivity : AppCompatActivity(), SelectQrDialog.SelectQrCallback,
-        BusinessFragment.BusinessFragmentCallback{
+class MainActivity : AppCompatActivity(){
 
-        private var publishFragment : PublishFragment? = null
-        private var businessFragment : BusinessFragment? = null
+        private var publishFragment : AdvertisementFragment? = null
+        lateinit var businessFragment : BusinessFragment
         private var notificationFragment : NotificationFragment? = null
+        lateinit var subCategoryFragment : SubCategoryFragment
 
         private var bmpQr : Bitmap? = null
 
@@ -45,15 +45,24 @@ class MainActivity : AppCompatActivity(), SelectQrDialog.SelectQrCallback,
     private fun openBusinessFragment(){
         val fragmentTransition = supportFragmentManager.beginTransaction()
         businessFragment = BusinessFragment.newInstance(1)
-        businessFragment?.let { it.setBusinessFragmentCallback(this)  }
-        businessFragment?.let { fragmentTransition.replace(R.id.fragment_container, it) }
+        businessFragment.let { it.setBusinessFragmentCallback(object : BusinessFragment.BusinessFragmentCallback{
+                override fun onBusinessClick(item: BusinessView) {
+                    openBusinessDetailActivity(item)
+                }
+
+                override fun onCategoryClick(item: CategoryView) {
+                    openSubCategoryFragment(item)
+                }
+        })  }
+
+        businessFragment.let { fragmentTransition.replace(R.id.fragment_container, it) }
         fragmentTransition.commit()
     }
 
 
     private fun openPublishFragment(){
         val fragmentTransition = supportFragmentManager.beginTransaction()
-        publishFragment = PublishFragment.newInstance(1)
+        publishFragment = AdvertisementFragment.newInstance(1)
         publishFragment?.let { fragmentTransition.replace(R.id.fragment_container, it) }
         fragmentTransition.commit()
     }
@@ -62,6 +71,13 @@ class MainActivity : AppCompatActivity(), SelectQrDialog.SelectQrCallback,
         val fragmentTransition = supportFragmentManager.beginTransaction()
         notificationFragment = NotificationFragment.newInstance(1)
         notificationFragment?.let { fragmentTransition.replace(R.id.fragment_container, it) }
+        fragmentTransition.commit()
+    }
+
+    private fun openSubCategoryFragment(subCategoryView: CategoryView){
+        val fragmentTransition = supportFragmentManager.beginTransaction()
+        subCategoryFragment = SubCategoryFragment()
+        subCategoryFragment.let { fragmentTransition.replace(R.id.fragment_container, it) }
         fragmentTransition.commit()
     }
 
@@ -81,7 +97,7 @@ class MainActivity : AppCompatActivity(), SelectQrDialog.SelectQrCallback,
             }
 
             R.id.navigation_space -> {
-                openSelectQrDialog( )
+                openQrReader( )
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -89,13 +105,11 @@ class MainActivity : AppCompatActivity(), SelectQrDialog.SelectQrCallback,
     }
 
     private fun setupCenterButton(){
-        fab!!.setOnClickListener{openSelectQrDialog( )}
+        fab!!.setOnClickListener{openQrReader( )}
     }
 
-    private fun openSelectQrDialog(){
-        val qrSelectDialog = SelectQrDialog()
-        qrSelectDialog.setDialogFragmentListener(this)
-        qrSelectDialog.show(supportFragmentManager, SelectQrDialog.TAG )
+    private fun openQrReader(){
+         startActivity<QRScanActivity>()
     }
 
     private fun openBusinessDetailActivity(business : BusinessView){
@@ -104,21 +118,15 @@ class MainActivity : AppCompatActivity(), SelectQrDialog.SelectQrCallback,
                /* BusinessDetailActivity.EXTRA_BUSINESS to business*/)
     }
 
-    override fun onBusinessClick(item: BusinessView) {
-        openBusinessDetailActivity(item)
-    }
 
-    override fun onCategoryClick(item: CategoryView) {
-        alert { "Funcionalidad no disponible. Saludos JM" }
-    }
 
-    override fun onScanClick() {
-    }
-
-    override fun onShowIdClick() {
-        val showIdDialog = ShowIdDialog()
-        showIdDialog.show(supportFragmentManager, ShowIdDialog.TAG )
-    }
+//    override fun onScanClick() {
+//    }
+//
+//    override fun onShowIdClick() {
+//        val showIdDialog = ShowIdDialog()
+//        showIdDialog.show(supportFragmentManager, ShowIdDialog.TAG )
+//    }
 
     companion object {
         var business : BusinessView? = null

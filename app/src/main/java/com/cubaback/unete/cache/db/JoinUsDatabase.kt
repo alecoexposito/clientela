@@ -1,34 +1,30 @@
 package com.cubaback.unete.cache.db
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.cubaback.unete.cache.model.CachedUser
+import androidx.room.TypeConverters
+import com.cubaback.unete.cache.dao.CachedAdvertisementDao
+import com.cubaback.unete.cache.dao.CachedBusinessDao
+import com.cubaback.unete.cache.dao.CachedCategoryDao
 import com.cubaback.unete.cache.dao.CachedUserDao
-import javax.inject.Inject
+import com.cubaback.unete.cache.model.*
 
-@Database(entities = arrayOf(CachedUser::class), version = 1)
+@Database(entities = arrayOf(CachedUser::class, CachedAdvertisements::class,
+        CachedBusiness::class, CachedBusinessAccount::class,
+        CachedCategory::class, CachedClient::class,
+        CachedClientAccount::class, CachedDependences::class,
+        CachedProdServs::class, CachedTransaction::class,
+        CachedUser::class), version = 1)
+
+ 
 abstract class JoinUsDatabase: RoomDatabase() {
 
     abstract fun cachedUserDao(): CachedUserDao
 
-    private var INSTANCE: JoinUsDatabase? = null
+    abstract fun cachedBusinessDao(): CachedBusinessDao
 
-    private val sLock = Any()
+    abstract fun cachedCategoryDao(): CachedCategoryDao
 
-    fun getInstance(context: Context): JoinUsDatabase {
-        if (INSTANCE == null) {
-            synchronized(sLock) {
-                if (INSTANCE == null) {
-                    INSTANCE = Room.databaseBuilder(context.applicationContext,
-                            JoinUsDatabase::class.java, "joinus.db")
-                            .build()
-                }
-                return INSTANCE!!
-            }
-        }
-        return INSTANCE!!
-    }
+    abstract fun cachedAdvertisementDao(): CachedAdvertisementDao
 
 }

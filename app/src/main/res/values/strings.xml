@@ -36,6 +36,10 @@
     <string name="register_facebook">Iniciar con facebook</string>
     <string name="register_google">Iniciar con google</string>
 
+    <string name="error">Error</string>
+    <string name="loading_msg">Cargando</string>
+    <string name="please_wait">Por favor espere</string>
+
 
     <string name="email">Correo electrónico</string>
     <string name="name">Nombre</string>

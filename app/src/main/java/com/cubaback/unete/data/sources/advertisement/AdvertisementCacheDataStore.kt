@@ -6,14 +6,15 @@ import com.cubaback.unete.data.repository.advertisement.IAdvertisementDataStore
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import java.util.*
 
 open class AdvertisementCacheDataStore(val advertisementCache : IAdvertisementCache) : IAdvertisementDataStore {
     override fun clearAdvertisement(): Completable {
         return advertisementCache.clearAdvertisement()
     }
 
-    override fun saveAdvertisement(entityAdvertisements: EntityAdvertisements): Completable {
-        return advertisementCache.saveAdvertisement(entityAdvertisements)
+    override fun saveAdvertisements(entityAdvertisements: List<EntityAdvertisements>): Completable {
+        return advertisementCache.saveAdvertisements(entityAdvertisements)
     }
 
     override fun getAdvertisements(): Flowable<List<EntityAdvertisements>> {
@@ -30,5 +31,9 @@ open class AdvertisementCacheDataStore(val advertisementCache : IAdvertisementCa
 
     override fun getAdvertisementById(id: Long): Single<EntityAdvertisements> {
         return advertisementCache.getAdvertisementById(id)
+    }
+
+    override fun hasChanged(date: Date): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

@@ -2,14 +2,14 @@ package com.cubaback.unete.data.sources.advertisement
 
 import com.cubaback.unete.data.repository.advertisement.IAdvertisementCache
 import com.cubaback.unete.data.repository.advertisement.IAdvertisementDataStore
-import com.cubaback.unete.data.repository.business.IBusinessDataStore
+import com.cubaback.unete.data.repository.advertisement.IAdvertisementRemote
 
 open class AdvertisementDataStoreFactory(private val advertisementCache: IAdvertisementCache,
                                          private val advertisementCacheDataStore: AdvertisementCacheDataStore,
                                          private val advertisementRemoteDataStore: AdvertisementRemoteDataStore) {
 
     open fun retrieveDataStore(isCached: Boolean) : IAdvertisementDataStore {
-        if (isCached) {
+        if (isCached /*&& !advertisementRemote.hasChanged(Date(advertisementCache.getLastCached()))*/) {
             return retrieveCacheDataStore()
         }
         return retrieveRemoteDataStore()

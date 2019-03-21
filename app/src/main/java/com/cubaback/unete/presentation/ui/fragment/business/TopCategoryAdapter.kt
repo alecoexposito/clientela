@@ -26,7 +26,7 @@ class TopCategoryAdapter(private val mListener : BusinessFragment.BusinessFragme
     init {
         mOnClickListener = View.OnClickListener { v ->
             val item = v.tag as CategoryView
-            mListener?.onCategoryClick(item)
+            mListener.onCategoryClick(item)
         }
     }
 
@@ -49,7 +49,7 @@ class TopCategoryAdapter(private val mListener : BusinessFragment.BusinessFragme
             holder.tvCatTitle.text = cat.name
             with(holder.mView){
                 tag = cat
-                setOnClickListener { mOnClickListener }
+                setOnClickListener (mOnClickListener )
             }
          }
     }

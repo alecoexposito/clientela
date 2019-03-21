@@ -10,8 +10,8 @@ import com.cubaback.unete.presentation.model.AdvertisementView
 import com.cubaback.unete.presentation.model.mapper.AdvertisementViewMapper
 import io.reactivex.subscribers.DisposableSubscriber
 
-class AdvertisementViewMode(val getAdvertisementsUC: GetAdvertisementsUC,
-                            val advertisementViewMapper: AdvertisementViewMapper) : ViewModel() {
+class AdvertisementViewModel(val getAdvertisementsUC: GetAdvertisementsUC,
+                             val advertisementViewMapper: AdvertisementViewMapper) : ViewModel() {
 
     val advertisementLiveData : MutableLiveData<Resource<List<AdvertisementView>>> = MutableLiveData()
 

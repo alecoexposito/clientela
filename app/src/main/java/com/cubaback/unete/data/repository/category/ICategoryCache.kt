@@ -1,5 +1,6 @@
 package com.cubaback.unete.data.repository.category
 
+import com.cubaback.unete.cache.model.CachedCategory
 import com.cubaback.unete.data.model.EntityCategory
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -32,6 +33,11 @@ interface ICategoryCache {
      * Cambia la fecha de la ultima cache
      * */
     fun setLastCacheTime(lastCache : Long)
+
+    fun getLastCacheTime() : Long
+
+
+    fun getCategoriesByParentId(parentId : Long): Flowable<List<EntityCategory>>
 
     /**
      * Verifica que la cache no halla expirado

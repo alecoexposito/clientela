@@ -30,19 +30,8 @@ class SelectQrDialog : DialogFragment {
 
 
         val dialog = AlertDialog.Builder(context!!)
-                .setTitle("Seleccione la operacion")
                 .setView(customView)
                 .create()
-
-        customView.btnShowId.setOnClickListener {
-            dialogCallback.onShowIdClick()
-            dismiss()
-        }
-        customView.btnScanQr.setOnClickListener {
-            dialogCallback.onScanClick()
-            dismiss()
-        }
-
         return dialog
     }
 

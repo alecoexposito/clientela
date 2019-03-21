@@ -1,4 +1,4 @@
-package com.cubaback.unete.presentation.ui.activity.login
+package com.cubaback.unete.presentation.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

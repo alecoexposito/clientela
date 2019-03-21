@@ -6,6 +6,7 @@ import com.cubaback.unete.data.repository.category.ICategoryRemote
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import java.util.*
 
 open class CategoryRemoteDataStore(private val categoryRemote : ICategoryRemote) : ICategoryDataStore {
     override fun clearCategories(): Completable {
@@ -26,5 +27,13 @@ open class CategoryRemoteDataStore(private val categoryRemote : ICategoryRemote)
 
     override fun getCategoryById(id: Long): Single<EntityCategory> {
        return categoryRemote.getCategoryById(id)
+    }
+
+    override fun getCategoriesByParentId(parentId: Long): Flowable<List<EntityCategory>> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun hasChanged(date: Date): Boolean {
+        return categoryRemote.hasChanged(date)
     }
 }

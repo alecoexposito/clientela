@@ -1,7 +1,9 @@
 package com.cubaback.unete
 
 import android.app.Application
+import androidx.room.Room
 import com.cubaback.unete.cache.*
+import com.cubaback.unete.cache.db.JoinUsDatabase
 import com.cubaback.unete.cache.model.mapper.*
 import com.cubaback.unete.data.model.mapper.*
 import com.cubaback.unete.data.repository.domain_repository_impl.BusinessDataRepository
@@ -43,6 +45,7 @@ import com.cubaback.unete.domain.repository.IAdvertisementRepository
 import com.cubaback.unete.domain.repository.ICategoryRepository
 import org.buffer.android.boilerplate.remote.JoinUsServiceFactory
 import com.cubaback.unete.presentation.ui.UiThread
+import com.cubaback.unete.presentation.view_model.AdvertisementViewModel
 import com.cubaback.unete.presentation.view_model.BusinessViewModel
 import com.cubaback.unete.presentation.view_model.CategoryViewModel
 import com.cubaback.unete.remote.AdvertisementRemote
@@ -51,6 +54,7 @@ import com.cubaback.unete.remote.CategoryRemote
 import com.cubaback.unete.remote.UserRemote
 import com.cubaback.unete.remote.model.mapper.*
 import org.koin.android.ext.android.startKoin
+import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.Module
 import org.koin.dsl.module.module
@@ -61,7 +65,7 @@ class JoinUsApplication : Application(){
     val appModule : Module = module {
 
         // user data stores
-        factory<IUserCache> { UserCache(get(), get()) }
+        factory<IUserCache> { UserCache(get(), get(), get()) }
         factory<IUserRemote> { UserRemote(get(), get()) }
         factory { UserRemoteDataStore(get()) }
         factory { UserCacheDataStore(get()) }
@@ -69,20 +73,20 @@ class JoinUsApplication : Application(){
 
         // business data stores
         factory<IBusinessRemote> { BusinessRemote(get(), get()) }
-        factory<IBusinessCache> { BusinessCache() }
+        factory<IBusinessCache> { BusinessCache(get(), get(), get()) }
         factory { BusinessRemoteDataStore(get()) }
         factory { BusinessCacheDataStore(get()) }
 
         // category data stores
         factory<ICategoryRemote> { CategoryRemote(get(), get()) }
-        factory<ICategoryCache> { CategoryCache() }
+        factory<ICategoryCache> { CategoryCache(get(), get(), get()) }
         factory { CategoryRemoteDataStore(get()) }
         factory { CategoryCacheDataStore(get()) }
 
 
         // advertisements data stores
         factory<IAdvertisementRemote> { AdvertisementRemote(get(), get()) }
-        factory<IAdvertisementCache> { AdvertisementCache() }
+        factory<IAdvertisementCache> { AdvertisementCache(get(), get(), get()) }
         factory { AdvertisementRemoteDataStore(get()) }
         factory { AdvertisementCacheDataStore(get()) }
 
@@ -181,13 +185,27 @@ class JoinUsApplication : Application(){
         factory { GetCategoriesUC(get(), get(), get()) }
         factory { GetAdvertisementsUC(get(), get(), get()) }
 
-        // database
-//        factory { JoinUsDatabase.getIns}
+
+        // Room Database
+        single{
+            Room.databaseBuilder(androidApplication(), JoinUsDatabase::class.java, "joinus-db")
+                    .build()
+        }
+
+        // Database DAo
+        single { get<JoinUsDatabase>().cachedUserDao() }
+        single { get<JoinUsDatabase>().cachedBusinessDao() }
+        single { get<JoinUsDatabase>().cachedCategoryDao() }
+        single { get<JoinUsDatabase>().cachedAdvertisementDao() }
 
         // view models
-        viewModel{UserViewModel(get(), get(), get())}
-        viewModel{BusinessViewModel(get(), get())}
+        viewModel{ UserViewModel(get(), get(), get())}
+        viewModel{ BusinessViewModel(get(), get())}
         viewModel{ CategoryViewModel(get(), get()) }
+        viewModel{ AdvertisementViewModel(get(), get()) }
+
+
+
     }
 
 

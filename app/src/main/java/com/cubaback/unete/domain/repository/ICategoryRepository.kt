@@ -15,4 +15,6 @@ interface ICategoryRepository{
 
 
     fun getCategoryById(id : Long): Single<CategoryBo>
+
+    fun getCategoriesByParentId(parentId : Long): Flowable<List<CategoryBo>>
 }

@@ -9,7 +9,7 @@ interface IAdvertisementRepository {
 
     fun clearAdvertisement() : Completable
 
-    fun saveAdvertisement(entityAdvertisements: AdvertisementBo) : Completable
+    fun saveAdvertisements(entityAdvertisements: List<AdvertisementBo>) : Completable
 
     fun getAdvertisements() : Flowable<List<AdvertisementBo>>
 

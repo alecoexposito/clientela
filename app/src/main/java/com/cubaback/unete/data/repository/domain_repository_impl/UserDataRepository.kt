@@ -4,7 +4,7 @@ import com.cubaback.unete.domain.model.UserBo
 import com.cubaback.unete.data.model.mapper.EntityUserMapper
 import com.cubaback.unete.data.sources.user.UserDataStoreFactory
 import com.cubaback.unete.domain.repository.IUserRepository
-import com.cubaback.unete.presentation.untils.Utils
+import com.cubaback.unete.presentation.utils.Utils
 import io.reactivex.Completable
 import io.reactivex.Single
 

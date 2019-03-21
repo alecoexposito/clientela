@@ -8,6 +8,7 @@ import com.cubaback.unete.data.repository.category.ICategoryRemote
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import java.util.*
 
 open class BusinessRemoteDataStore(private val businessRemote : IBusinessRemote) : IBusinessDataStore {
     override fun clearBusinesses(): Completable {
@@ -28,5 +29,9 @@ open class BusinessRemoteDataStore(private val businessRemote : IBusinessRemote)
 
     override fun getBusinessById(id: Long): Single<EntityBusiness> {
         return businessRemote.getBusinessById(id)
+    }
+
+    override fun hasChanged(date: Date): Boolean {
+        return businessRemote.hasChanged(date)
     }
 }

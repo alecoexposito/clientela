@@ -1,4 +1,4 @@
-package com.cubaback.unete.presentation.ui.activity.business
+package com.cubaback.unete.presentation.ui.activity
 
 import android.os.Bundle
 import android.app.Activity

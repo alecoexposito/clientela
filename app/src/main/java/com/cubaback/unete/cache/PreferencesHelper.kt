@@ -15,7 +15,9 @@ open class PreferencesHelper(context: Context) {
     companion object {
         private val PREF_BUFFER_PACKAGE_NAME = "com.cubaback.unete.cache.preferences"
 
-        private val PREF_KEY_LAST_CACHE = "last_cache"
+        private val PREF_KEY_LAST_CACHE_BUSSINESSES = "last_cache_bussinesses"
+        private val PREF_KEY_LAST_CACHE_ADVERTISEMENTS = "last_cache_advertisements"
+        private val PREF_KEY_LAST_CACHE_CATEGORIES = "last_cache_categories"
 
         private val PREF_KEY_TOKEN = "token"
     }
@@ -34,4 +36,15 @@ open class PreferencesHelper(context: Context) {
         get() = unetePref.getString(PREF_KEY_TOKEN, "")
         set(strToken) = unetePref.edit().putString(PREF_KEY_TOKEN, strToken) .apply()
 
+    var lastCacheBusinesses : Long
+        get() = unetePref.getLong(PREF_KEY_LAST_CACHE_BUSSINESSES, 0)
+        set(value) = unetePref.edit().putLong(PREF_KEY_LAST_CACHE_BUSSINESSES, value).apply()
+
+    var lastCacheAdvertisement : Long
+        get() = unetePref.getLong(PREF_KEY_LAST_CACHE_ADVERTISEMENTS, 0)
+        set(value) = unetePref.edit().putLong(PREF_KEY_LAST_CACHE_ADVERTISEMENTS, value).apply()
+
+    var lastCacheCategories : Long
+        get() = unetePref.getLong(PREF_KEY_LAST_CACHE_CATEGORIES, 0)
+        set(value) = unetePref.edit().putLong(PREF_KEY_LAST_CACHE_CATEGORIES, value).apply()
 }

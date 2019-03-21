@@ -33,6 +33,9 @@ interface IBusinessCache {
      * */
     fun setLastCacheTime(lastCache : Long)
 
+
+    fun getLastCacheTime() : Long
+
     /**
      * Verifica que la cache no halla expirado
      * retorna true, si la cache ha espirado, de lo contrario retorna false

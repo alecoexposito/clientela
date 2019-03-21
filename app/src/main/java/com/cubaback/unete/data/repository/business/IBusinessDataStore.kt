@@ -4,6 +4,7 @@ import com.cubaback.unete.data.model.EntityBusiness
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import java.util.*
 
 interface IBusinessDataStore {
     fun clearBusinesses(): Completable
@@ -15,4 +16,8 @@ interface IBusinessDataStore {
     fun isCached(): Single<Boolean>
 
     fun getBusinessById(id : Long) : Single<EntityBusiness>
+
+    fun hasChanged(date : Date) : Boolean
+
+
 }

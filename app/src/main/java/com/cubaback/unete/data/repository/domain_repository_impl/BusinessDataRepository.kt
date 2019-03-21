@@ -30,9 +30,9 @@ open class BusinessDataRepository(private val factory : BusinessDataStoreFactory
                 .flatMap {
                     Flowable.just(it.map { businessEntityMapper.map(it) })
                 }
-//                .flatMap {
-//                    saveBusinesses(it).toSingle{it}.toFlowable()
-//                }
+                .flatMap {
+                    saveBusinesses(it).toSingle{it}.toFlowable()
+                }
     }
 
     override fun getBusinessById(id: Long): Single<BusinessBo> {

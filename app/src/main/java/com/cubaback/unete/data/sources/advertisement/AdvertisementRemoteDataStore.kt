@@ -6,13 +6,14 @@ import com.cubaback.unete.data.repository.advertisement.IAdvertisementRemote
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import java.util.*
 
 open class AdvertisementRemoteDataStore(private val advertisementRemote : IAdvertisementRemote) : IAdvertisementDataStore{
     override fun clearAdvertisement(): Completable {
         throw UnsupportedOperationException()
     }
 
-    override fun saveAdvertisement(entityAdvertisements: EntityAdvertisements): Completable {
+    override fun saveAdvertisements(entityAdvertisements: List<EntityAdvertisements>): Completable {
         throw UnsupportedOperationException()
     }
 
@@ -30,5 +31,10 @@ open class AdvertisementRemoteDataStore(private val advertisementRemote : IAdver
 
     override fun getAdvertisementById(id: Long): Single<EntityAdvertisements> {
         return advertisementRemote.getAdvertisementById(id)
+    }
+
+    override fun hasChanged(date: Date): Boolean {
+        //return advertisementRemote.hasChanged(date)
+        throw UnsupportedOperationException()
     }
 }

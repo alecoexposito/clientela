@@ -1,5 +1,6 @@
 package com.cubaback.unete.data.repository.domain_repository_impl
 
+import com.cubaback.unete.data.model.EntityAdvertisements
 import com.cubaback.unete.data.model.mapper.EntityAdvertisementMapper
 import com.cubaback.unete.data.sources.advertisement.AdvertisementDataStoreFactory
 import com.cubaback.unete.domain.model.AdvertisementBo
@@ -15,8 +16,10 @@ class AdvertisementDataRepository(private val factory : AdvertisementDataStoreFa
         return factory.retrieveCacheDataStore().clearAdvertisement()
     }
 
-    override fun saveAdvertisement(entityAdvertisements: AdvertisementBo): Completable {
-        return factory.retrieveCacheDataStore().saveAdvertisement(entityAdvertisementMapper.reverseMap(entityAdvertisements))
+    override fun saveAdvertisements(advertisementBos: List<AdvertisementBo>): Completable {
+        val entityAdvertisements = mutableListOf<EntityAdvertisements>()
+        advertisementBos.map { entityAdvertisements.add(entityAdvertisementMapper.reverseMap(it)) }
+        return factory.retrieveCacheDataStore().saveAdvertisements(entityAdvertisements)
     }
 
     override fun getAdvertisements(): Flowable<List<AdvertisementBo>> {
@@ -27,6 +30,10 @@ class AdvertisementDataRepository(private val factory : AdvertisementDataStoreFa
                  .flatMap {
                      Flowable.just(it.map { entityAdvertisementMapper.map(it) })
                  }
+                 .flatMap {
+                     saveAdvertisements(it).toSingle{it}.toFlowable()
+                 }
+
 
         // save to database....
     }

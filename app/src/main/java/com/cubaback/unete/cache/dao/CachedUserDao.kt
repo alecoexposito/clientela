@@ -3,7 +3,7 @@ package com.cubaback.unete.cache.dao
 import androidx.room.Dao
 
 @Dao
-abstract class CachedUserDao {
+interface  CachedUserDao {
 
 //    @Query(BufferooConstants.QUERY_BUFFEROOS)
 //    abstract fun getBufferoos(): List<CachedBufferoo>

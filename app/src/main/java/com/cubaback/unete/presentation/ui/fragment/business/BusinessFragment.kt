@@ -21,9 +21,9 @@ class BusinessFragment : BaseFragment() {
 
 
     private var columnCount = 1
-    private var listener: BusinessFragmentCallback? = null
+    lateinit var listener: BusinessFragmentCallback
     private var businessAdapter : BusinessAdapter? = null
-    private var categoryAdapter : TopCategoryAdapter? = null
+    lateinit var categoryAdapter : TopCategoryAdapter
 
     val businessViewModel: BusinessViewModel by viewModel()
     val categoryViewModel: CategoryViewModel by viewModel()
@@ -62,7 +62,7 @@ class BusinessFragment : BaseFragment() {
         // setup category adapter...
         with(view.categories){
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false )
-            categoryAdapter = listener?.let { TopCategoryAdapter(it, context) }
+            categoryAdapter = TopCategoryAdapter(listener, context)
             this.adapter = categoryAdapter
         }
 
@@ -118,7 +118,7 @@ class BusinessFragment : BaseFragment() {
     private fun setupScreenForLoadedCategories(data: List<CategoryView>?) {
         categoryAdapter?.let {
             if(data != null){
-                it.mCategories = data
+                it.mCategories = data.filter { it.parentId == null }
             }
         }
     }
@@ -131,15 +131,10 @@ class BusinessFragment : BaseFragment() {
         }
     }
 
-
-
-
     interface BusinessFragmentCallback {
         fun onBusinessClick(item : BusinessView)
         fun onCategoryClick(item : CategoryView)
     }
-
-
 
     companion object {
 

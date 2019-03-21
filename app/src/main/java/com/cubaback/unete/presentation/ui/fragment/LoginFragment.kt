@@ -52,7 +52,6 @@ class LoginFragment : BaseFragment() {
     }
 
 
-
     private fun setupScreenForLoginSuccess(data: UserView?) {
         listener?.let {  it.onLoginSuccess()}
     }

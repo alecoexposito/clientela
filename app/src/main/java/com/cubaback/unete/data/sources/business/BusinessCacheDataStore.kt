@@ -8,6 +8,7 @@ import com.cubaback.unete.data.repository.category.ICategoryDataStore
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import java.util.*
 
 open class BusinessCacheDataStore(private val businessCache : IBusinessCache) : IBusinessDataStore {
 
@@ -29,5 +30,9 @@ open class BusinessCacheDataStore(private val businessCache : IBusinessCache) : 
 
     override fun getBusinessById(id: Long): Single<EntityBusiness> {
         return businessCache.getBusinessById(id)
+    }
+
+    override fun hasChanged(date: Date): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

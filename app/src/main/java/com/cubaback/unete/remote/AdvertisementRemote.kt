@@ -2,11 +2,11 @@ package com.cubaback.unete.remote
 
 import com.cubaback.unete.data.model.EntityAdvertisements
 import com.cubaback.unete.data.repository.advertisement.IAdvertisementRemote
-import com.cubaback.unete.presentation.untils.Utils
-import com.cubaback.unete.remote.model.AdvertisementModel
+import com.cubaback.unete.presentation.utils.Utils
 import com.cubaback.unete.remote.model.mapper.ModelAdvertisementMapper
 import io.reactivex.Flowable
 import io.reactivex.Single
+import java.util.*
 
 class AdvertisementRemote(private val joinUsService: IJoinUsService,
                           private val modelAdvertisementMapper: ModelAdvertisementMapper) : IAdvertisementRemote {
@@ -22,5 +22,12 @@ class AdvertisementRemote(private val joinUsService: IJoinUsService,
 
     override fun getAdvertisementById(id: Long): Single<EntityAdvertisements> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun hasChanged(date: Date): Single<Boolean> {
+        return joinUsService.advertisementsHasChanged("Bearer ${Utils.token}", date)
+                .map {
+                    it.hasChanged
+                }
     }
 }

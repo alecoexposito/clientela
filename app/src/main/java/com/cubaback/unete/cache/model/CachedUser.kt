@@ -2,9 +2,9 @@ package com.cubaback.unete.cache.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.cubaback.unete.cache.db.constans.UserConstants
+import com.cubaback.unete.cache.db.constans.DatabaseConstants
 
-@Entity (tableName = UserConstants.TABLE_NAME)
+@Entity (tableName = DatabaseConstants.USER_TABLE)
 data class CachedUser (@PrimaryKey val id : Long?,
                        val name : String?,
                        val lastName : String?,

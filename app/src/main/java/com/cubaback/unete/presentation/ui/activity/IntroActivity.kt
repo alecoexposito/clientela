@@ -1,10 +1,8 @@
-package com.cubaback.unete.presentation.ui.activity.intro
+package com.cubaback.unete.presentation.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cubaback.unete.R
-import com.cubaback.unete.presentation.ui.activity.main.MainActivity
-import com.cubaback.unete.presentation.ui.fragment.IntroFragment
 import com.cubaback.unete.presentation.ui.fragment.LoginFragment
 import com.cubaback.unete.presentation.ui.fragment.RegisterFragment
 import org.jetbrains.anko.startActivity

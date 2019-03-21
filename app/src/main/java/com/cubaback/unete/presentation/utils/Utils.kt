@@ -1,4 +1,4 @@
-package com.cubaback.unete.presentation.untils
+package com.cubaback.unete.presentation.utils
 
 open class Utils{
     companion object {

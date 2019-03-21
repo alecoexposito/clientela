@@ -30,12 +30,22 @@ open class CategoryDataRepository(private val factory : CategoryDataStoreFactory
                 .flatMap {
                     Flowable.just(it.map { categoryEntityMapper.map(it) })
                 }
-//                .flatMap {
-//                    saveCategories(it).toSingle{it}.toFlowable()
-//                }
+                .flatMap {
+                    saveCategories(it).toSingle{it}.toFlowable()
+                }
     }
 
     override fun getCategoryById(id: Long): Single<CategoryBo> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return factory.categoryCacheDataStore.getCategoryById(id)
+                .flatMap {
+                    Single.just(categoryEntityMapper.map(it))
+                }
+    }
+
+    override fun getCategoriesByParentId(parentId: Long): Flowable<List<CategoryBo>> {
+        return factory.categoryCacheDataStore.getCategoriesByParentId(parentId)
+                .flatMap {
+                    Flowable.just( it.map { categoryEntityMapper.map(it) } )
+                }
     }
 }
