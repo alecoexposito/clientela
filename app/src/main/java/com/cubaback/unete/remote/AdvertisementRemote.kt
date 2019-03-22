@@ -40,9 +40,7 @@ class AdvertisementRemote(private val joinUsService: IJoinUsService,
             val formatD = "yyyy-MM-dd HH:mm:ss"
             val dateFormat = SimpleDateFormat(formatD, Locale.getDefault())
             var dateStr = dateFormat.format(date)
-            var dateDate = dateFormat.parse(dateStr)
-
-            var response = joinUsService.advertisementsHasChanged("Bearer ${Utils.token}", dateDate).execute().body()
+            var response = joinUsService.advertisementsHasChanged("Bearer ${Utils.token}", dateStr).execute().body()
             if(response != null){
                 response.hasChanged
             } else{

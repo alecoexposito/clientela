@@ -65,7 +65,7 @@ interface IJoinUsService {
     @Headers("Content-Type:application/x-www-form-urlencoded")
     @FormUrlEncoded
     @POST("advertisement/has-changed")
-    fun advertisementsHasChanged(@Header("Authorization") token: String, @Field("updated_at") date : Date ) : Call<HasChangedModel>
+    fun advertisementsHasChanged(@Header("Authorization") token: String, @Field("updated_at")  date : String ) : Call<HasChangedModel>
 
 
 
