@@ -34,7 +34,7 @@ open class AdvertisementRemoteDataStore(private val advertisementRemote : IAdver
     }
 
     override fun hasChanged(date: Date): Boolean {
-        //return advertisementRemote.hasChanged(date)
-        throw UnsupportedOperationException()
+        return advertisementRemote.hasChanged(date)
+       // throw UnsupportedOperationException()
     }
 }

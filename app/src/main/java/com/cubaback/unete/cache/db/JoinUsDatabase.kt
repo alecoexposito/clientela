@@ -8,15 +8,10 @@ import com.cubaback.unete.cache.dao.CachedBusinessDao
 import com.cubaback.unete.cache.dao.CachedCategoryDao
 import com.cubaback.unete.cache.dao.CachedUserDao
 import com.cubaback.unete.cache.model.*
+import com.cubaback.unete.cache.model.converter.DateConverter
 
-@Database(entities = arrayOf(CachedUser::class, CachedAdvertisements::class,
-        CachedBusiness::class, CachedBusinessAccount::class,
-        CachedCategory::class, CachedClient::class,
-        CachedClientAccount::class, CachedDependences::class,
-        CachedProdServs::class, CachedTransaction::class,
-        CachedUser::class), version = 1)
-
- 
+@Database(entities = [CachedUser::class, CachedAdvertisements::class, CachedBusiness::class, CachedBusinessAccount::class, CachedCategory::class, CachedClient::class, CachedClientAccount::class, CachedDependences::class, CachedProdServs::class, CachedTransaction::class], version = 1)
+@TypeConverters(DateConverter::class)
 abstract class JoinUsDatabase: RoomDatabase() {
 
     abstract fun cachedUserDao(): CachedUserDao

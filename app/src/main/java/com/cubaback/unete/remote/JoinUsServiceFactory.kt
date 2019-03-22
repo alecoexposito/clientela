@@ -23,7 +23,6 @@ object JoinUsServiceFactory {
     fun makeBuffeoorService(isDebug: Boolean): IJoinUsService {
         val okHttpClient = makeOkHttpClient(
                 makeLoggingInterceptor(isDebug))
-
         return makeBufferooService(okHttpClient, makeGson())
     }
 

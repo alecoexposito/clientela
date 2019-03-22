@@ -3,6 +3,7 @@ package com.cubaback.unete.remote
 import com.cubaback.unete.remote.model.*
 import io.reactivex.Flowable
 import io.reactivex.Single
+import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
 
@@ -33,7 +34,7 @@ interface IJoinUsService {
     fun getBusinesses(@Header("Authorization") token: String ) : Flowable<List<BusinessModel>>
 
     @Headers("Content-Type:application/json")
-    @GET("business/has-changed")
+    @POST("business/has-changed")
     fun businessesHasChanged(@Header("Authorization") token: String,  @Field("updated_at") date : Date  ) : Single<HasChangedModel>
 
 
@@ -48,7 +49,7 @@ interface IJoinUsService {
     fun getCategories(@Header("Authorization") token: String ) : Flowable<List<CategoryModel>>
 
     @Headers("Content-Type:application/json")
-    @GET("business-category/has-changed")
+    @POST("business-category/has-changed")
     fun categoriesHasChanged(@Header("Authorization") token: String,  @Field("updated_at") date : Date  ) : Single<HasChangedModel>
 
 
@@ -61,9 +62,10 @@ interface IJoinUsService {
     @GET("advertisement")
     fun getAdvertisement(@Header("Authorization") token: String ) : Flowable<List<AdvertisementModel>>
 
-    @Headers("Content-Type:application/json")
-    @GET("advertisement/has-changed")
-    fun advertisementsHasChanged(@Header("Authorization") token: String, @Field("updated_at") date : Date ) : Single<HasChangedModel>
+    @Headers("Content-Type:application/x-www-form-urlencoded")
+    @FormUrlEncoded
+    @POST("advertisement/has-changed")
+    fun advertisementsHasChanged(@Header("Authorization") token: String, @Field("updated_at") date : Date ) : Call<HasChangedModel>
 
 
 

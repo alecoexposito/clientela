@@ -95,7 +95,7 @@ class JoinUsApplication : Application(){
         factory { UserDataStoreFactory(get(), get(), get()) }
         factory { BusinessDataStoreFactory(get(), get(), get()) }
         factory { CategoryDataStoreFactory(get(), get(), get()) }
-        factory { AdvertisementDataStoreFactory(get(), get(), get()) }
+        factory { AdvertisementDataStoreFactory(get(), get(), get(), get()) }
 
 
         // data mappers...
@@ -188,7 +188,8 @@ class JoinUsApplication : Application(){
 
         // Room Database
         single{
-            Room.databaseBuilder(androidApplication(), JoinUsDatabase::class.java, "joinus-db")
+            Room.databaseBuilder(androidApplication(), JoinUsDatabase::class.java, "joinusdb")
+                    .fallbackToDestructiveMigration()
                     .build()
         }
 

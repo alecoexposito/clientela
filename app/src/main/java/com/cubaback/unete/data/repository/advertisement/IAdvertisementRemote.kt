@@ -8,5 +8,5 @@ import java.util.*
 interface IAdvertisementRemote {
     fun getAdvertisements() : Flowable<List<EntityAdvertisements>>
     fun getAdvertisementById(id : Long) : Single<EntityAdvertisements>
-    fun hasChanged(date : Date) : Single<Boolean>
+    fun hasChanged(date : Date) : Boolean
 }

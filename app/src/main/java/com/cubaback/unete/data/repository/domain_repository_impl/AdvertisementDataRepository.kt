@@ -19,7 +19,10 @@ class AdvertisementDataRepository(private val factory : AdvertisementDataStoreFa
     override fun saveAdvertisements(advertisementBos: List<AdvertisementBo>): Completable {
         val entityAdvertisements = mutableListOf<EntityAdvertisements>()
         advertisementBos.map { entityAdvertisements.add(entityAdvertisementMapper.reverseMap(it)) }
-        return factory.retrieveCacheDataStore().saveAdvertisements(entityAdvertisements)
+        return factory.retrieveCacheDataStore().saveAdvertisements(entityAdvertisements).doOnComplete {
+            val lastTime = advertisementBos.sortedBy { it.updatedAt }.last().updatedAt
+            lastTime?.let { factory.retrieveCacheDataStore().setLastCached(it.time)  }
+        }
     }
 
     override fun getAdvertisements(): Flowable<List<AdvertisementBo>> {
