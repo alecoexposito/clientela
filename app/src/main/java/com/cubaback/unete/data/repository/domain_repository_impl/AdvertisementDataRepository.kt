@@ -31,7 +31,7 @@ class AdvertisementDataRepository(private val factory : AdvertisementDataStoreFa
                      factory.retrieveDataStore(it).getAdvertisements()
                  }
                  .flatMap {
-                     Flowable.just(it.map { entityAdvertisementMapper.map(it) })
+                     Flowable.just(it.map { it1 -> entityAdvertisementMapper.map(it1) })
                  }
                  .flatMap {
                      saveAdvertisements(it).toSingle{it}.toFlowable()

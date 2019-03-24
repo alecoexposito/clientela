@@ -20,8 +20,8 @@ open class UserCacheDataStore(val userCache : IUserCache) : IUserDataStore {
        return userCache.saveUser(user)
     }
 
-    override fun getSavedUser(): Single<EntityUser> {
-        return userCache.getSavedUser()
+    override fun getSavedUserById(userId : Long): Single<EntityUser> {
+        return userCache.getSavedUserById(userId)
     }
 
     override fun isLoged(): Boolean {
@@ -38,5 +38,9 @@ open class UserCacheDataStore(val userCache : IUserCache) : IUserDataStore {
 
     override fun saveToken(token: String): Boolean {
         return userCache.saveToken(token)
+    }
+
+    override fun getSavedUserByEmail(email: String): Single<EntityUser> {
+        return userCache.getUserSavedByEmail(email)
     }
 }

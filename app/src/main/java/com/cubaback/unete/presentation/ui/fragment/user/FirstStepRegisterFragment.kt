@@ -1,4 +1,4 @@
-package com.cubaback.unete.presentation.ui.fragment
+package com.cubaback.unete.presentation.ui.fragment.user
 
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.cubaback.unete.R
-import com.cubaback.unete.data.model.UserView
+import com.cubaback.unete.presentation.model.UserView
 import com.cubaback.unete.presentation.data.ResourceState
+import com.cubaback.unete.presentation.ui.fragment.BaseFragment
 import com.cubaback.unete.presentation.view_model.UserViewModel
-import kotlinx.android.synthetic.main.fragment_register.*
+import kotlinx.android.synthetic.main.fragment_register_step_one.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class RegisterFragment : BaseFragment() {
+class FirstStepRegisterFragment : BaseFragment() {
 
     var passwordVisible : Boolean = false
     val userViewModel : UserViewModel by viewModel()
@@ -26,13 +27,13 @@ class RegisterFragment : BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false)
+        return inflater.inflate(R.layout.fragment_register_step_one, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userViewModel.userLiveData.observe(this, Observer {
+        userViewModel.registeredAndLoguedUser.observe(this, Observer {
             it?.let {
                 handlerRegister(it.status, it.data, it.message)
             }
@@ -45,24 +46,41 @@ class RegisterFragment : BaseFragment() {
         when(status){
             ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForRegisterSucess(data)
-            ResourceState.ERROR -> setupScreenForLoginError(message)
+            ResourceState.ERROR -> setupScreenForError(message)
         }
     }
 
     private fun setupScreenForRegisterSucess(data: UserView?) {
-        listener?.let { it.registerSuccess() }
+        listener?.let {
+            data?.apply {
+                this.isCompleted?.let {it1->
+                    if(it1){
+                        it.registerSuccess()
+                    } else{
+                        it.registerImcompleted(data)
+                    }
+                }
+                dismissLoading()
+            }
+        }
+
     }
 
     private fun setupUi(){
         togglePassword.setOnClickListener{togglePassword()}
-        btnRegister.setOnClickListener { registerUser() }
+        btnRegister.setOnClickListener {
+            registerUser()
+        }
     }
 
-
-    private fun registerUser(){
-        userViewModel.registerUser(UserView(null, etName.text.toString(), etLastName.text.toString(),
-                etEmail.text.toString(), etPassword.text.toString()))
+    private fun registerUser() {
+        val name = etName.text.toString()
+        val lastName = etLastName.text.toString()
+        val email = etEmail.text.toString()
+        val password = etPassword.text.toString()
+        activity?.let { userViewModel.registerUser(it, UserView(null, name, lastName, email, password)) }
     }
+
 
     private fun togglePassword(){
         val hidePass = PasswordTransformationMethod()
@@ -79,12 +97,13 @@ class RegisterFragment : BaseFragment() {
     companion object {
         @JvmStatic
         fun newInstance( ) =
-                RegisterFragment().apply {
+                FirstStepRegisterFragment().apply {
                 }
     }
 
     interface OnRegisterListener{
         fun registerSuccess()
+        fun registerImcompleted(userView: UserView)
     }
 
 

@@ -12,7 +12,9 @@ interface IUserRepository {
 
     fun saveUser(user : UserBo) : Completable
 
-    fun getSavedUser() : Single<UserBo>
+    fun getSavedUserById(userId : Long) : Single<UserBo>
+
+    fun getSavedUserByEmail(email : String) : Single<UserBo>
 
     fun logOut() : Completable
 

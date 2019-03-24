@@ -14,11 +14,26 @@ class UserCache(private val cachedUserDao: CachedUserDao,
                 private val preferencesHelper: PreferencesHelper) : IUserCache {
 
     override fun saveUser(user: EntityUser): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+       return Completable.defer {
+           cachedUserDao.insertUser(cachedUserMapper.map(user))
+           Completable.complete()
+       }
     }
 
-    override fun getSavedUser(): Single<EntityUser> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getSavedUserById(userId : Long): Single<EntityUser> {
+        return Single.defer {
+            Single.just(cachedUserDao.getUserById(userId))
+        }.flatMap {
+            Single.just(cachedUserMapper.reverseMap(it))
+        }
+    }
+
+    override fun getUserSavedByEmail(email: String): Single<EntityUser> {
+        return Single.defer {
+            Single.just(cachedUserDao.getUserByEmail(email))
+        }.flatMap {
+            Single.just(cachedUserMapper.reverseMap(it))
+        }
     }
 
     override fun isLoged(): Boolean {

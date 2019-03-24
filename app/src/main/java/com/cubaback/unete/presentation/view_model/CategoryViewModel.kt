@@ -20,7 +20,7 @@ open class CategoryViewModel(private val getCategoriesUC: GetCategoriesUC,
 
 
     fun getCategories(){
-        categoriesLiveData.postValue(Resource(ResourceState.LOADING, null, null))
+        //categoriesLiveData.postValue(Resource(ResourceState.LOADING, null, null))
         getCategoriesUC.execute(GetCategoriesObserver())
     }
 

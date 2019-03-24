@@ -1,16 +1,16 @@
 package com.cubaback.unete.presentation.model.mapper
 
 import com.cubaback.unete.domain.model.ClientBo
-import com.cubaback.unete.data.model.ClientView
+import com.cubaback.unete.presentation.model.ClientView
 import com.cubaback.unete.mapper.Mapper
 
-class ClientViewMapper : Mapper<ClientBo, ClientView> {
+class ClientViewMapper(private val userViewMapper: UserViewMapper) : Mapper<ClientBo, ClientView> {
 
     override fun map(type: ClientBo): ClientView {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return ClientView(type.id,  type.phone, type.birthDate, type.createdAt, type.updatedAt, type.user?.let { userViewMapper.map(it)   })
     }
 
     override fun reverseMap(type: ClientView): ClientBo {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return ClientBo(type.id,  type.phone, type.birthDate, type.createdAt, type.updatedAt, type.user?.let { userViewMapper.reverseMap(it) } )
     }
 }

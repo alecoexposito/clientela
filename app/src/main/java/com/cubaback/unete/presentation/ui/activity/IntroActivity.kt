@@ -3,18 +3,25 @@ package com.cubaback.unete.presentation.ui.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cubaback.unete.R
-import com.cubaback.unete.presentation.ui.fragment.LoginFragment
-import com.cubaback.unete.presentation.ui.fragment.RegisterFragment
+import com.cubaback.unete.presentation.model.UserView
+import com.cubaback.unete.presentation.ui.fragment.user.LoginFragment
+import com.cubaback.unete.presentation.ui.fragment.user.FirstStepRegisterFragment
+import com.cubaback.unete.presentation.ui.fragment.user.SecondStepRegisterFragment
 import org.jetbrains.anko.startActivity
 
-class IntroActivity : AppCompatActivity(){
+class IntroActivity : AppCompatActivity(), SecondStepRegisterFragment.RegisterTwoFragmentCallback{
 
     private var loginFragment :  LoginFragment? = null
-    private var registerFragment: RegisterFragment? = null
+    private var registerFragment: FirstStepRegisterFragment? = null
+    private var registerStepTwoFragment: SecondStepRegisterFragment? = null
 
-    private val registerListener = object : RegisterFragment.OnRegisterListener{
+    private val registerListener = object : FirstStepRegisterFragment.OnRegisterListener{
         override fun registerSuccess() {
             openMainActivity()
+        }
+
+        override fun registerImcompleted(userView: UserView) {
+           userView.email?.let { openRegisterStepTwoFragment(it) }
         }
     }
 
@@ -29,13 +36,18 @@ class IntroActivity : AppCompatActivity(){
     }
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
         openLoginFragment()
     }
 
+    private fun openRegisterStepTwoFragment(email : String){
+        val fragmentTransition = supportFragmentManager.beginTransaction()
+        registerStepTwoFragment = SecondStepRegisterFragment.newInstance(email)
+        registerStepTwoFragment?.let { fragmentTransition.replace(R.id.fragment_container, it) }
+        fragmentTransition.commit()
+    }
 
     private fun openLoginFragment(){
         val fragmentTransition = supportFragmentManager.beginTransaction()
@@ -47,14 +59,17 @@ class IntroActivity : AppCompatActivity(){
 
     private fun openRegisterFragment(){
         val fragmentTransition = supportFragmentManager.beginTransaction()
-        registerFragment = RegisterFragment.newInstance()
+        registerFragment = FirstStepRegisterFragment.newInstance()
         registerFragment?.let { fragmentTransition.replace(R.id.fragment_container, it) }
         registerFragment?.let { it.listener = registerListener }
         fragmentTransition.commit()
     }
 
-
     fun openMainActivity() {
         startActivity<MainActivity>()
+    }
+
+    override fun onRegisterCompleted(userView: UserView) {
+       openMainActivity()
     }
 }

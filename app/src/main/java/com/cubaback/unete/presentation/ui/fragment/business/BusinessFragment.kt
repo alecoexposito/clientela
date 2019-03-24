@@ -2,7 +2,6 @@ package com.cubaback.unete.presentation.ui.fragment.business
 
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +13,6 @@ import com.cubaback.unete.presentation.ui.fragment.BaseFragment
 import com.cubaback.unete.presentation.view_model.BusinessViewModel
 import com.cubaback.unete.presentation.view_model.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_business_list.view.*
-import org.jetbrains.anko.support.v4.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class BusinessFragment : BaseFragment() {
@@ -83,7 +81,7 @@ class BusinessFragment : BaseFragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    fun bindBusinessViewModel(){
+   private fun bindBusinessViewModel(){
         businessViewModel.businessLiveData.observe(this, Observer {
             if (it != null){
                 handlerBusinessResponse(it.status, it.data, it.message)
@@ -91,7 +89,7 @@ class BusinessFragment : BaseFragment() {
         })
     }
 
-    fun bindCategoryViewModel(){
+   private fun bindCategoryViewModel(){
         categoryViewModel.categoriesLiveData.observe(this, Observer {
             it?.apply {
                 handlerCategoryResponse(it.status, it.data, it.message)
@@ -99,19 +97,19 @@ class BusinessFragment : BaseFragment() {
         })
     }
 
-    fun handlerBusinessResponse(state: ResourceState?, data : List<BusinessView>?, message : String?){
+   private fun handlerBusinessResponse(state: ResourceState?, data : List<BusinessView>?, message : String?){
         when(state){
             ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForLoadedBusinesses(data)
-            ResourceState.ERROR -> setupScreenForLoginError(message)
+            ResourceState.ERROR -> setupScreenForError(message)
         }
     }
 
-    fun handlerCategoryResponse(state: ResourceState?, data : List<CategoryView>?, message : String?){
+   private fun handlerCategoryResponse(state: ResourceState?, data : List<CategoryView>?, message : String?){
         when(state){
             ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForLoadedCategories(data)
-            ResourceState.ERROR -> setupScreenForLoginError(message)
+            ResourceState.ERROR -> setupScreenForError(message)
         }
     }
 
@@ -121,6 +119,7 @@ class BusinessFragment : BaseFragment() {
                 it.mCategories = data.filter { it.parentId == null }
             }
         }
+       // dismissLoading()
     }
 
     private fun setupScreenForLoadedBusinesses(data : List<BusinessView>?) {
@@ -129,6 +128,7 @@ class BusinessFragment : BaseFragment() {
                 it.mValues = data
             }
         }
+        dismissLoading()
     }
 
     interface BusinessFragmentCallback {

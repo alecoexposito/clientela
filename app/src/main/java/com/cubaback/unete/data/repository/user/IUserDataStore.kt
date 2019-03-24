@@ -12,7 +12,7 @@ interface IUserDataStore {
 
     fun saveUser(user : EntityUser) : Completable
 
-    fun getSavedUser() : Single<EntityUser>
+    fun getSavedUserById(userId : Long) : Single<EntityUser>
 
     fun isLoged() : Boolean
 
@@ -21,4 +21,6 @@ interface IUserDataStore {
     fun getToken() : String
 
     fun saveToken(token : String) : Boolean
+
+    fun getSavedUserByEmail(email: String): Single<EntityUser>
 }

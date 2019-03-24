@@ -3,19 +3,10 @@ package com.cubaback.unete.remote
 import com.cubaback.unete.data.model.EntityAdvertisements
 import com.cubaback.unete.data.repository.advertisement.IAdvertisementRemote
 import com.cubaback.unete.presentation.utils.Utils
-import com.cubaback.unete.remote.model.HasChangedModel
 import com.cubaback.unete.remote.model.mapper.ModelAdvertisementMapper
 import io.reactivex.Flowable
-import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.functions.Consumer
-import io.reactivex.internal.operators.single.SingleDoOnSuccess
-import io.reactivex.rxkotlin.toSingle
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
 
 class AdvertisementRemote(private val joinUsService: IJoinUsService,
@@ -25,7 +16,7 @@ class AdvertisementRemote(private val joinUsService: IJoinUsService,
          return joinUsService.getAdvertisement("Bearer ${Utils.token}")
                  .map {
                      val advs = mutableListOf<EntityAdvertisements>()
-                     it.forEach { advs.add(modelAdvertisementMapper.map(it)) }
+                     it.forEach { it1->advs.add(modelAdvertisementMapper.map(it1)) }
                      advs
                  }
     }
@@ -34,13 +25,9 @@ class AdvertisementRemote(private val joinUsService: IJoinUsService,
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    // Todo: Hacer esto mas bonito...
     override fun hasChanged(date: Date): Boolean {
         return try{
-            val formatD = "yyyy-MM-dd HH:mm:ss"
-            val dateFormat = SimpleDateFormat(formatD, Locale.getDefault())
-            var dateStr = dateFormat.format(date)
-            var response = joinUsService.advertisementsHasChanged("Bearer ${Utils.token}", dateStr).execute().body()
+            var response = joinUsService.advertisementsHasChanged("Bearer ${Utils.token}", Utils.formatStrDateTime(date)).execute().body()
             if(response != null){
                 response.hasChanged
             } else{

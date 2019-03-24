@@ -9,12 +9,10 @@ open class CachedClientMapper() : Mapper<EntityClient, CachedClient> {
     //constructor()
 
     override fun map(type: EntityClient): CachedClient {
-        val date = Date(); // todo: transformar el date segun venga del API
-
-        return CachedClient(type.id, type.phone, type.birthDate.toString())
+        return CachedClient(type.id, type.phone, type.birthDate, type.createdAt, type.updatedAt)
     }
 
     override fun reverseMap(type: CachedClient): EntityClient {
-        return EntityClient(type.id, type.phone, type.birthDate.toString())
+        return EntityClient(type.id, type.phone, type.birthDate, type.createdAt, type.updatedAt, null)
     }
 }

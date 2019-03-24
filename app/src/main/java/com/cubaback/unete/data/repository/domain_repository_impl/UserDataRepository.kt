@@ -19,32 +19,50 @@ class UserDataRepository(private val factory : UserDataStoreFactory,
                 .doAfterSuccess {
                     it.token?.let {
                         it1 -> saveToken(it1)
-                        Utils.token = it.token
+                        Utils.token = it1
                     }
                 }
     }
 
+    /**
+     *  Iif register is completed send it to Remote API
+     *  otherwise just save the user in cache and return it
+     * */
     override fun register(userBo: UserBo): Single<UserBo> {
-        return factory.retrieveRemoteDataStore().register(userEntityUserMapper.reverseMap(userBo))
-                .flatMap {
-                    Single.just(userEntityUserMapper.map(it))
-                } .doAfterSuccess {
-                    it.token?.let {
-                        it1 -> saveToken(it1)
-                        Utils.token = it.token
+        if(userBo.isCompleted!!){
+            return factory.retrieveRemoteDataStore().register(userEntityUserMapper.reverseMap(userBo))
+                    .flatMap {
+                        Single.just(userEntityUserMapper.map(it))
+                    } .doAfterSuccess {
+                        it.token?.let {
+                            it1 -> saveToken(it1)
+                            Utils.token = it1
+                        }
                     }
-                }
-//                .flatMap {
-//                    saveUser(it).toSingle{it}
-//                }
+                    .flatMap {
+                        saveUser(it).toSingle{it}
+                    }
+        }
+        return factory.retrieveCacheDataStore().saveUser(userEntityUserMapper.reverseMap(userBo)).andThen(
+                Single.just(userBo)
+        )
+
     }
 
     override fun saveUser(user: UserBo): Completable {
         return factory.retrieveCacheDataStore().saveUser(userEntityUserMapper.reverseMap(user))
     }
 
-    override fun getSavedUser(): Single<UserBo> {
-        return factory.retrieveCacheDataStore().getSavedUser()
+    override fun getSavedUserById(userId : Long): Single<UserBo> {
+        return factory.retrieveCacheDataStore().getSavedUserById(userId)
+                .flatMap {
+                    Single.just(userEntityUserMapper.map(it))
+                }
+    }
+
+
+    override fun getSavedUserByEmail(email: String): Single<UserBo> {
+        return factory.retrieveCacheDataStore().getSavedUserByEmail(email)
                 .flatMap {
                     Single.just(userEntityUserMapper.map(it))
                 }

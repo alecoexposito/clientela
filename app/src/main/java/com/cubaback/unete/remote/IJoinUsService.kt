@@ -15,12 +15,12 @@ interface IJoinUsService {
 
     @Headers("Content-Type:application/json")
     @POST("auth/login")
-    fun login(@Body userView: UserModel) : Single<UserModel>
+    fun login(@Body userView: UserModel) : Single<ClientResponse>
 
 
     @Headers("Content-Type:application/json")
     @POST("auth/register")
-    fun register(@Body userModel: UserModel) : Single<UserModel>
+    fun register(@Body userModel: UserModel) : Single<ClientResponse>
 
 
 

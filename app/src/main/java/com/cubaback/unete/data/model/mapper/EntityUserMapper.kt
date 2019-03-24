@@ -3,20 +3,17 @@ package com.cubaback.unete.data.model.mapper
 import com.cubaback.unete.data.model.EntityUser
 import com.cubaback.unete.domain.model.UserBo
 import com.cubaback.unete.mapper.Mapper
-import java.util.*
+import com.cubaback.unete.presentation.utils.Utils
 
-open class EntityUserMapper() : Mapper<EntityUser, UserBo> {
-    //constructor()
-
+open class EntityUserMapper  : Mapper<EntityUser, UserBo> {
     override fun map(type: EntityUser): UserBo {
-
-        // todo: cambiar las fechas por las del API
-        val createAt = Date()
-        val updatedAt = Date()
-        return UserBo(type.id, type.name, type.lastName, type.email, type.password, type.token, createAt, updatedAt)
+        return UserBo(type.id, type.name, type.lastName, type.email, type.password, type.token, type.phone,
+                type.createAt, type.updatedAt, type.birthDate,
+                Utils.compareWithDefaultDate(type.birthDate) && type.phone != Utils.DEFAULT_PHONE_NUMBER)
     }
 
     override fun reverseMap(type: UserBo): EntityUser {
-        return EntityUser(type.id, type.name, type.lastName, type.email, type.password, type.token, type.createAt.toString(), type.updatedAt.toString())
+        return EntityUser(type.id, type.name, type.lastName, type.email, type.password, type.phone, type.birthDate, type.token,
+                type.createAt, type.updatedAt)
     }
 }

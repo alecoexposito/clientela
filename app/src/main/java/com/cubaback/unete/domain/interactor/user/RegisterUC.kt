@@ -12,7 +12,6 @@ open class RegisterUC(val userRepository : IUserRepository,
                       postExecutionThread: PostExecutionThread)  : FlowableUseCase<UserBo, UserBo?>(threadExecutor, postExecutionThread){
 
     override fun buildUseCaseObservable(params: UserBo?): Flowable<UserBo> {
-        // params is never null
         return userRepository.register(params!!).toFlowable()
     }
 }

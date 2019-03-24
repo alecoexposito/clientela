@@ -1,25 +1,23 @@
 package com.cubaback.unete.remote.model.mapper
 
-import com.cubaback.unete.remote.model.ClientModel
-import com.cubaback.unete.data.model.EntityClient
+import com.cubaback.unete.data.model.EntityUser
 import com.cubaback.unete.mapper.Mapper
+import com.cubaback.unete.remote.model.ClientModel
 
-open class ModelClientMapper() : Mapper<ClientModel, EntityClient> {
-    override fun map(type: ClientModel): EntityClient {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+/**
+ * Transform API Client response to User Entity
+ * */
+open class ModelClientMapper : Mapper<ClientModel, EntityUser> {
+
+    override fun map(type: ClientModel): EntityUser {
+        return EntityUser(type.id, type.user.name, type.user.lastName, type.user.email,
+                type.user.password, type.phone, type.birthDate, type.user.token,
+                type.createdAt, type.updatedAt )
     }
 
-    override fun reverseMap(type: EntityClient): ClientModel {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun reverseMap(type: EntityUser): ClientModel {
+        throw UnsupportedOperationException()
     }
 
-    //    override fun map(type: ClientModel): ClientBo {
-//        val date = Date(); // todo: transformar el date segun venga del API
-//
-//        return ClientBo(type.id, type.phone, date)
-//    }
-//
-//    override fun reverseMap(type: ClientBo): ClientModel {
-//        return EntityClient(type.id, type.phone, type.birthDate.toString())
-//    }
 }

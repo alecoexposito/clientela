@@ -1,4 +1,4 @@
-package com.cubaback.unete.presentation.ui.fragment
+package com.cubaback.unete.presentation.ui.fragment.user
 
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.cubaback.unete.R
-import com.cubaback.unete.data.model.UserView
+import com.cubaback.unete.presentation.model.UserView
 import com.cubaback.unete.presentation.data.ResourceState
+import com.cubaback.unete.presentation.ui.fragment.BaseFragment
 import com.cubaback.unete.presentation.view_model.UserViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -35,7 +36,7 @@ class LoginFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupUi()
 
-        loginViewModel.userLiveData.observe(this, Observer {
+        loginViewModel.registeredAndLoguedUser.observe(this, Observer {
             if (it != null) {
                 this.handlerLogin(it.status, it.data, it.message)
             }
@@ -47,13 +48,16 @@ class LoginFragment : BaseFragment() {
         when (state) {
             ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForLoginSuccess(data)
-            ResourceState.ERROR -> setupScreenForLoginError(message)
+            ResourceState.ERROR -> setupScreenForError(message)
         }
     }
 
 
     private fun setupScreenForLoginSuccess(data: UserView?) {
-        listener?.let {  it.onLoginSuccess()}
+        listener?.let {
+            it.onLoginSuccess()
+            dismissLoading()
+        }
     }
 
 

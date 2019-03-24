@@ -20,6 +20,9 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="sign_in">Iniciar</string>
     <string name="register">Regístrate!</string>
+    <string name="complete_register">Completar registro</string>
+    <string name="phone_number">Número de teléfono</string>
+    <string name="birth_date">Fecha de nacimiento</string>
     <string name="register_now">Registrar ahora</string>
     <string name="welcome">Bienvenidos a únete</string>
     <string name="label_terms_and_conditions">Términos y condiciones</string>
@@ -39,6 +42,8 @@
     <string name="error">Error</string>
     <string name="loading_msg">Cargando</string>
     <string name="please_wait">Por favor espere</string>
+
+    <string name="empty_field_error">El campo %1$s no puede estar vacio</string>
 
 
     <string name="email">Correo electrónico</string>

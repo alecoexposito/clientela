@@ -20,6 +20,7 @@ open class PreferencesHelper(context: Context) {
         private val PREF_KEY_LAST_CACHE_CATEGORIES = "last_cache_categories"
 
         private val PREF_KEY_TOKEN = "token"
+        private val PREF_KEY_EMAIL = "email"
     }
 
     private val unetePref: SharedPreferences
@@ -34,7 +35,11 @@ open class PreferencesHelper(context: Context) {
 
     var token : String
         get() = unetePref.getString(PREF_KEY_TOKEN, "")
-        set(strToken) = unetePref.edit().putString(PREF_KEY_TOKEN, strToken) .apply()
+        set(strToken) = unetePref.edit().putString(PREF_KEY_TOKEN, strToken).apply()
+
+    var email : String
+        get() = unetePref.getString(PREF_KEY_EMAIL, "")
+        set(strEmail) = unetePref.edit().putString(PREF_KEY_EMAIL, strEmail).apply()
 
     var lastCacheBusinesses : Long
         get() = unetePref.getLong(PREF_KEY_LAST_CACHE_BUSSINESSES, 0)

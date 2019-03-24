@@ -20,7 +20,11 @@ open class UserRemoteDataStore(val userRemote: IUserRemote) : IUserDataStore {
         throw UnsupportedOperationException()
     }
 
-    override fun getSavedUser(): Single<EntityUser> {
+    override fun getSavedUserById(userId: Long): Single<EntityUser> {
+        throw UnsupportedOperationException()
+    }
+
+    override fun getSavedUserByEmail(email: String): Single<EntityUser> {
         throw UnsupportedOperationException()
     }
 

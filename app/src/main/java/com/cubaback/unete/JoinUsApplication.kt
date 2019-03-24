@@ -39,6 +39,8 @@ import com.cubaback.unete.data.sources.user.UserRemoteDataStore
 import com.cubaback.unete.domain.interactor.advertisement.GetAdvertisementsUC
 import com.cubaback.unete.domain.interactor.business.GetBusinessesUC
 import com.cubaback.unete.domain.interactor.category.GetCategoriesUC
+import com.cubaback.unete.domain.interactor.user.GetCurrentUserUC
+import com.cubaback.unete.domain.interactor.user.GetUserByEmailUC
 import com.cubaback.unete.domain.interactor.user.RegisterUC
 import com.cubaback.unete.domain.model.mapper.*
 import com.cubaback.unete.domain.repository.IAdvertisementRepository
@@ -66,7 +68,7 @@ class JoinUsApplication : Application(){
 
         // user data stores
         factory<IUserCache> { UserCache(get(), get(), get()) }
-        factory<IUserRemote> { UserRemote(get(), get()) }
+        factory<IUserRemote> { UserRemote(get(), get(), get()) }
         factory { UserRemoteDataStore(get()) }
         factory { UserCacheDataStore(get()) }
 
@@ -103,7 +105,7 @@ class JoinUsApplication : Application(){
         factory{ EntityBusinessMapper() }
         factory{ EntityCategoryMapper() }
         factory{ EntityClientAccountMapper() }
-        factory{ EntityClientMapper() }
+        factory{ EntityClientMapper(get()) }
         factory{ EntityDependenceMapper() }
         factory{ EntityProdServsMapper() }
         factory{ EntityTransactionMapper() }
@@ -115,7 +117,7 @@ class JoinUsApplication : Application(){
         factory{ BusinessBoMapper() }
         factory{ CategoryBoMapper() }
         factory{ ClientAccountBoMapper() }
-        factory{ ClientBoMapper() }
+        factory{ ClientBoMapper(get()) }
         factory{ DependenceBoMapper() }
         factory{ ProdServsBoMapper() }
         factory{ TransactionBoMapper() }
@@ -140,7 +142,7 @@ class JoinUsApplication : Application(){
         factory{ BusinessViewMapper() }
         factory{ CategoryViewMapper() }
         factory{ ClientAccountViewMapper() }
-        factory{ ClientViewMapper() }
+        factory{ ClientViewMapper(get()) }
         factory{ DependencesViewMapper() }
         factory{ ProdServsViewMapper() }
         factory{ TransactionViewMapper() }
@@ -179,8 +181,13 @@ class JoinUsApplication : Application(){
         factory<PostExecutionThread> { UiThread() }
 
         //uses cases
+            // users
         factory { LoginUC(get(), get(), get()) }
         factory { RegisterUC(get(), get(), get()) }
+        factory { GetUserByEmailUC(get(), get(), get()) }
+        factory { GetCurrentUserUC(get()) }
+
+
         factory { GetBusinessesUC(get(), get(), get()) }
         factory { GetCategoriesUC(get(), get(), get()) }
         factory { GetAdvertisementsUC(get(), get(), get()) }
@@ -200,13 +207,10 @@ class JoinUsApplication : Application(){
         single { get<JoinUsDatabase>().cachedAdvertisementDao() }
 
         // view models
-        viewModel{ UserViewModel(get(), get(), get())}
+        viewModel{ UserViewModel(get(), get(), get(), get(), get())}
         viewModel{ BusinessViewModel(get(), get())}
         viewModel{ CategoryViewModel(get(), get()) }
         viewModel{ AdvertisementViewModel(get(), get()) }
-
-
-
     }
 
 

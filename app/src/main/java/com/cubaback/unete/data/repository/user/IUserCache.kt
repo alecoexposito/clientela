@@ -8,7 +8,7 @@ interface IUserCache {
 
    fun saveUser(user : EntityUser) : Completable
 
-   fun getSavedUser() : Single<EntityUser>
+   fun getSavedUserById(userId : Long) : Single<EntityUser>
 
    fun isLoged() : Boolean
 
@@ -17,4 +17,6 @@ interface IUserCache {
    fun getToken() : String
 
    fun saveToken(token : String) : Boolean
+
+   fun getUserSavedByEmail(email : String) : Single<EntityUser>
 }

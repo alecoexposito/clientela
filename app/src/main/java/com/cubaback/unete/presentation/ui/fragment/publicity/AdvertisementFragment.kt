@@ -69,7 +69,7 @@ class AdvertisementFragment : BaseFragment() {
         when(status){
             ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupForAdvertisementSuccessLoaded(data)
-            ResourceState.ERROR -> setupScreenForLoginError(message)
+            ResourceState.ERROR -> setupScreenForError(message)
         }
     }
 
@@ -78,6 +78,7 @@ class AdvertisementFragment : BaseFragment() {
             if(data != null){
                 it.mAdvertisements = data
             }
+            dismissLoading()
         }
     }
 
