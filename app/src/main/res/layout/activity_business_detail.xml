@@ -28,7 +28,7 @@
                 android:layout_height="300dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/p2"
-                android:id="@+id/iv_product" />
+                android:id="@+id/ivBusiness" />
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"

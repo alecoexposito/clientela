@@ -22,6 +22,10 @@ interface IBusinessCache {
      * */
     fun getBusinesses() : Flowable<List<EntityBusiness>>
 
+
+
+    fun getBusinessesByCategory(catID : Long) : Flowable<List<EntityBusiness>>
+
     /**
      * Checkea que la lista de negocios esta en cache
      * retorna true si esta en cache

@@ -67,6 +67,7 @@ class IntroActivity : AppCompatActivity(), SecondStepRegisterFragment.RegisterTw
 
     fun openMainActivity() {
         startActivity<MainActivity>()
+        finish()
     }
 
     override fun onRegisterCompleted(userView: UserView) {

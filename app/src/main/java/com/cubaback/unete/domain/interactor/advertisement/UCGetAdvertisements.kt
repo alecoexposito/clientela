@@ -7,7 +7,7 @@ import com.cubaback.unete.domain.model.AdvertisementBo
 import com.cubaback.unete.domain.repository.IAdvertisementRepository
 import io.reactivex.Flowable
 
-class GetAdvertisementsUC(private val advertisementRepository: IAdvertisementRepository,
+class UCGetAdvertisements(private val advertisementRepository: IAdvertisementRepository,
                           threadExecutor: ThreadExecutor,
                           postExecutionThread: PostExecutionThread) :  FlowableUseCase<List<AdvertisementBo>, Void?>(threadExecutor, postExecutionThread) {
 

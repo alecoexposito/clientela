@@ -13,6 +13,7 @@ interface IBusinessRepository{
 
     fun getBusinesses(): Flowable<List<BusinessBo>>
 
+    fun getBusinessesByCategory(catID : Long) : Flowable<List<BusinessBo>>
 
     fun getBusinessById(id : Long): Single<BusinessBo>
 }

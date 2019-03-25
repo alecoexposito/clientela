@@ -34,4 +34,8 @@ open class BusinessRemoteDataStore(private val businessRemote : IBusinessRemote)
     override fun hasChanged(date: Date): Boolean {
         return businessRemote.hasChanged(date)
     }
+
+    override fun getBusinessesByCategory(catID: Long): Flowable<List<EntityBusiness>> {
+        throw UnsupportedOperationException()
+    }
 }

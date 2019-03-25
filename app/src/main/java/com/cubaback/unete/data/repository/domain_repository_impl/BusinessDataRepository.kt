@@ -8,6 +8,7 @@ import com.cubaback.unete.domain.repository.IBusinessRepository
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
+import io.reactivex.rxkotlin.toSingle
 
 open class BusinessDataRepository(private val factory : BusinessDataStoreFactory,
                                   private val businessEntityMapper : EntityBusinessMapper) : IBusinessRepository{
@@ -35,7 +36,17 @@ open class BusinessDataRepository(private val factory : BusinessDataStoreFactory
                 }
     }
 
+    override fun getBusinessesByCategory(catID: Long): Flowable<List<BusinessBo>> {
+        return factory.businessCacheDataStore.getBusinessesByCategory(catID)
+                .flatMap {
+                    Flowable.just(it.map {it1-> businessEntityMapper.map(it1) })
+                }
+    }
+
     override fun getBusinessById(id: Long): Single<BusinessBo> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return factory.businessCacheDataStore.getBusinessById(id)
+                .flatMap {
+                    Single.just(businessEntityMapper.map(it))
+                }
     }
 }

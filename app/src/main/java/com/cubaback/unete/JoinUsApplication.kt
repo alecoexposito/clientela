@@ -11,7 +11,7 @@ import com.cubaback.unete.data.repository.domain_repository_impl.UserDataReposit
 import com.cubaback.unete.data.sources.business.*
 import com.cubaback.unete.domain.executor.PostExecutionThread
 import com.cubaback.unete.domain.executor.ThreadExecutor
-import com.cubaback.unete.domain.interactor.user.LoginUC
+import com.cubaback.unete.domain.interactor.user.UCLogin
 import com.cubaback.unete.domain.repository.IBusinessRepository
 import com.cubaback.unete.domain.repository.IUserRepository
 import com.cubaback.unete.presentation.model.mapper.*
@@ -36,12 +36,13 @@ import com.cubaback.unete.data.sources.category.CategoryRemoteDataStore
 import com.cubaback.unete.data.sources.user.UserCacheDataStore
 import com.cubaback.unete.data.sources.user.UserDataStoreFactory
 import com.cubaback.unete.data.sources.user.UserRemoteDataStore
-import com.cubaback.unete.domain.interactor.advertisement.GetAdvertisementsUC
-import com.cubaback.unete.domain.interactor.business.GetBusinessesUC
-import com.cubaback.unete.domain.interactor.category.GetCategoriesUC
-import com.cubaback.unete.domain.interactor.user.GetCurrentUserUC
-import com.cubaback.unete.domain.interactor.user.GetUserByEmailUC
-import com.cubaback.unete.domain.interactor.user.RegisterUC
+import com.cubaback.unete.domain.interactor.advertisement.UCGetAdvertisements
+import com.cubaback.unete.domain.interactor.business.UCGetBusinessById
+import com.cubaback.unete.domain.interactor.business.UCGetBusinesses
+import com.cubaback.unete.domain.interactor.category.UCGetCategories
+import com.cubaback.unete.domain.interactor.user.UCGetCurrentUser
+import com.cubaback.unete.domain.interactor.user.UCGetUserByEmail
+import com.cubaback.unete.domain.interactor.user.UCRegister
 import com.cubaback.unete.domain.model.mapper.*
 import com.cubaback.unete.domain.repository.IAdvertisementRepository
 import com.cubaback.unete.domain.repository.ICategoryRepository
@@ -182,15 +183,18 @@ class JoinUsApplication : Application(){
 
         //uses cases
             // users
-        factory { LoginUC(get(), get(), get()) }
-        factory { RegisterUC(get(), get(), get()) }
-        factory { GetUserByEmailUC(get(), get(), get()) }
-        factory { GetCurrentUserUC(get()) }
+        factory { UCLogin(get(), get(), get()) }
+        factory { UCRegister(get(), get(), get()) }
+        factory { UCGetUserByEmail(get(), get(), get()) }
+        factory { UCGetCurrentUser(get()) }
+
+            // Businesses
+        factory { UCGetBusinesses(get(), get(), get()) }
+        factory { UCGetBusinessById(get(), get(),get()) }
 
 
-        factory { GetBusinessesUC(get(), get(), get()) }
-        factory { GetCategoriesUC(get(), get(), get()) }
-        factory { GetAdvertisementsUC(get(), get(), get()) }
+        factory { UCGetCategories(get(), get(), get()) }
+        factory { UCGetAdvertisements(get(), get(), get()) }
 
 
         // Room Database
@@ -208,7 +212,7 @@ class JoinUsApplication : Application(){
 
         // view models
         viewModel{ UserViewModel(get(), get(), get(), get(), get())}
-        viewModel{ BusinessViewModel(get(), get())}
+        viewModel{ BusinessViewModel(get(), get(), get())}
         viewModel{ CategoryViewModel(get(), get()) }
         viewModel{ AdvertisementViewModel(get(), get()) }
     }

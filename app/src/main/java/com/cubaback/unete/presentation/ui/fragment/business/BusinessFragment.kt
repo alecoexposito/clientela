@@ -6,25 +6,26 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cubaback.unete.R
-import com.cubaback.unete.data.model.BusinessView
+import com.cubaback.unete.presentation.model.BusinessView
 import com.cubaback.unete.data.model.CategoryView
 import com.cubaback.unete.presentation.data.ResourceState
 import com.cubaback.unete.presentation.ui.fragment.BaseFragment
 import com.cubaback.unete.presentation.view_model.BusinessViewModel
 import com.cubaback.unete.presentation.view_model.CategoryViewModel
 import kotlinx.android.synthetic.main.fragment_business_list.view.*
+import kotlinx.android.synthetic.main.view_subcategories_list.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class BusinessFragment : BaseFragment() {
+open class BusinessFragment : BaseFragment() {
 
 
     private var columnCount = 1
-    lateinit var listener: BusinessFragmentCallback
-    private var businessAdapter : BusinessAdapter? = null
-    lateinit var categoryAdapter : TopCategoryAdapter
+    protected lateinit var listener: BusinessFragmentCallback
+    protected var businessAdapter : BusinessAdapter? = null
+    protected lateinit var categoryAdapter : TopCategoryAdapter
 
-    val businessViewModel: BusinessViewModel by viewModel()
-    val categoryViewModel: CategoryViewModel by viewModel()
+    protected val businessViewModel: BusinessViewModel by viewModel()
+    protected val categoryViewModel: CategoryViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +46,11 @@ class BusinessFragment : BaseFragment() {
                               savedInstanceState: Bundle?): View? {
 
         val view = inflater.inflate(R.layout.fragment_business_list, container, false)
+        setupUi(view)
+        return view
+    }
 
+    open fun setupUi(view : View){
         // setup business adapter...
         with(view.list) {
             layoutManager = when {
@@ -63,16 +68,17 @@ class BusinessFragment : BaseFragment() {
             categoryAdapter = TopCategoryAdapter(listener, context)
             this.adapter = categoryAdapter
         }
-
-        return view
     }
 
     override fun onStart() {
         super.onStart()
         bindBusinessViewModel()
-        businessViewModel.getBusinesses()
-
         bindCategoryViewModel()
+        initDatas()
+    }
+
+    open fun initDatas(){
+        businessViewModel.getBusinesses()
         categoryViewModel.getCategories()
     }
 
@@ -113,16 +119,15 @@ class BusinessFragment : BaseFragment() {
         }
     }
 
-    private fun setupScreenForLoadedCategories(data: List<CategoryView>?) {
+    open fun setupScreenForLoadedCategories(data: List<CategoryView>?) {
         categoryAdapter?.let {
             if(data != null){
                 it.mCategories = data.filter { it.parentId == null }
             }
         }
-       // dismissLoading()
     }
 
-    private fun setupScreenForLoadedBusinesses(data : List<BusinessView>?) {
+    open fun setupScreenForLoadedBusinesses(data : List<BusinessView>?) {
         businessAdapter?.let {
             if(data != null){
                 it.mValues = data
@@ -137,11 +142,7 @@ class BusinessFragment : BaseFragment() {
     }
 
     companion object {
-
-        // TODO: Customize parameter argument names
         const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
                 BusinessFragment().apply {

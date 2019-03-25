@@ -1,3 +1,3 @@
-package com.cubaback.unete.data.model
+package com.cubaback.unete.presentation.model
 
-class BusinessView(val id : Long?, val name: String?, val description: String?)
+data class BusinessView(val id : Long?, val name: String?, val description: String?, val image : String?)

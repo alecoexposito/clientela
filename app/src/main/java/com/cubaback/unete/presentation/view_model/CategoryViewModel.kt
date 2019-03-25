@@ -3,15 +3,15 @@ package com.cubaback.unete.presentation.view_model
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cubaback.unete.data.model.CategoryView
-import com.cubaback.unete.domain.interactor.category.GetCategoriesUC
+import com.cubaback.unete.domain.interactor.category.UCGetCategories
 import com.cubaback.unete.domain.model.CategoryBo
 import com.cubaback.unete.presentation.data.Resource
 import com.cubaback.unete.presentation.data.ResourceState
 import com.cubaback.unete.presentation.model.mapper.CategoryViewMapper
 import io.reactivex.subscribers.DisposableSubscriber
 
-open class CategoryViewModel(private val getCategoriesUC: GetCategoriesUC,
-                        private val categoryViewMapper: CategoryViewMapper) : ViewModel() {
+open class CategoryViewModel(private val getCategoriesUC: UCGetCategories,
+                             private val categoryViewMapper: CategoryViewMapper) : ViewModel() {
 
     val categoriesLiveData : MutableLiveData<Resource<List<CategoryView>>> = MutableLiveData()
 
@@ -20,7 +20,6 @@ open class CategoryViewModel(private val getCategoriesUC: GetCategoriesUC,
 
 
     fun getCategories(){
-        //categoriesLiveData.postValue(Resource(ResourceState.LOADING, null, null))
         getCategoriesUC.execute(GetCategoriesObserver())
     }
 
@@ -29,10 +28,11 @@ open class CategoryViewModel(private val getCategoriesUC: GetCategoriesUC,
         super.onCleared()
     }
 
-    // llenar las subcategorias segun una categoria...
+
     fun fillSubCategories(parentId : Long){
-        subCategoriesLiveData.postValue(categoriesLiveData.value?.data?.filter { it.parentId == parentId })
+        getCategoriesUC.execute(GetCategoriesObserver(), parentId)
     }
+
 
 
     /*Observers*/

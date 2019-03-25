@@ -8,10 +8,10 @@ open class EntityBusinessMapper() : Mapper<EntityBusiness, BusinessBo> {
 
 
     override fun map(type: EntityBusiness): BusinessBo {
-        return BusinessBo(type.id, type.name, type.description)
+        return BusinessBo(type.id, type.name, type.description, type.image)
     }
 
     override fun reverseMap(type: BusinessBo): EntityBusiness {
-        return EntityBusiness(type.id, type.name, type.description)
+        return EntityBusiness(type.id, type.name, type.description, type.image)
     }
 }

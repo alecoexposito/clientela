@@ -26,9 +26,15 @@ class SplashActivity : AppCompatActivity() {
 
         userViewModel.savedToken.observe(this, Observer {
             if(it.isNullOrEmpty()){
-                handler.postDelayed({startActivity<IntroActivity>()}, 1000)
+                handler.postDelayed({
+                    startActivity<IntroActivity>()
+                    finish()
+                }, 1000)
             } else{
-                handler.postDelayed({startActivity<MainActivity>()}, 1000)
+                handler.postDelayed({
+                    startActivity<MainActivity>()
+                    finish()
+                }, 1000)
             }
         })
     }

@@ -7,7 +7,7 @@ import com.cubaback.unete.domain.model.UserBo
 import com.cubaback.unete.domain.repository.IUserRepository
 import io.reactivex.Flowable
 
-open class RegisterUC(val userRepository : IUserRepository,
+open class UCRegister(val userRepository : IUserRepository,
                       threadExecutor: ThreadExecutor,
                       postExecutionThread: PostExecutionThread)  : FlowableUseCase<UserBo, UserBo?>(threadExecutor, postExecutionThread){
 

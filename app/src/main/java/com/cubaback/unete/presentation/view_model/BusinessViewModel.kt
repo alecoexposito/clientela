@@ -2,31 +2,41 @@ package com.cubaback.unete.presentation.view_model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.cubaback.unete.data.model.BusinessView
-import com.cubaback.unete.domain.interactor.business.GetBusinessesUC
+import com.cubaback.unete.domain.interactor.business.UCGetBusinessById
+import com.cubaback.unete.presentation.model.BusinessView
+import com.cubaback.unete.domain.interactor.business.UCGetBusinesses
 import com.cubaback.unete.domain.model.BusinessBo
 import com.cubaback.unete.presentation.data.Resource
 import com.cubaback.unete.presentation.data.ResourceState
 import com.cubaback.unete.presentation.model.mapper.BusinessViewMapper
 import io.reactivex.subscribers.DisposableSubscriber
 
-class BusinessViewModel(private val getBusinessUC: GetBusinessesUC,
+class BusinessViewModel(private val getBusinessUC: UCGetBusinesses,
+                        private val ucGetBusinessById: UCGetBusinessById,
                         private val businessViewMapper: BusinessViewMapper) : ViewModel() {
 
     val businessLiveData : MutableLiveData<Resource<List<BusinessView>>> = MutableLiveData()
 
+    val selectedBusiness : MutableLiveData<Resource<BusinessView>> = MutableLiveData()
 
-    fun getBusinesses(){
+
+    fun getBusinesses(catId : Long? = null){
         businessLiveData.postValue(Resource(ResourceState.LOADING, null, null))
-        return getBusinessUC.execute(GetBusinessesObserver())
+        return getBusinessUC.execute(GetBusinessesObserver(), catId)
+    }
+
+    fun getBusinessById(id : Long){
+        selectedBusiness.postValue(Resource(ResourceState.LOADING, null, null))
+        return ucGetBusinessById.execute(GetBussinesByIdObserver(), id)
     }
 
     override fun onCleared() {
         getBusinessUC.dispose()
+        ucGetBusinessById.dispose()
         super.onCleared()
     }
 
-    /*Observers*/
+    /**Observers*/
     inner class GetBusinessesObserver : DisposableSubscriber<List<BusinessBo>>(){
         override fun onComplete() { }
 
@@ -36,6 +46,18 @@ class BusinessViewModel(private val getBusinessUC: GetBusinessesUC,
 
         override fun onError(t: Throwable?) {
             businessLiveData.postValue(Resource(ResourceState.ERROR, null , t?.message))
+        }
+    }
+
+    inner class GetBussinesByIdObserver : DisposableSubscriber<BusinessBo>(){
+        override fun onComplete() { }
+
+        override fun onNext(t: BusinessBo?) {
+            selectedBusiness.postValue(Resource(ResourceState.SUCCESS, t?.let { businessViewMapper.map(it) }, null))
+        }
+
+        override fun onError(t: Throwable?) {
+            selectedBusiness.postValue(Resource(ResourceState.ERROR, null, t?.message))
         }
     }
 }

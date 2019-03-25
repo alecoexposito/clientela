@@ -19,5 +19,7 @@ interface IBusinessDataStore {
 
     fun hasChanged(date : Date) : Boolean
 
+    fun getBusinessesByCategory(catID : Long) : Flowable<List<EntityBusiness>>
+
 
 }

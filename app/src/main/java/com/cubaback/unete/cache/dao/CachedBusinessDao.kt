@@ -12,15 +12,19 @@ import com.cubaback.unete.cache.model.CachedCategory
 interface CachedBusinessDao {
 
     @Query("SELECT * FROM ${DatabaseConstants.BUSINESS_TABLE}")
-    abstract fun getBusinesses(): List<CachedBusiness>
+    fun getBusinesses(): List<CachedBusiness>
+
+    // todo: Buscar las relationships con rooms
+    @Query("SELECT * FROM ${DatabaseConstants.BUSINESS_TABLE}")
+    fun getBusinessesByCategory(): List<CachedBusiness>
 
     @Query("SELECT * FROM ${DatabaseConstants.BUSINESS_TABLE} WHERE id = :id")
-    abstract fun getBusinessesById(id : Long): CachedBusiness
+    fun getBusinessesById(id : Long): CachedBusiness
 
     @Query("DELETE FROM ${DatabaseConstants.BUSINESS_TABLE}")
-    abstract fun clearBusinesses()
+    fun clearBusinesses()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertBusiness(cachedBusiness: CachedBusiness)
+    fun insertBusiness(cachedBusiness: CachedBusiness)
 
 }

@@ -38,6 +38,14 @@ class BusinessCache(val bussinessCachedBusinessDao: CachedBusinessDao,
        }
     }
 
+    override fun getBusinessesByCategory(catID: Long): Flowable<List<EntityBusiness>> {
+        return Flowable.defer {
+            Flowable.just(bussinessCachedBusinessDao.getBusinessesByCategory())
+        }.map {
+            it.map { cachedBusinessMapper.reverseMap(it) }
+        }
+    }
+
     override fun isCached(): Single<Boolean> {
         return Single.defer { Single.just(bussinessCachedBusinessDao.getBusinesses().isNotEmpty()) }
     }
@@ -59,6 +67,8 @@ class BusinessCache(val bussinessCachedBusinessDao: CachedBusinessDao,
             Single.just(bussinessCachedBusinessDao.getBusinessesById(id = id))
         }.map { cachedBusinessMapper.reverseMap(it) }
     }
+
+
 
 
 }

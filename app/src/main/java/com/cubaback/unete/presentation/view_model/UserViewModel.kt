@@ -4,21 +4,21 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cubaback.unete.R
-import com.cubaback.unete.domain.interactor.user.GetCurrentUserUC
-import com.cubaback.unete.domain.interactor.user.GetUserByEmailUC
+import com.cubaback.unete.domain.interactor.user.UCGetCurrentUser
+import com.cubaback.unete.domain.interactor.user.UCGetUserByEmail
 import com.cubaback.unete.domain.model.UserBo
 import com.cubaback.unete.presentation.model.UserView
-import com.cubaback.unete.domain.interactor.user.LoginUC
-import com.cubaback.unete.domain.interactor.user.RegisterUC
+import com.cubaback.unete.domain.interactor.user.UCLogin
+import com.cubaback.unete.domain.interactor.user.UCRegister
 import com.cubaback.unete.presentation.data.Resource
 import com.cubaback.unete.presentation.data.ResourceState
 import com.cubaback.unete.presentation.model.mapper.UserViewMapper
 import io.reactivex.subscribers.DisposableSubscriber
 
-class UserViewModel(private val loginUC: LoginUC,
-                    private val registerUC: RegisterUC,
-                    private val getUserByIdUC: GetUserByEmailUC,
-                    private val getCurrentUserUC: GetCurrentUserUC,
+class UserViewModel(private val loginUC: UCLogin,
+                    private val registerUC: UCRegister,
+                    private val getUserByIdUC: UCGetUserByEmail,
+                    private val getCurrentUserUC: UCGetCurrentUser,
                     val userViewMapper: UserViewMapper) : ViewModel() {
 
 
@@ -88,6 +88,8 @@ class UserViewModel(private val loginUC: LoginUC,
 
     override fun onCleared() {
         loginUC.dispose()
+        registerUC.dispose()
+        getUserByIdUC.dispose()
          super.onCleared()
     }
 

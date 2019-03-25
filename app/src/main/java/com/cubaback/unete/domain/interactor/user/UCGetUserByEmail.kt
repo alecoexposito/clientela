@@ -7,7 +7,7 @@ import com.cubaback.unete.domain.model.UserBo
 import com.cubaback.unete.domain.repository.IUserRepository
 import io.reactivex.Flowable
 
-open class GetUserByEmailUC(private val userRepository: IUserRepository,
+open class UCGetUserByEmail(private val userRepository: IUserRepository,
                             threadExecutor: ThreadExecutor,
                             postExecutionThread: PostExecutionThread) : FlowableUseCase<UserBo, String?>(threadExecutor, postExecutionThread) {
 

@@ -1,30 +1,24 @@
 package com.cubaback.unete.presentation.ui.activity
 
-import android.graphics.Bitmap
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import com.cubaback.unete.R
-import com.cubaback.unete.data.model.BusinessView
 import com.cubaback.unete.data.model.CategoryView
-import com.cubaback.unete.presentation.ui.dialog.SelectQrDialog
-import com.cubaback.unete.presentation.ui.dialog.ShowIdDialog
+import com.cubaback.unete.presentation.model.BusinessView
 import com.cubaback.unete.presentation.ui.fragment.business.BusinessFragment
 import com.cubaback.unete.presentation.ui.fragment.business.SubCategoryFragment
 import com.cubaback.unete.presentation.ui.fragment.notification.NotificationFragment
 import com.cubaback.unete.presentation.ui.fragment.publicity.AdvertisementFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 
-class MainActivity : AppCompatActivity(){
+
+class MainActivity : BaseActivity(){
 
         private var publishFragment : AdvertisementFragment? = null
         lateinit var businessFragment : BusinessFragment
         private var notificationFragment : NotificationFragment? = null
         lateinit var subCategoryFragment : SubCategoryFragment
-
-        private var bmpQr : Bitmap? = null
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
@@ -76,8 +70,18 @@ class MainActivity : AppCompatActivity(){
 
     private fun openSubCategoryFragment(subCategoryView: CategoryView){
         val fragmentTransition = supportFragmentManager.beginTransaction()
-        subCategoryFragment = SubCategoryFragment()
+        subCategoryFragment = SubCategoryFragment.newInstance(subCategoryView.id!!)
+        subCategoryFragment.setBusinessFragmentCallback(object  : BusinessFragment.BusinessFragmentCallback{
+            override fun onBusinessClick(item: BusinessView) {
+                openBusinessDetailActivity(item)
+            }
+
+            override fun onCategoryClick(item: CategoryView) {
+               subCategoryFragment.onCategoryClick(item)
+            }
+        })
         subCategoryFragment.let { fragmentTransition.replace(R.id.fragment_container, it) }
+        fragmentTransition.addToBackStack(null)
         fragmentTransition.commit()
     }
 
@@ -113,9 +117,8 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun openBusinessDetailActivity(business : BusinessView){
-        Companion.business = business
-        startActivity<BusinessDetailActivity>(
-               /* BusinessDetailActivity.EXTRA_BUSINESS to business*/)
+                startActivity<BusinessDetailActivity>(
+                BusinessDetailActivity.EXTRA_BUSINESS to business.id)
     }
 
 
