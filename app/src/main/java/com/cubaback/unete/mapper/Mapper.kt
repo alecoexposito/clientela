@@ -14,10 +14,18 @@ package com.cubaback.unete.mapper
  * @param <T> the remote model input type
  * @param <V> the model return type
  */
-interface Mapper<INTERNAL, EXTERNAL> {
+abstract class Mapper<INTERNAL, EXTERNAL> {
 
-    fun map(type: INTERNAL): EXTERNAL
+    abstract fun map(type: INTERNAL): EXTERNAL
+    open fun map (type : List<INTERNAL>) : List<EXTERNAL> {
+        return type.map { map(it) }
+    }
 
-    fun reverseMap(type: EXTERNAL): INTERNAL
+    abstract fun reverseMap(type: EXTERNAL): INTERNAL
+    open fun reverseMap (type : List<EXTERNAL>) : List<INTERNAL>{
+        return type.map { reverseMap(it) }
+    }
+
+
 
 }

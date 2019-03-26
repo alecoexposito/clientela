@@ -1,5 +1,10 @@
 package com.cubaback.unete.data.model
 
-data class EntityCategory(val id : Long?, val name : String?,
+import java.util.*
+
+data class EntityCategory(val id : Long?,
+                          val name : String?,
                           val description : String?,
-                          val parentId : Long?)
+                          val parentId : Long?,
+                          val createdAt : Date?,
+                          val updateAt : Date?)

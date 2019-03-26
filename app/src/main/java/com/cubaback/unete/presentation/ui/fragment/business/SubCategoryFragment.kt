@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.cubaback.unete.R
-import com.cubaback.unete.data.model.CategoryView
+import com.cubaback.unete.presentation.model.CategoryView
 
 class SubCategoryFragment : BusinessFragment() {
     private val EXTRA_CATEGORY_PARENT_ID = "com.cubaback.joinus.category_parent_id"

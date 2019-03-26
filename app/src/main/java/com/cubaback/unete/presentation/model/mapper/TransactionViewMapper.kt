@@ -1,11 +1,11 @@
 package com.cubaback.unete.presentation.model.mapper
 
 import com.cubaback.unete.domain.model.TransactionBo
-import com.cubaback.unete.data.model.TransactionView
+import com.cubaback.unete.presentation.model.TransactionView
 import com.cubaback.unete.mapper.Mapper
 import java.util.*
 
-open class TransactionViewMapper : Mapper<TransactionBo, TransactionView> {
+open class TransactionViewMapper : Mapper<TransactionBo, TransactionView>() {
 
     override fun map(type: TransactionBo): TransactionView {
         return TransactionView(type.id, type.clientAccountId, type.businessAccountId, type.createdAt.toString(), type.updatedAt.toString())

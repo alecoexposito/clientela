@@ -40,9 +40,10 @@ open abstract  class BaseFragment : Fragment() {
                             dialog.dismiss()
                         }
                     })
+
                     .build()
             alertDialog.setCancelable(false)
-            alertDialog.getButton(Dialog.BUTTON_POSITIVE).allCaps = false
+         //   alertDialog.getButton(Dialog.BUTTON_POSITIVE).allCaps = false
             alertDialog.show()
         }
     }

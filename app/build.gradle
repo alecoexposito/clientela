@@ -6,13 +6,15 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'realm-android'
+
 android {
     compileSdkVersion 28
     buildToolsVersion "28.0.3"
 
-//    dataBinding {
-//        enabled = true
-//    }
+    dataBinding {
+        enabled = true
+    }
 
     defaultConfig {
         applicationId "com.cubaback.unete"
@@ -197,6 +199,12 @@ dependencies {
     implementation 'com.airbnb.android:lottie:2.8.0'
     implementation 'com.github.mayuce:LottieAlertDialog:1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+
+    //realm
+    implementation "com.github.vicpinm:krealmextensions:2.5.0"
+
+    implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1'
+    implementation 'com.github.mjn1369:prettydialog:1.0.4'
 
 
 }

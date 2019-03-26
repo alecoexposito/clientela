@@ -4,7 +4,7 @@ import com.cubaback.unete.data.model.EntityProdServs
 import com.cubaback.unete.cache.model.CachedProdServs
 import com.cubaback.unete.mapper.Mapper
 
-open class CachedProdServsMapper() : Mapper<EntityProdServs, CachedProdServs> {
+open class CachedProdServsMapper() : Mapper<EntityProdServs, CachedProdServs>() {
 
     //constructor()
 

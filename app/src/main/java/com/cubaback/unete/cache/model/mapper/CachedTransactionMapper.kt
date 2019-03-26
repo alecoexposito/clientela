@@ -5,7 +5,7 @@ import com.cubaback.unete.cache.model.CachedTransaction
 import com.cubaback.unete.mapper.Mapper
 import java.util.*
 
-open class CachedTransactionMapper() : Mapper<EntityTransaction, CachedTransaction> {
+open class CachedTransactionMapper : Mapper<EntityTransaction, CachedTransaction>() {
     //constructor()
 
     override fun map(type: EntityTransaction): CachedTransaction {

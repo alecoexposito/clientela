@@ -1,27 +1,26 @@
 package com.cubaback.unete.cache
 
-import com.cubaback.unete.cache.dao.CachedAdvertisementDao
-import com.cubaback.unete.cache.db.JoinUsDatabase
+import com.cubaback.unete.cache.model.CachedAdvertisements
 import com.cubaback.unete.cache.model.mapper.CachedAdvertisementMapper
 import com.cubaback.unete.data.model.EntityAdvertisements
 import com.cubaback.unete.data.repository.advertisement.IAdvertisementCache
+import com.vicpin.krealmextensions.*
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 
-class AdvertisementCache(val cachedAdvertisementDao: CachedAdvertisementDao,
-                         private val cachedAdvertisementMapper: CachedAdvertisementMapper,
+class AdvertisementCache(private val cachedAdvertisementMapper: CachedAdvertisementMapper,
                          private val preferencesHelper: PreferencesHelper) : IAdvertisementCache {
 
 
     override fun clearAdvertisement(): Completable {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+       throw UnsupportedOperationException()
     }
 
     override fun saveAdvertisements(entityAdvertisements: List<EntityAdvertisements>): Completable {
         return Completable.defer{
             entityAdvertisements.forEach {
-                cachedAdvertisementDao.insertAdvertisement(cachedAdvertisementMapper.map(it))
+                cachedAdvertisementMapper.map(it).createOrUpdate()
             }
             Completable.complete()
         }
@@ -30,7 +29,7 @@ class AdvertisementCache(val cachedAdvertisementDao: CachedAdvertisementDao,
 
     override fun getAdvertisements(): Flowable<List<EntityAdvertisements>> {
         return Flowable.defer {
-            Flowable.just(cachedAdvertisementDao.getAdvertisements())
+            CachedAdvertisements().queryAllAsFlowable()
         }.map {
             it.map { cachedAdvertisementMapper.reverseMap(it) }
         }
@@ -38,7 +37,7 @@ class AdvertisementCache(val cachedAdvertisementDao: CachedAdvertisementDao,
 
 
     override fun isCached(): Single<Boolean> {
-        return Single.defer { Single.just(cachedAdvertisementDao.getAdvertisements().isNotEmpty()) }
+        return Single.defer { Single.just(CachedAdvertisements().queryAll().isNotEmpty()) }
     }
 
     override fun setLastCached(lastCache: Long) {
@@ -50,6 +49,14 @@ class AdvertisementCache(val cachedAdvertisementDao: CachedAdvertisementDao,
     }
 
     override fun getAdvertisementById(id: Long): Single<EntityAdvertisements> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return Single.defer { Single.just(
+                CachedAdvertisements()
+                .queryFirst {
+                                 this.equalTo("id", id)
+                             }
+        )
+        }.map {
+            cachedAdvertisementMapper.reverseMap(it)
+        }
     }
 }

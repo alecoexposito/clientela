@@ -1,10 +1,14 @@
 package com.cubaback.unete.cache.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.cubaback.unete.cache.db.constans.DatabaseConstants
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+import io.realm.annotations.RealmClass
+import java.util.*
 
-@Entity(tableName = DatabaseConstants.CATEGORY_TABLE)
-data class CachedCategory(@PrimaryKey val id : Long?, val name : String?,
-                          val description : String?,
-                          val parentId : Long?)
+@RealmClass
+open  class CachedCategory(@PrimaryKey var id : Long? = null,
+                          var name : String? = null,
+                          var description : String? = null,
+                          var parentId : Long? = null,
+                          var createdAt : Date? = null,
+                          var updatedAt : Date? = null) : RealmObject()

@@ -1,12 +1,14 @@
 package com.cubaback.unete.cache.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.cubaback.unete.cache.db.constans.DatabaseConstants
-import com.cubaback.unete.cache.model.converter.DateConverter
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+import io.realm.annotations.RealmClass
 import java.util.*
 
-@Entity(tableName = DatabaseConstants.ADVERTISEMENT_TABLE)
-data class CachedAdvertisements(@PrimaryKey val id : Long?, val title : String?, val description : String?, val image : String?,
-                                @TypeConverters(DateConverter::class) val createdAt : Date?, @TypeConverters(DateConverter::class) val updatedAt : Date?)
+@RealmClass
+open class CachedAdvertisements(@PrimaryKey var id : Long? = null,
+                                var title : String?  = null,
+                                var description : String?  = null,
+                                var image : String?  = null,
+                                var createdAt : Date?  = null,
+                                var updatedAt : Date?  = null) : RealmObject()

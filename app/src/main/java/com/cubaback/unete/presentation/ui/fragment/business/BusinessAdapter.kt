@@ -1,14 +1,20 @@
 package com.cubaback.unete.presentation.ui.fragment.business
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.GenericTransitionOptions
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.cubaback.unete.R
 import com.cubaback.unete.presentation.model.BusinessView
+import kotlinx.android.synthetic.main.activity_business_detail.*
 import kotlinx.android.synthetic.main.fragment_business.view.*
 
 
@@ -18,6 +24,7 @@ class BusinessAdapter(
     : RecyclerView.Adapter<BusinessAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
+    val glideOptions = RequestOptions()
 
     var mValues: List<BusinessView>? = null
         set(value) {
@@ -25,7 +32,11 @@ class BusinessAdapter(
             notifyDataSetChanged()
         }
 
-    init {
+   init {
+        glideOptions.placeholder(R.drawable.s1)
+        glideOptions.error(R.drawable.s1)
+
+
         mOnClickListener = View.OnClickListener { v ->
             val item = v.tag as BusinessView
             mListener?.onBusinessClick(item)
@@ -43,6 +54,13 @@ class BusinessAdapter(
             val item = mValues?.get(position)
             holder.mIdView.text = item?.name
             holder.mContentView.text = item?.description
+
+            Glide.with(context)
+                    .load(item?.image)
+                    .apply(glideOptions)
+                    .transition(GenericTransitionOptions.with(R.anim.alpha_anim))
+                    .into(holder.ivBusiness)
+
 
             with(holder.mView) {
                 tag = item
@@ -70,6 +88,7 @@ class BusinessAdapter(
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         val mIdView: TextView = mView.tvBusinessTitle
         val mContentView: TextView = mView.tvContent
+        val ivBusiness: AppCompatImageView = mView.ivBusiness
 
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"

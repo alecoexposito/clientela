@@ -5,7 +5,7 @@ import com.cubaback.unete.presentation.model.UserView
 import com.cubaback.unete.mapper.Mapper
 import java.util.*
 
-class UserViewMapper : Mapper<UserBo, UserView> {
+class UserViewMapper : Mapper<UserBo, UserView>() {
 
     override fun map(type: UserBo): UserView {
         return UserView(type.id, type.name, type.lastName, type.email, type.password, type.token, type.phone,  type.birthDate, type.isCompleted)

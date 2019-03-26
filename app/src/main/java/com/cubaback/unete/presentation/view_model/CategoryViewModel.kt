@@ -2,7 +2,7 @@ package com.cubaback.unete.presentation.view_model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.cubaback.unete.data.model.CategoryView
+import com.cubaback.unete.presentation.model.CategoryView
 import com.cubaback.unete.domain.interactor.category.UCGetCategories
 import com.cubaback.unete.domain.model.CategoryBo
 import com.cubaback.unete.presentation.data.Resource

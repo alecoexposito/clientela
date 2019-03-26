@@ -5,14 +5,19 @@ import com.cubaback.unete.data.model.EntityClient
 import com.cubaback.unete.mapper.Mapper
 import java.util.*
 
-open class EntityClientMapper(private val entityUserMapper: EntityUserMapper) : Mapper<EntityClient, ClientBo> {
+open class EntityClientMapper(private val entityUserMapper: EntityUserMapper,
+                              private val entityClientAccountMapper: EntityClientAccountMapper) : Mapper<EntityClient, ClientBo>() {
     //constructor()
 
     override fun map(type: EntityClient): ClientBo {
-        return ClientBo(type.id,  type.phone, type.birthDate, type.createdAt, type.updatedAt, type.user?.let { entityUserMapper.map(it) }  )
+        return ClientBo(type.id,  type.phone, type.birthDate, type.createdAt, type.updatedAt,
+                type.user?.let { entityUserMapper.map(it) },
+                type.account?.let { entityClientAccountMapper.map(it) })
     }
 
     override fun reverseMap(type: ClientBo): EntityClient {
-        return EntityClient(type.id,  type.phone, type.birthDate, type.createdAt, type.updatedAt, type.user?.let { entityUserMapper.reverseMap(it) } )
+        return EntityClient(type.id,  type.phone, type.birthDate, type.createdAt, type.updatedAt,
+                type.user?.let { entityUserMapper.reverseMap(it) },
+                type.account?.let { entityClientAccountMapper.reverseMap(it) })
     }
 }

@@ -1,23 +1,25 @@
 package com.cubaback.unete.remote.model.mapper
 
-import com.cubaback.unete.remote.model.ClientAccountModel
 import com.cubaback.unete.data.model.EntityClientAccount
 import com.cubaback.unete.mapper.Mapper
+import com.cubaback.unete.remote.model.ClientAccountModel
 
-open class ModelClientAccountMapper() : Mapper<ClientAccountModel, EntityClientAccount> {
+open class ModelClientAccountMapper : Mapper<ClientAccountModel, EntityClientAccount>() {
     override fun map(type: ClientAccountModel): EntityClientAccount {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return  EntityClientAccount(type.id,
+                                    type.accountNumber,
+                                    type.clientId,
+                                    type.createdAt,
+                                    type.updatedAt)
     }
 
     override fun reverseMap(type: EntityClientAccount): ClientAccountModel {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return  ClientAccountModel(type.id,
+                type.accountNumber,
+                type.clientId,
+                type.createdAt,
+                type.updatedAt)
     }
 
-    //    override fun map(type: ClientAccountModel): ClientAccountBo {
-//        return ClientAccountBo(type.id, type.accountNumber, type.clientId)
-//    }
-//
-//    override fun reverseMap(type: ClientAccountBo): ClientAccountModel {
-//        return EntityClientAccount(type.id, type.accountNumber, type.clientId)
-//    }
+
 }

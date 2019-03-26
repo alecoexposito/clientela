@@ -1,23 +1,20 @@
 package com.cubaback.unete.cache
 
-import com.cubaback.unete.cache.dao.CachedCategoryDao
-import com.cubaback.unete.cache.db.JoinUsDatabase
 import com.cubaback.unete.cache.model.CachedCategory
 import com.cubaback.unete.cache.model.mapper.CachedCategoryMapper
-import com.cubaback.unete.cache.model.mapper.CachedUserMapper
 import com.cubaback.unete.data.model.EntityCategory
 import com.cubaback.unete.data.repository.category.ICategoryCache
+import com.vicpin.krealmextensions.*
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 
-open class CategoryCache(private val cachedCategoryDao: CachedCategoryDao,
-                         private val cachedCategoryMapper: CachedCategoryMapper,
+open class CategoryCache(private val cachedCategoryMapper: CachedCategoryMapper,
                          private val preferencesHelper: PreferencesHelper) : ICategoryCache{
 
     override fun clearCategories(): Completable {
         return Completable.defer {
-            cachedCategoryDao.clearCategories()
+            CachedCategory().deleteAll()
             Completable.complete()
         }
     }
@@ -25,7 +22,7 @@ open class CategoryCache(private val cachedCategoryDao: CachedCategoryDao,
     override fun saveCategories(categories: List<EntityCategory>): Completable {
         return Completable.defer {
             categories.forEach {
-                cachedCategoryDao.insertCategories(cachedCategoryMapper.map(it))
+               cachedCategoryMapper.map(it).createOrUpdate()
             }
             Completable.complete()
         }
@@ -33,14 +30,14 @@ open class CategoryCache(private val cachedCategoryDao: CachedCategoryDao,
 
     override fun getCategories(): Flowable<List<EntityCategory>> {
         return Flowable.defer {
-            Flowable.just(cachedCategoryDao.getCategories())
+             CachedCategory().queryAllAsFlowable()
         }.map {
             it.map { cachedCategoryMapper.reverseMap(it) }
         }
     }
 
     override fun isCached(): Single<Boolean> {
-        return Single.defer { Single.just(cachedCategoryDao.getCategories().isNotEmpty()) }
+        return Single.defer { Single.just(CachedCategory().queryAll().isNotEmpty()) }
     }
 
     override fun setLastCacheTime(lastCache: Long) {
@@ -57,14 +54,18 @@ open class CategoryCache(private val cachedCategoryDao: CachedCategoryDao,
 
     override fun getBusinessById(id: Long): Single<EntityCategory> {
         return Single.defer {
-            Single.just(cachedCategoryDao.getCategoryById(id))
+            Single.just(CachedCategory().queryFirst {
+                this.equalTo("id", id)
+            })
         }
         .map { cachedCategoryMapper.reverseMap(it) }
     }
 
     override fun getCategoriesByParentId(parentId: Long): Flowable<List<EntityCategory>> {
         return Flowable.defer {
-            Flowable.just(cachedCategoryDao.getCategoriesByParentId(parentId))
+           CachedCategory().queryAsFlowable {
+                this.equalTo("parentId", parentId)
+            }
         }.map {
             it.map { cachedCategoryMapper.reverseMap(it) }
         }

@@ -1,22 +1,21 @@
 package com.cubaback.unete.cache
 
-import com.cubaback.unete.cache.dao.CachedBusinessDao
-import com.cubaback.unete.cache.db.JoinUsDatabase
+import com.cubaback.unete.cache.model.CachedBusiness
 import com.cubaback.unete.cache.model.mapper.CachedBusinessMapper
-import com.cubaback.unete.cache.model.mapper.CachedCategoryMapper
 import com.cubaback.unete.data.model.EntityBusiness
 import com.cubaback.unete.data.repository.business.IBusinessCache
+import com.vicpin.krealmextensions.*
 import io.reactivex.Completable
 import io.reactivex.Flowable
 import io.reactivex.Single
 
-class BusinessCache(val bussinessCachedBusinessDao: CachedBusinessDao,
+class BusinessCache(
                     private val cachedBusinessMapper: CachedBusinessMapper,
                     private val preferencesHelper: PreferencesHelper) : IBusinessCache {
 
     override fun clearBusinesses(): Completable {
         return Completable.defer {
-            bussinessCachedBusinessDao.clearBusinesses()
+             CachedBusiness().deleteAll()
             Completable.complete()
         }
     }
@@ -24,7 +23,7 @@ class BusinessCache(val bussinessCachedBusinessDao: CachedBusinessDao,
     override fun saveBusinesses(businesses: List<EntityBusiness>): Completable {
         return Completable.defer{
             businesses.forEach {
-                bussinessCachedBusinessDao.insertBusiness(cachedBusinessMapper.map(it))
+                cachedBusinessMapper.map(it).createOrUpdate()
             }
             Completable.complete()
         }
@@ -32,7 +31,7 @@ class BusinessCache(val bussinessCachedBusinessDao: CachedBusinessDao,
 
     override fun getBusinesses(): Flowable<List<EntityBusiness>> {
        return Flowable.defer {
-           Flowable.just(bussinessCachedBusinessDao.getBusinesses())
+            CachedBusiness().queryAllAsFlowable()
        }.map {
            it.map { cachedBusinessMapper.reverseMap(it) }
        }
@@ -40,14 +39,16 @@ class BusinessCache(val bussinessCachedBusinessDao: CachedBusinessDao,
 
     override fun getBusinessesByCategory(catID: Long): Flowable<List<EntityBusiness>> {
         return Flowable.defer {
-            Flowable.just(bussinessCachedBusinessDao.getBusinessesByCategory())
+            CachedBusiness().queryAsFlowable {
+                this.equalTo("category.id", catID)
+            }
         }.map {
             it.map { cachedBusinessMapper.reverseMap(it) }
         }
     }
 
     override fun isCached(): Single<Boolean> {
-        return Single.defer { Single.just(bussinessCachedBusinessDao.getBusinesses().isNotEmpty()) }
+        return Single.defer { Single.just(CachedBusiness().queryAll().isNotEmpty())}
     }
 
     override fun setLastCacheTime(lastCache: Long) {
@@ -64,8 +65,10 @@ class BusinessCache(val bussinessCachedBusinessDao: CachedBusinessDao,
 
     override fun getBusinessById(id: Long): Single<EntityBusiness> {
         return Single.defer {
-            Single.just(bussinessCachedBusinessDao.getBusinessesById(id = id))
-        }.map { cachedBusinessMapper.reverseMap(it) }
+            Single.just(CachedBusiness().queryFirst{
+                this.equalTo("id", id)
+                })
+            }.map { cachedBusinessMapper.reverseMap(it) }
     }
 
 

@@ -1,13 +1,11 @@
 package com.cubaback.unete.presentation.ui.activity
 
-import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cubaback.unete.R
 import com.labters.lottiealertdialoglibrary.ClickListener
 import com.labters.lottiealertdialoglibrary.DialogTypes
 import com.labters.lottiealertdialoglibrary.LottieAlertDialog
-import org.jetbrains.anko.allCaps
 
 open class BaseActivity : AppCompatActivity() {
 
@@ -42,7 +40,7 @@ open class BaseActivity : AppCompatActivity() {
                     })
                     .build()
             alertDialog.setCancelable(false)
-            alertDialog.getButton(Dialog.BUTTON_POSITIVE).allCaps = false
+           // alertDialog.getButton(Dialog.BUTTON_POSITIVE).allCaps = false
             alertDialog.show()
         }
     }

@@ -1,12 +1,15 @@
 package com.cubaback.unete.cache.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.cubaback.unete.cache.db.constans.DatabaseConstants
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+import io.realm.annotations.RealmClass
+import java.util.*
 
-@Entity(tableName = DatabaseConstants.BUSINESS_ACCOUNT_TABLE)
-data class CachedBusinessAccount(@PrimaryKey
-                                 val id : Long?,
-                                 val accountNumber : String?,
-                                 val defaultPercent : Int?,
-                                 val dependenceId : Long?)
+@RealmClass
+open  class CachedBusinessAccount(@PrimaryKey
+                                 var id : Long? = null,
+                                 var accountNumber : String? = null,
+                                 var defaultPercent : Int? = null,
+                                 var dependenceId : Long? = null,
+                                 var createdAt : Date? = null,
+                                 var updatedAt : Date? = null) : RealmObject()

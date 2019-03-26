@@ -1,6 +1,9 @@
 package com.cubaback.unete.remote.model
 
-data class TransactionModel(val id : Long?, val clientAccountId : Long?,
-                            val businessAccountId : Long?,
-                            val createdAt : String?,
-                            val updatedAt : String?)
+import com.google.gson.annotations.SerializedName
+
+data class TransactionModel(val id : Long?,
+                            @SerializedName("client_account") val clientAccountId : Long?,
+                            @SerializedName("business_account") val businessAccountId : Long?,
+                            @SerializedName("created_at") val createdAt : String?,
+                            @SerializedName("updated_at") val updatedAt : String?)

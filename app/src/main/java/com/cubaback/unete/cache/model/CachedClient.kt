@@ -1,15 +1,15 @@
 package com.cubaback.unete.cache.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.cubaback.unete.cache.db.constans.DatabaseConstants
-import com.cubaback.unete.cache.model.converter.DateConverter
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+import io.realm.annotations.RealmClass
 import java.util.*
 
-@Entity(tableName = DatabaseConstants.CLIENT_TABLE)
-data class CachedClient (@PrimaryKey val id : Long?,
-                         val phone : String?,
-                         @TypeConverters(DateConverter::class) val birthDate : Date?,
-                         @TypeConverters(DateConverter::class) val createdAt : Date?,
-                         @TypeConverters(DateConverter::class) val updatedAt : Date?)
+@RealmClass
+open  class CachedClient (@PrimaryKey var id : Long? = null,
+                         var phone : String?= null,
+                         var birthDate : Date?= null,
+                         var createdAt : Date?= null,
+                         var updatedAt : Date?= null,
+                         var user : CachedUser? = null,
+                         var account: CachedClientAccount? = null) : RealmObject()

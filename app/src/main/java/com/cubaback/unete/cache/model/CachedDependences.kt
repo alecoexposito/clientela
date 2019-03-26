@@ -1,10 +1,16 @@
 package com.cubaback.unete.cache.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.cubaback.unete.cache.db.constans.DatabaseConstants
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+import io.realm.annotations.RealmClass
+import java.util.*
 
-@Entity(tableName = DatabaseConstants.DEPENDENCE_TABLE)
-data class CachedDependences(@PrimaryKey val id : Long?, val name : String?,
-                             val description : String?, val main : Boolean? = false,
-                             val businessId : Long?)
+@RealmClass
+open  class CachedDependences(@PrimaryKey var id : Long? = null,
+                             var name : String? = null,
+                             var description : String? = null,
+                             var main : Boolean? = false,
+                             var businessId : Long? = null,
+                             var createdAt : Date? = null,
+                             var updatedAt : Date? = null,
+                             var account: CachedBusinessAccount? = null) : RealmObject()

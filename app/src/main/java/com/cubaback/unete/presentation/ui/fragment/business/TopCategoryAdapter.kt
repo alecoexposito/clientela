@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cubaback.unete.R
-import com.cubaback.unete.data.model.CategoryView
+import com.cubaback.unete.presentation.model.CategoryView
 import kotlinx.android.synthetic.main.item_top_category.view.*
 
 class TopCategoryAdapter(private val mListener : BusinessFragment.BusinessFragmentCallback,

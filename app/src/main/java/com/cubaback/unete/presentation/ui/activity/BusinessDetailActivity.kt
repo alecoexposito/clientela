@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.cubaback.unete.R
@@ -58,11 +59,13 @@ class BusinessDetailActivity : BaseActivity() {
     private fun setupScreenForBusiness(data: BusinessView?) {
         val glideOptions = RequestOptions()
         glideOptions.placeholder(R.drawable.s1)
+
         glideOptions.error(R.drawable.s1)
 
         data?.let {
             Glide.with(this)
                     .load(data.image)
+                    .transition(GenericTransitionOptions.with(R.anim.alpha_anim))
                     .apply(glideOptions)
                     .into(ivBusiness)
 

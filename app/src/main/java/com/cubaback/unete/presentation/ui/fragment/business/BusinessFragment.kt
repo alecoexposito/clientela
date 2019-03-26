@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cubaback.unete.R
 import com.cubaback.unete.presentation.model.BusinessView
-import com.cubaback.unete.data.model.CategoryView
+import com.cubaback.unete.presentation.model.CategoryView
 import com.cubaback.unete.presentation.data.ResourceState
 import com.cubaback.unete.presentation.ui.fragment.BaseFragment
 import com.cubaback.unete.presentation.view_model.BusinessViewModel

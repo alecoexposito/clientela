@@ -1,23 +1,23 @@
 package com.cubaback.unete.remote.model.mapper
 
-import com.cubaback.unete.remote.model.DependencesModel
 import com.cubaback.unete.data.model.EntityDependences
 import com.cubaback.unete.mapper.Mapper
+import com.cubaback.unete.remote.model.DependencesModel
 
-open class ModelDependenceMapper() : Mapper<DependencesModel, EntityDependences> {
+open class ModelDependenceMapper(private val modelBusinessAccountMapper: ModelBusinessAccountMapper) : Mapper<DependencesModel, EntityDependences>() {
     override fun map(type: DependencesModel): EntityDependences {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return EntityDependences(type.id, type.name, type.description, type.main == 0,  type.businessId, type.createdAt, type.updatedAt,
+                type.businessAccount?.let { modelBusinessAccountMapper.map(it) })
+
     }
 
     override fun reverseMap(type: EntityDependences): DependencesModel {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        var main = 1
+        type.main?.let {
+             main = if(it) 1 else 0
+        }
+        return DependencesModel(type.id, type.name, type.description, main, type.createdAt, type.updatedAt, type.businessId,
+                type.account?.let { modelBusinessAccountMapper.reverseMap(it) })
     }
 
-    //    override fun map(type: DependencesModel): DependencesBo {
-//        return DependencesBo(type.id, type.name, type.description, type.main, type.businessId)
-//    }
-//
-//    override fun reverseMap(type: DependencesBo): DependencesModel {
-//       return  EntityDependences(type.id, type.name, type.description, type.main, type.businessId)
-//    }
 }

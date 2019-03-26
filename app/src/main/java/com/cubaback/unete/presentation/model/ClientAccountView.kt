@@ -1,4 +1,9 @@
-package com.cubaback.unete.data.model
+package com.cubaback.unete.presentation.model
 
-data class ClientAccountView(val id: Long?, val accountNumber :  String?,
-                             val clientId: Long?)
+import java.util.*
+
+data class ClientAccountView(val id : Long?,
+                             val accountNumber : String?,
+                             val clientId : Long?,
+                             val createdAt : Date?,
+                             val updatedAt : Date?)

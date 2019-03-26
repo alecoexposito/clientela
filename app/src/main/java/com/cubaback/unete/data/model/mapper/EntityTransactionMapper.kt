@@ -5,7 +5,7 @@ import com.cubaback.unete.domain.model.TransactionBo
 import com.cubaback.unete.mapper.Mapper
 import java.util.*
 
-open class EntityTransactionMapper() : Mapper<EntityTransaction, TransactionBo> {
+open class EntityTransactionMapper() : Mapper<EntityTransaction, TransactionBo>() {
     //constructor()
 
     override fun map(type: EntityTransaction): TransactionBo {

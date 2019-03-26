@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/appCompatImageView"
+            android:id="@+id/ivBusiness"
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_margin="2dp"
@@ -51,7 +51,7 @@
             android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/appCompatImageView"
+            app:layout_constraintStart_toEndOf="@+id/ivBusiness"
             app:layout_constraintTop_toBottomOf="@+id/tvBusinessTitle" />
 
 

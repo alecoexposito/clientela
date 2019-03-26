@@ -1,4 +1,4 @@
-package com.cubaback.unete.data.model
+package com.cubaback.unete.presentation.model
 
 data class ProdServsView(val id : Long?, val name : String?,
                          val description : String?,

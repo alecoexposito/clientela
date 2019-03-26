@@ -1,11 +1,12 @@
 package com.cubaback.unete.cache.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.cubaback.unete.cache.db.constans.DatabaseConstants
+import io.realm.RealmObject
+import io.realm.annotations.PrimaryKey
+import io.realm.annotations.RealmClass
 
-@Entity(tableName = DatabaseConstants.TRANSACTION_TABLE)
-data class CachedTransaction(@PrimaryKey val id : Long?, val clientAccountId : Long?,
-                             val businessAccountId : Long?,
-                             val createdAt : String?,
-                             val updatedAt : String?)
+@RealmClass
+open  class CachedTransaction(@PrimaryKey var id : Long? = null,
+                             var clientAccountId : Long? = null,
+                             var businessAccountId : Long? = null,
+                             var createdAt : String? = null,
+                             var updatedAt : String?= null) : RealmObject()

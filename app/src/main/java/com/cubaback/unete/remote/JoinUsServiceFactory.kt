@@ -1,6 +1,5 @@
-package org.buffer.android.boilerplate.remote
+package com.cubaback.unete.remote
 
-import com.cubaback.unete.remote.IJoinUsService
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -12,21 +11,21 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 /**
- * Provide "make" methods to create instances of [BufferooService]
+ * Provide "make" methods to create instances of [JoinUsService]
  * and its related dependencies, such as OkHttpClient, Gson, etc.
  */
 object JoinUsServiceFactory {
 
-   // val API_URL = "http://localhost:8003"
-    val API_URL = "http://10.0.2.2:5900/unete/public/"
+    val API_URL = "http://10.0.2.2:8003/"
+    //val API_URL = "http://10.0.2.2:5900/unete/public/"
 
-    fun makeBuffeoorService(isDebug: Boolean): IJoinUsService {
+    fun makeJoinUsService(isDebug: Boolean): IJoinUsService {
         val okHttpClient = makeOkHttpClient(
                 makeLoggingInterceptor(isDebug))
-        return makeBufferooService(okHttpClient, makeGson())
+        return makeJoinUsService(okHttpClient, makeGson())
     }
 
-    private fun makeBufferooService(okHttpClient: OkHttpClient, gson: Gson): IJoinUsService {
+    private fun makeJoinUsService(okHttpClient: OkHttpClient, gson: Gson): IJoinUsService {
         val retrofit = Retrofit.Builder()
                 .baseUrl(API_URL)
                 .client(okHttpClient)

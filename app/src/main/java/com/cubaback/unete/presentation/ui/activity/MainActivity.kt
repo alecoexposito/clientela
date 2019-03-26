@@ -2,7 +2,7 @@ package com.cubaback.unete.presentation.ui.activity
 
 import android.os.Bundle
 import com.cubaback.unete.R
-import com.cubaback.unete.data.model.CategoryView
+import com.cubaback.unete.presentation.model.CategoryView
 import com.cubaback.unete.presentation.model.BusinessView
 import com.cubaback.unete.presentation.ui.fragment.business.BusinessFragment
 import com.cubaback.unete.presentation.ui.fragment.business.SubCategoryFragment

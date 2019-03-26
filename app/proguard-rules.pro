@@ -29,3 +29,12 @@
 
 # for DexGuard only
 -keepresourcexmlelements manifest/application/meta-data@value=GlideModule
+
+-keep class com.vicpin.krealmextensions.**
+-keepnames public class * extends io.realm.RealmObject
+-keepnames public class * extends io.realm.RealmModel
+-keep class io.realm.annotations.RealmModule
+-keep @io.realm.annotations.RealmModule class *
+-keep class io.realm.internal.Keep
+-keep @io.realm.internal.Keep class *
+-dontwarn io.realm.**
