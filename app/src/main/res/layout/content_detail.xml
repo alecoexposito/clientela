@@ -17,8 +17,9 @@
             android:id="@+id/tvTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"/>
+            android:layout_gravity="left"
+            android:layout_marginLeft="8dp"
+            android:gravity="left"/>
 
         <LinearLayout
             android:id="@+id/container"

@@ -5,6 +5,8 @@ import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.cubaback.unete.R
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.view_common_detail.view.*
 import org.jetbrains.anko.dip
 import org.jetbrains.anko.textView
@@ -49,10 +51,21 @@ class CommonDetailView : LinearLayout {
            ItemsType.ENUMERATE_LIST -> listEnumetaredItems()
            ItemsType.NO_ENUMERATE_LIST -> listNoEnumerateItems()
            ItemsType.TEXT -> showNormalText()
+           ItemsType.TAGS -> showTags()
        }
         tvTitle.text = this.title
     }
 
+    private fun showTags(){
+        val chipGroup = ChipGroup(context)
+
+        items.forEach {
+            val chip = Chip(context)
+            chip.text = it
+            chipGroup.addView(chip)
+        }
+         itemsContainer.addView(chipGroup)
+    }
 
 
     private fun showNormalText() {

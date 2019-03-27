@@ -1,6 +1,7 @@
 package com.cubaback.unete.presentation.utils
 
 import java.text.SimpleDateFormat
+import java.time.LocalDate
 import java.util.*
 
 open class Utils{
@@ -28,6 +29,17 @@ open class Utils{
                 return dateFormat.parse(date)
             }
           return null
+        }
+
+
+        fun timeConversion(s: String): String {
+            val date =  SimpleDateFormat("hh:mm:ssa", Locale.getDefault()).parse(s)
+            return  SimpleDateFormat("HH:mm:ss", Locale.getDefault()).format(date)
+        }
+
+        fun twentyFourToTuelveHour(date : String): Date{
+            val newDate =  SimpleDateFormat("hh:mm:ss", Locale.getDefault()).parse(date)
+            return  SimpleDateFormat("HH:mm:ss", Locale.getDefault()).parse(date)
         }
 
         fun formatStrDateTime(date : String?) : Date? {

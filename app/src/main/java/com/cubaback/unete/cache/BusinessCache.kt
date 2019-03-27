@@ -31,19 +31,18 @@ class BusinessCache(
 
     override fun getBusinesses(): Flowable<List<EntityBusiness>> {
        return Flowable.defer {
-            CachedBusiness().queryAllAsFlowable()
-       }.map {
-           it.map { cachedBusinessMapper.reverseMap(it) }
+            Flowable.just(CachedBusiness().queryAll())
+            .map {
+                cachedBusinessMapper.reverseMap(it)
+            }
        }
     }
 
     override fun getBusinessesByCategory(catID: Long): Flowable<List<EntityBusiness>> {
         return Flowable.defer {
-            CachedBusiness().queryAsFlowable {
-                this.equalTo("category.id", catID)
-            }
-        }.map {
-            it.map { cachedBusinessMapper.reverseMap(it) }
+            Flowable.just(CachedBusiness().query {
+                             this.equalTo("categories.id", catID)})
+                    .map {  cachedBusinessMapper.reverseMap(it) }
         }
     }
 

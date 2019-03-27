@@ -54,6 +54,7 @@ class BusinessAdapter(
             val item = mValues?.get(position)
             holder.mIdView.text = item?.name
             holder.mContentView.text = item?.description
+            holder.mCategory.text = item?.categories?.first()?.name
 
             Glide.with(context)
                     .load(item?.image)
@@ -73,7 +74,7 @@ class BusinessAdapter(
     }
 
     fun setAnimation(viewToAnimate: View, position: Int) {
-        val animation = AnimationUtils.loadAnimation(context, R.anim.zoom_in)
+        val animation = AnimationUtils.loadAnimation(context, R.anim.abc_grow_fade_in_from_bottom)
         viewToAnimate.startAnimation(animation)
         //lastPosition = position
     }
@@ -88,6 +89,7 @@ class BusinessAdapter(
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
         val mIdView: TextView = mView.tvBusinessTitle
         val mContentView: TextView = mView.tvContent
+        val mCategory: TextView = mView.tvCategory
         val ivBusiness: AppCompatImageView = mView.ivBusiness
 
         override fun toString(): String {

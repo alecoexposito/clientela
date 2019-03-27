@@ -30,10 +30,13 @@ open class CategoryCache(private val cachedCategoryMapper: CachedCategoryMapper,
 
     override fun getCategories(): Flowable<List<EntityCategory>> {
         return Flowable.defer {
-             CachedCategory().queryAllAsFlowable()
-        }.map {
-            it.map { cachedCategoryMapper.reverseMap(it) }
+             Flowable.just(CachedCategory().queryAll())
+                     .map {
+                         cachedCategoryMapper.reverseMap(it)
+                     }
         }
+
+
     }
 
     override fun isCached(): Single<Boolean> {
@@ -63,11 +66,9 @@ open class CategoryCache(private val cachedCategoryMapper: CachedCategoryMapper,
 
     override fun getCategoriesByParentId(parentId: Long): Flowable<List<EntityCategory>> {
         return Flowable.defer {
-           CachedCategory().queryAsFlowable {
+           Flowable.just(CachedCategory().query {
                 this.equalTo("parentId", parentId)
-            }
-        }.map {
-            it.map { cachedCategoryMapper.reverseMap(it) }
-        }
+            })
+        } .map { cachedCategoryMapper.reverseMap(it) }
     }
 }

@@ -46,7 +46,7 @@ class TopCategoryAdapter(private val mListener : BusinessFragment.BusinessFragme
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         mCategories?.apply {
             val cat = this[position]
-            holder.tvCatTitle.text = cat.name
+            holder.btnCatTitle.text = cat.name
             with(holder.mView){
                 tag = cat
                 setOnClickListener (mOnClickListener )
@@ -55,6 +55,6 @@ class TopCategoryAdapter(private val mListener : BusinessFragment.BusinessFragme
     }
 
     inner class CategoryViewHolder (val mView : View) : RecyclerView.ViewHolder(mView){
-        val tvCatTitle : TextView = mView.tvCatTitle
+        val btnCatTitle : TextView = mView.btnCatTitle
     }
 }

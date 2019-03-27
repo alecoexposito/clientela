@@ -55,7 +55,7 @@ class BusinessDetailActivity : BaseActivity() {
         }
     }
 
-    @SuppressLint("CheckResult")
+    @SuppressLint("CheckResult", "SetTextI18n")
     private fun setupScreenForBusiness(data: BusinessView?) {
         val glideOptions = RequestOptions()
         glideOptions.placeholder(R.drawable.s1)
@@ -69,16 +69,36 @@ class BusinessDetailActivity : BaseActivity() {
                     .apply(glideOptions)
                     .into(ivBusiness)
 
+            container.removeAllViews()
+
             // Add Description...
-            val commonDetailCustomView = CommonDetailView(context = this,
+            val descriptionView = CommonDetailView(context = this,
                     title = getString(R.string.description),
                     items = listOf(it.description!!),
                     itemsType = ItemsType.TEXT)
 
-            container.removeAllViews()
-            container.addView(commonDetailCustomView)
 
-            tvTitle.text = it.name
+            container.addView(descriptionView)
+
+            //Add dependences
+            val dependenceView = CommonDetailView(this,
+                    getString(R.string.dependences),
+                    listOf("${getString(R.string.name)}: ${it.dependence!!.name}", "${getString(R.string.description)}: ${it.dependence!!.description}" ),
+                    ItemsType.NO_ENUMERATE_LIST)
+
+            container.addView(dependenceView)
+
+            val categoriesName = it.categories!!.map {it1 -> it1.name!! }
+
+            val categoriesViewTag = CommonDetailView(this,
+                        getString(R.string.categories_related),
+                        categoriesName,
+                        ItemsType.TAGS)
+
+            container.addView(categoriesViewTag)
+
+
+            tvTitle.text = "${it.categories?.first()?.name}: ${it.name}"
         }
 
         dismissLoading()

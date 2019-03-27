@@ -29,6 +29,10 @@
 
     <string name="you_can_register">Si aun no eres miembro de Unete: </string>
     <string name="description">Descripción</string>
+    <string name="dependences">Cedes</string>
+    <string name="advertisement">Cedes</string>
+    <string name="categories_related">Categorias relacionadas</string>
+    <string name="not_such_element">No se encontraron %1$s</string>
 
 
     <string name="scan_qr">Escanear QR</string>
