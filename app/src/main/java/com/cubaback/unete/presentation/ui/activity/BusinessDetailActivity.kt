@@ -2,17 +2,20 @@ package com.cubaback.unete.presentation.ui.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.cubaback.unete.R
 import com.cubaback.unete.presentation.data.ResourceState
-import com.cubaback.unete.presentation.model.BusinessView
-import com.cubaback.unete.presentation.ui.custom.CommonDetailView
+import com.cubaback.unete.presentation.model.BusinessDataView
+import com.cubaback.unete.presentation.ui.custom.detail.BaseDetailView
 import com.cubaback.unete.presentation.ui.custom.ItemsType
+import com.cubaback.unete.presentation.ui.custom.detail.DependencesView
+import com.cubaback.unete.presentation.ui.custom.detail.DescriptionView
+import com.cubaback.unete.presentation.ui.custom.detail.RelatedCategoriesView
 import com.cubaback.unete.presentation.view_model.BusinessViewModel
+import com.cubaback.unete.presentation.view_model.custom_views.TextBlockViewModel
 import kotlinx.android.synthetic.main.activity_business_detail.*
 import kotlinx.android.synthetic.main.content_detail.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -47,7 +50,7 @@ class BusinessDetailActivity : BaseActivity() {
         })
     }
 
-    private fun handlerBusinessResource(status: ResourceState, data: BusinessView?, message: String?) {
+    private fun handlerBusinessResource(status: ResourceState, data: BusinessDataView?, message: String?) {
         when(status){
             ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForBusiness(data)
@@ -56,7 +59,7 @@ class BusinessDetailActivity : BaseActivity() {
     }
 
     @SuppressLint("CheckResult", "SetTextI18n")
-    private fun setupScreenForBusiness(data: BusinessView?) {
+    private fun setupScreenForBusiness(data: BusinessDataView?) {
         val glideOptions = RequestOptions()
         glideOptions.placeholder(R.drawable.s1)
 
@@ -72,33 +75,22 @@ class BusinessDetailActivity : BaseActivity() {
             container.removeAllViews()
 
             // Add Description...
-            val descriptionView = CommonDetailView(context = this,
-                    title = getString(R.string.description),
-                    items = listOf(it.description!!),
-                    itemsType = ItemsType.TEXT)
-
-
+            val descriptionView =  DescriptionView(this, getString(R.string.description), it.description!!)
             container.addView(descriptionView)
 
             //Add dependences
-            val dependenceView = CommonDetailView(this,
-                    getString(R.string.dependences),
-                    listOf("${getString(R.string.name)}: ${it.dependence!!.name}", "${getString(R.string.description)}: ${it.dependence!!.description}" ),
-                    ItemsType.NO_ENUMERATE_LIST)
+            it.dependence?.let {v->
+                val dependencesView =  DependencesView(this, getString(R.string.dependences), v)
+                container.addView(dependencesView)
+            }
 
-            container.addView(dependenceView)
+            // Add categories
+            it.categories?.let {v->
+                val categoryView = RelatedCategoriesView(this, getString(R.string.categories_related),  v)
+                container.addView(categoryView)
+            }
 
-            val categoriesName = it.categories!!.map {it1 -> it1.name!! }
-
-            val categoriesViewTag = CommonDetailView(this,
-                        getString(R.string.categories_related),
-                        categoriesName,
-                        ItemsType.TAGS)
-
-            container.addView(categoriesViewTag)
-
-
-            tvTitle.text = "${it.categories?.first()?.name}: ${it.name}"
+            tvTitle.textBlockViewModel = TextBlockViewModel(it.categories?.first()?.name!!, it.name!!)
         }
 
         dismissLoading()

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cubaback.unete.R
 import com.cubaback.unete.presentation.data.ResourceState
-import com.cubaback.unete.presentation.model.AdvertisementView
+import com.cubaback.unete.presentation.model.AdvertisementDataView
 import com.cubaback.unete.presentation.ui.fragment.BaseFragment
 import com.cubaback.unete.presentation.view_model.AdvertisementViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -65,7 +65,7 @@ class AdvertisementFragment : BaseFragment() {
         setupUi()
     }
 
-    private fun handlerAdvertisements(status: ResourceState, data: List<AdvertisementView>?, message: String?) {
+    private fun handlerAdvertisements(status: ResourceState, data: List<AdvertisementDataView>?, message: String?) {
         when(status){
             ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupForAdvertisementSuccessLoaded(data)
@@ -73,7 +73,7 @@ class AdvertisementFragment : BaseFragment() {
         }
     }
 
-    private fun setupForAdvertisementSuccessLoaded(data: List<AdvertisementView>?) {
+    private fun setupForAdvertisementSuccessLoaded(data: List<AdvertisementDataView>?) {
         advertisementAdapter?.let {
             if(data != null){
                 it.mAdvertisements = data
@@ -106,7 +106,7 @@ class AdvertisementFragment : BaseFragment() {
 
 
     interface OnListFragmentInteractionListener {
-        fun onListFragmentInteraction(item: AdvertisementView?)
+        fun onListFragmentInteraction(item: AdvertisementDataView?)
     }
 
     companion object {

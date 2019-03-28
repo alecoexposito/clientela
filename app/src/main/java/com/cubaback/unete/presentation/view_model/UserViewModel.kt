@@ -7,7 +7,7 @@ import com.cubaback.unete.R
 import com.cubaback.unete.domain.interactor.user.UCGetCurrentUser
 import com.cubaback.unete.domain.interactor.user.UCGetUserByEmail
 import com.cubaback.unete.domain.model.UserBo
-import com.cubaback.unete.presentation.model.UserView
+import com.cubaback.unete.presentation.model.UserDataView
 import com.cubaback.unete.domain.interactor.user.UCLogin
 import com.cubaback.unete.domain.interactor.user.UCRegister
 import com.cubaback.unete.presentation.data.Resource
@@ -22,17 +22,17 @@ class UserViewModel(private val loginUC: UCLogin,
                     val userViewMapper: UserViewMapper) : ViewModel() {
 
 
-    val registeredAndLoguedUser: MutableLiveData<Resource<UserView>> = MutableLiveData()
-    val savedUser: MutableLiveData<Resource<UserView>> = MutableLiveData()
+    val registeredAndLoguedUser: MutableLiveData<Resource<UserDataView>> = MutableLiveData()
+    val savedUser: MutableLiveData<Resource<UserDataView>> = MutableLiveData()
     val savedToken: MutableLiveData<String> = MutableLiveData()
 
 
-    fun loginUser(userView: UserView){
+    fun loginUser(userView: UserDataView){
         registeredAndLoguedUser.postValue(Resource(ResourceState.LOADING, null, null))
         return loginUC.execute(LoginAndRegisterObserver(), userViewMapper.reverseMap(userView))
     }
 
-    fun registerUser(context: Context, userView: UserView){
+    fun registerUser(context: Context, userView: UserDataView){
         val msg = validateRegisterInput(context, userView)
         if(msg.isNullOrEmpty()){
             registeredAndLoguedUser.postValue(Resource(ResourceState.LOADING, null, null))
@@ -46,7 +46,7 @@ class UserViewModel(private val loginUC: UCLogin,
         savedToken.postValue(getCurrentUserUC.getCurrentToken())
     }
 
-    private fun validateRegisterInput(context : Context, userView: UserView) : String{
+    private fun validateRegisterInput(context : Context, userView: UserDataView) : String{
         var message : String = ""
 
         if(!userView.isCompleted!!){

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.cubaback.unete.R
-import com.cubaback.unete.presentation.model.CategoryView
+import com.cubaback.unete.presentation.model.CategoryDataView
 
 class SubCategoryFragment : BusinessFragment() {
     private val EXTRA_CATEGORY_PARENT_ID = "com.cubaback.joinus.category_parent_id"
@@ -28,7 +28,7 @@ class SubCategoryFragment : BusinessFragment() {
         super.setupUi(view)
     }
 
-    fun onCategoryClick(categoryView: CategoryView){
+    fun onCategoryClick(categoryView: CategoryDataView){
         businessViewModel.getBusinesses(categoryView.id)
     }
 
@@ -36,7 +36,7 @@ class SubCategoryFragment : BusinessFragment() {
         initSubCategoryDatas()
     }
 
-    override fun setupScreenForLoadedCategories(data: List<CategoryView>?) {
+    override fun setupScreenForLoadedCategories(data: List<CategoryDataView>?) {
         categoryAdapter?.let {
             if(data != null){
                 it.mCategories = data

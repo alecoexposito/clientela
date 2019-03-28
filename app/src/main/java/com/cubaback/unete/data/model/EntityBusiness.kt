@@ -4,5 +4,5 @@ package com.cubaback.unete.data.model
                          val name: String?,
                          val description: String?,
                          val image : String?,
-                         val dependence : EntityDependences? = null,
+                         val dependence : List<EntityDependences>? = null,
                          val categories : List<EntityCategory> ? = null)

@@ -6,14 +6,14 @@ import com.cubaback.unete.domain.interactor.advertisement.UCGetAdvertisements
 import com.cubaback.unete.domain.model.AdvertisementBo
 import com.cubaback.unete.presentation.data.Resource
 import com.cubaback.unete.presentation.data.ResourceState
-import com.cubaback.unete.presentation.model.AdvertisementView
+import com.cubaback.unete.presentation.model.AdvertisementDataView
 import com.cubaback.unete.presentation.model.mapper.AdvertisementViewMapper
 import io.reactivex.subscribers.DisposableSubscriber
 
 class AdvertisementViewModel(private val getAdvertisementsUC: UCGetAdvertisements,
                              val advertisementViewMapper: AdvertisementViewMapper) : ViewModel() {
 
-    val advertisementLiveData : MutableLiveData<Resource<List<AdvertisementView>>> = MutableLiveData()
+    val advertisementLiveData : MutableLiveData<Resource<List<AdvertisementDataView>>> = MutableLiveData()
 
     fun getAdvertisement(){
         advertisementLiveData.postValue(Resource(ResourceState.LOADING, null, null))

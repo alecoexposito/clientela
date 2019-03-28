@@ -10,5 +10,5 @@ open class CachedBusiness(@PrimaryKey var id : Long? = null,
                      var name: String? = null,
                      var description: String? = null,
                      var image : String? = null,
-                     var dependence : CachedDependences? = null,
+                     var dependence : RealmList<CachedDependences>? = null,
                      var categories : RealmList<CachedCategory>? = null) : RealmObject()

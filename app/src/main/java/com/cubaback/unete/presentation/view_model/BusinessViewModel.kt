@@ -3,7 +3,7 @@ package com.cubaback.unete.presentation.view_model
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cubaback.unete.domain.interactor.business.UCGetBusinessById
-import com.cubaback.unete.presentation.model.BusinessView
+import com.cubaback.unete.presentation.model.BusinessDataView
 import com.cubaback.unete.domain.interactor.business.UCGetBusinesses
 import com.cubaback.unete.domain.model.BusinessBo
 import com.cubaback.unete.presentation.data.Resource
@@ -15,9 +15,9 @@ class BusinessViewModel(private val getBusinessUC: UCGetBusinesses,
                         private val ucGetBusinessById: UCGetBusinessById,
                         private val businessViewMapper: BusinessViewMapper) : ViewModel() {
 
-    val businessLiveData : MutableLiveData<Resource<List<BusinessView>>> = MutableLiveData()
+    val businessLiveData : MutableLiveData<Resource<List<BusinessDataView>>> = MutableLiveData()
 
-    val selectedBusiness : MutableLiveData<Resource<BusinessView>> = MutableLiveData()
+    val selectedBusiness : MutableLiveData<Resource<BusinessDataView>> = MutableLiveData()
 
 
     fun getBusinesses(catId : Long? = null){

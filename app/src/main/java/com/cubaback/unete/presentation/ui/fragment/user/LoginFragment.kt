@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.cubaback.unete.R
-import com.cubaback.unete.presentation.model.UserView
+import com.cubaback.unete.presentation.model.UserDataView
 import com.cubaback.unete.presentation.data.ResourceState
 import com.cubaback.unete.presentation.ui.fragment.BaseFragment
 import com.cubaback.unete.presentation.view_model.UserViewModel
@@ -44,7 +44,7 @@ class LoginFragment : BaseFragment() {
         })
     }
 
-    private fun handlerLogin(state : ResourceState, data : UserView?, message : String?){
+    private fun handlerLogin(state : ResourceState, data : UserDataView?, message : String?){
         when (state) {
             ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForLoginSuccess(data)
@@ -53,7 +53,7 @@ class LoginFragment : BaseFragment() {
     }
 
 
-    private fun setupScreenForLoginSuccess(data: UserView?) {
+    private fun setupScreenForLoginSuccess(data: UserDataView?) {
         listener?.let {
             it.onLoginSuccess()
             dismissLoading()
@@ -64,7 +64,7 @@ class LoginFragment : BaseFragment() {
 
     private fun setupUi(){
         btnLogin.setOnClickListener{
-            loginViewModel.loginUser(UserView(0, email = etEmail.text.toString(), password = etPassword.text.toString()))
+            loginViewModel.loginUser(UserDataView(0, email = etEmail.text.toString(), password = etPassword.text.toString()))
         }
 
         btnRegister.setOnClickListener {

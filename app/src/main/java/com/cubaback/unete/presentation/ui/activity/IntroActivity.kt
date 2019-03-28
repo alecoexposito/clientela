@@ -3,7 +3,7 @@ package com.cubaback.unete.presentation.ui.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.cubaback.unete.R
-import com.cubaback.unete.presentation.model.UserView
+import com.cubaback.unete.presentation.model.UserDataView
 import com.cubaback.unete.presentation.ui.fragment.user.LoginFragment
 import com.cubaback.unete.presentation.ui.fragment.user.FirstStepRegisterFragment
 import com.cubaback.unete.presentation.ui.fragment.user.SecondStepRegisterFragment
@@ -20,7 +20,7 @@ class IntroActivity : AppCompatActivity(), SecondStepRegisterFragment.RegisterTw
             openMainActivity()
         }
 
-        override fun registerImcompleted(userView: UserView) {
+        override fun registerImcompleted(userView: UserDataView) {
            userView.email?.let { openRegisterStepTwoFragment(it) }
         }
     }
@@ -70,7 +70,7 @@ class IntroActivity : AppCompatActivity(), SecondStepRegisterFragment.RegisterTw
         finish()
     }
 
-    override fun onRegisterCompleted(userView: UserView) {
+    override fun onRegisterCompleted(userView: UserDataView) {
        openMainActivity()
     }
 }

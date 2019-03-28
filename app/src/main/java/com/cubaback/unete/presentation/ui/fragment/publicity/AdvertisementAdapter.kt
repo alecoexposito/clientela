@@ -11,7 +11,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.cubaback.unete.R
-import com.cubaback.unete.presentation.model.AdvertisementView
+import com.cubaback.unete.presentation.model.AdvertisementDataView
 import com.cubaback.unete.presentation.ui.custom.BaseHolder
 import com.cubaback.unete.presentation.ui.custom.EmptyViewHolder
 
@@ -30,7 +30,7 @@ class AdvertisementAdapter(private val context : Context, private val mListener:
 
 
 
-    var mAdvertisements: List<AdvertisementView>? = null
+    var mAdvertisements: List<AdvertisementDataView>? = null
         set(value){
             field = value
             notifyDataSetChanged()
@@ -39,7 +39,7 @@ class AdvertisementAdapter(private val context : Context, private val mListener:
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as AdvertisementView
+            val item = v.tag as AdvertisementDataView
             mListener?.onListFragmentInteraction(item)
         }
     }

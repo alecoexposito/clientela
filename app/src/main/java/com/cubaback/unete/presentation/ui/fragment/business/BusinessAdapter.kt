@@ -1,6 +1,5 @@
 package com.cubaback.unete.presentation.ui.fragment.business
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +12,7 @@ import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.cubaback.unete.R
-import com.cubaback.unete.presentation.model.BusinessView
-import kotlinx.android.synthetic.main.activity_business_detail.*
+import com.cubaback.unete.presentation.model.BusinessDataView
 import kotlinx.android.synthetic.main.fragment_business.view.*
 
 
@@ -26,7 +24,7 @@ class BusinessAdapter(
     private val mOnClickListener: View.OnClickListener
     val glideOptions = RequestOptions()
 
-    var mValues: List<BusinessView>? = null
+    var mValues: List<BusinessDataView>? = null
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -38,7 +36,7 @@ class BusinessAdapter(
 
 
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as BusinessView
+            val item = v.tag as BusinessDataView
             mListener?.onBusinessClick(item)
         }
     }

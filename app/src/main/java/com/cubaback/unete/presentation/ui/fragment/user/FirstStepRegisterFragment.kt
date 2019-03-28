@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.cubaback.unete.R
-import com.cubaback.unete.presentation.model.UserView
+import com.cubaback.unete.presentation.model.UserDataView
 import com.cubaback.unete.presentation.data.ResourceState
 import com.cubaback.unete.presentation.ui.fragment.BaseFragment
 import com.cubaback.unete.presentation.view_model.UserViewModel
@@ -42,7 +42,7 @@ class FirstStepRegisterFragment : BaseFragment() {
         setupUi()
     }
 
-    private fun handlerRegister(status: ResourceState, data: UserView?, message: String?) {
+    private fun handlerRegister(status: ResourceState, data: UserDataView?, message: String?) {
         when(status){
             ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForRegisterSucess(data)
@@ -50,7 +50,7 @@ class FirstStepRegisterFragment : BaseFragment() {
         }
     }
 
-    private fun setupScreenForRegisterSucess(data: UserView?) {
+    private fun setupScreenForRegisterSucess(data: UserDataView?) {
         listener?.let {
             data?.apply {
                 this.isCompleted?.let {it1->
@@ -78,7 +78,7 @@ class FirstStepRegisterFragment : BaseFragment() {
         val lastName = etLastName.text.toString()
         val email = etEmail.text.toString()
         val password = etPassword.text.toString()
-        activity?.let { userViewModel.registerUser(it, UserView(null, name, lastName, email, password)) }
+        activity?.let { userViewModel.registerUser(it, UserDataView(null, name, lastName, email, password)) }
     }
 
 
@@ -103,7 +103,7 @@ class FirstStepRegisterFragment : BaseFragment() {
 
     interface OnRegisterListener{
         fun registerSuccess()
-        fun registerImcompleted(userView: UserView)
+        fun registerImcompleted(userView: UserDataView)
     }
 
 

@@ -5,8 +5,11 @@
     app:cardCornerRadius="@dimen/abc_slice_grid_gutter"
     app:cardElevation="2dp"
     app:cardPreventCornerOverlap="true"
+    android:background="@color/yelow_50"
     app:cardUseCompatPadding="true"
-    android:layout_margin="8dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginTop="4dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
@@ -16,22 +19,25 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_arrow_drop_down"
+            android:drawableTint="@color/colorAccent"
             android:layout_gravity="center"
             android:textSize="16sp"
             android:textAllCaps="true"
             android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorAccent"
             android:textAlignment="center"
+            android:layout_marginBottom="8dp"
             android:gravity="center"/>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:background="@color/white_bg"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginLeft="64dp"
+            android:layout_marginRight="64dp"
              />
 
         <LinearLayout

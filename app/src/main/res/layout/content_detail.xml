@@ -13,13 +13,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.AppCompatTextView
+        <com.cubaback.unete.presentation.ui.custom.controls.TextBlockView
             android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_marginLeft="8dp"
-            android:gravity="left"/>
+            android:layout_gravity="start"
+            android:layout_marginStart="8dp"/>
+
 
         <LinearLayout
             android:id="@+id/container"

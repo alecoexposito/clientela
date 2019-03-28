@@ -6,8 +6,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cubaback.unete.R
-import com.cubaback.unete.presentation.model.BusinessView
-import com.cubaback.unete.presentation.model.CategoryView
+import com.cubaback.unete.presentation.model.BusinessDataView
+import com.cubaback.unete.presentation.model.CategoryDataView
 import com.cubaback.unete.presentation.data.ResourceState
 import com.cubaback.unete.presentation.ui.fragment.BaseFragment
 import com.cubaback.unete.presentation.view_model.BusinessViewModel
@@ -103,7 +103,7 @@ open class BusinessFragment : BaseFragment() {
         })
     }
 
-   private fun handlerBusinessResponse(state: ResourceState?, data : List<BusinessView>?, message : String?){
+   private fun handlerBusinessResponse(state: ResourceState?, data : List<BusinessDataView>?, message : String?){
         when(state){
             ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForLoadedBusinesses(data)
@@ -111,7 +111,7 @@ open class BusinessFragment : BaseFragment() {
         }
     }
 
-   private fun handlerCategoryResponse(state: ResourceState?, data : List<CategoryView>?, message : String?){
+   private fun handlerCategoryResponse(state: ResourceState?, data : List<CategoryDataView>?, message : String?){
         when(state){
             ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForLoadedCategories(data)
@@ -119,7 +119,7 @@ open class BusinessFragment : BaseFragment() {
         }
     }
 
-    open fun setupScreenForLoadedCategories(data: List<CategoryView>?) {
+    open fun setupScreenForLoadedCategories(data: List<CategoryDataView>?) {
         categoryAdapter?.let {
             if(data != null){
                 it.mCategories = data.filter { it.parentId == null }
@@ -127,7 +127,7 @@ open class BusinessFragment : BaseFragment() {
         }
     }
 
-    open fun setupScreenForLoadedBusinesses(data : List<BusinessView>?) {
+    open fun setupScreenForLoadedBusinesses(data : List<BusinessDataView>?) {
         businessAdapter?.let {
             if(data != null){
                 it.mValues = data
@@ -137,8 +137,8 @@ open class BusinessFragment : BaseFragment() {
     }
 
     interface BusinessFragmentCallback {
-        fun onBusinessClick(item : BusinessView)
-        fun onCategoryClick(item : CategoryView)
+        fun onBusinessClick(item : BusinessDataView)
+        fun onCategoryClick(item : CategoryDataView)
     }
 
     companion object {

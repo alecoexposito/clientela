@@ -4,5 +4,5 @@ data class BusinessModel(val id : Long?,
                          val name: String?,
                          val description: String?,
                          val image : String?,
-                         val dependence : DependencesModel?,
+                         val dependences : List<DependencesModel>?,
                          val categories : List<CategoryModel>?)

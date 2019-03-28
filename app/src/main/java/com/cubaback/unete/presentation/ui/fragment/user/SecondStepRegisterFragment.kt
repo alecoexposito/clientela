@@ -9,7 +9,7 @@ import android.widget.DatePicker
 import androidx.lifecycle.Observer
 import com.cubaback.unete.R
 import com.cubaback.unete.presentation.data.ResourceState
-import com.cubaback.unete.presentation.model.UserView
+import com.cubaback.unete.presentation.model.UserDataView
 import com.cubaback.unete.presentation.ui.dialog.DatePickerFragment
 import com.cubaback.unete.presentation.ui.fragment.BaseFragment
 import com.cubaback.unete.presentation.utils.Utils
@@ -63,7 +63,7 @@ class SecondStepRegisterFragment : BaseFragment(), AnkoLogger {
         })
     }
 
-    private fun handlerGetUserById(status: ResourceState, data: UserView?, message: String?) {
+    private fun handlerGetUserById(status: ResourceState, data: UserDataView?, message: String?) {
         when(status){
             ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForUser(data)
@@ -71,7 +71,7 @@ class SecondStepRegisterFragment : BaseFragment(), AnkoLogger {
         }
     }
 
-    private fun setupScreenForUser(data: UserView?) {
+    private fun setupScreenForUser(data: UserDataView?) {
         if (data != null) {
             listener?.onRegisterCompleted(data)
             dismissLoading()
@@ -114,7 +114,7 @@ class SecondStepRegisterFragment : BaseFragment(), AnkoLogger {
 
 
     interface RegisterTwoFragmentCallback {
-        fun onRegisterCompleted(userView: UserView)
+        fun onRegisterCompleted(userView: UserDataView)
     }
 
     companion object {

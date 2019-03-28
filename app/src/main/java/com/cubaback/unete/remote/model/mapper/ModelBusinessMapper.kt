@@ -10,7 +10,7 @@ open class ModelBusinessMapper(private val modelCategoryMapper: ModelCategoryMap
 
     override fun map(type: BusinessModel): EntityBusiness {
         return EntityBusiness(type.id, type.name, type.description, "${API_URL}uploads/business/${type.image}",
-                type.dependence?.let { modelDependenceMapper.map(it) },
+                type.dependences?.let { modelDependenceMapper.map(it) },
                 type.categories?.let { modelCategoryMapper.map(it) })
     }
 

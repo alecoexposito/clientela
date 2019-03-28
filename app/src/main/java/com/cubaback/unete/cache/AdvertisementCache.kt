@@ -29,10 +29,8 @@ class AdvertisementCache(private val cachedAdvertisementMapper: CachedAdvertisem
 
     override fun getAdvertisements(): Flowable<List<EntityAdvertisements>> {
         return Flowable.defer {
-            CachedAdvertisements().queryAllAsFlowable()
-        }.map {
-            it.map { cachedAdvertisementMapper.reverseMap(it) }
-        }
+            Flowable.just(CachedAdvertisements().queryAll())
+        }.map { cachedAdvertisementMapper.reverseMap(it) }
     }
 
 

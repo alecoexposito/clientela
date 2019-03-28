@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.cubaback.unete.R
-import com.cubaback.unete.presentation.model.CategoryView
+import com.cubaback.unete.presentation.model.CategoryDataView
 import kotlinx.android.synthetic.main.item_top_category.view.*
 
 class TopCategoryAdapter(private val mListener : BusinessFragment.BusinessFragmentCallback,
@@ -17,7 +17,7 @@ class TopCategoryAdapter(private val mListener : BusinessFragment.BusinessFragme
 
     private val mOnClickListener : View.OnClickListener
 
-    var mCategories : List<CategoryView> ? = null
+    var mCategories : List<CategoryDataView> ? = null
     set(value){
         field = value
         notifyDataSetChanged()
@@ -25,7 +25,7 @@ class TopCategoryAdapter(private val mListener : BusinessFragment.BusinessFragme
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as CategoryView
+            val item = v.tag as CategoryDataView
             mListener.onCategoryClick(item)
         }
     }

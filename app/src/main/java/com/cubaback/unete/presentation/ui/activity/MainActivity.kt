@@ -2,8 +2,8 @@ package com.cubaback.unete.presentation.ui.activity
 
 import android.os.Bundle
 import com.cubaback.unete.R
-import com.cubaback.unete.presentation.model.CategoryView
-import com.cubaback.unete.presentation.model.BusinessView
+import com.cubaback.unete.presentation.model.CategoryDataView
+import com.cubaback.unete.presentation.model.BusinessDataView
 import com.cubaback.unete.presentation.ui.fragment.business.BusinessFragment
 import com.cubaback.unete.presentation.ui.fragment.business.SubCategoryFragment
 import com.cubaback.unete.presentation.ui.fragment.notification.NotificationFragment
@@ -40,11 +40,11 @@ class MainActivity : BaseActivity(){
         val fragmentTransition = supportFragmentManager.beginTransaction()
         businessFragment = BusinessFragment.newInstance(1)
         businessFragment.let { it.setBusinessFragmentCallback(object : BusinessFragment.BusinessFragmentCallback{
-                override fun onBusinessClick(item: BusinessView) {
+                override fun onBusinessClick(item: BusinessDataView) {
                     openBusinessDetailActivity(item)
                 }
 
-                override fun onCategoryClick(item: CategoryView) {
+                override fun onCategoryClick(item: CategoryDataView) {
                     openSubCategoryFragment(item)
                 }
         })  }
@@ -68,15 +68,15 @@ class MainActivity : BaseActivity(){
         fragmentTransition.commit()
     }
 
-    private fun openSubCategoryFragment(subCategoryView: CategoryView){
+    private fun openSubCategoryFragment(subCategoryView: CategoryDataView){
         val fragmentTransition = supportFragmentManager.beginTransaction()
         subCategoryFragment = SubCategoryFragment.newInstance(subCategoryView.id!!)
         subCategoryFragment.setBusinessFragmentCallback(object  : BusinessFragment.BusinessFragmentCallback{
-            override fun onBusinessClick(item: BusinessView) {
+            override fun onBusinessClick(item: BusinessDataView) {
                 openBusinessDetailActivity(item)
             }
 
-            override fun onCategoryClick(item: CategoryView) {
+            override fun onCategoryClick(item: CategoryDataView) {
                subCategoryFragment.onCategoryClick(item)
             }
         })
@@ -116,7 +116,7 @@ class MainActivity : BaseActivity(){
          startActivity<QRScanActivity>()
     }
 
-    private fun openBusinessDetailActivity(business : BusinessView){
+    private fun openBusinessDetailActivity(business : BusinessDataView){
                 startActivity<BusinessDetailActivity>(
                 BusinessDetailActivity.EXTRA_BUSINESS to business.id)
     }
@@ -132,6 +132,6 @@ class MainActivity : BaseActivity(){
 //    }
 
     companion object {
-        var business : BusinessView? = null
+        var business : BusinessDataView? = null
     }
 }
