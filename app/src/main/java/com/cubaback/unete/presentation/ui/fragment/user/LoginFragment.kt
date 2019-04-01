@@ -9,7 +9,9 @@ import androidx.lifecycle.Observer
 import com.cubaback.unete.R
 import com.cubaback.unete.presentation.model.UserDataView
 import com.cubaback.unete.presentation.data.ResourceState
+import com.cubaback.unete.presentation.ui.activity.BaseActivity
 import com.cubaback.unete.presentation.ui.fragment.BaseFragment
+import com.cubaback.unete.presentation.view_model.UserAction
 import com.cubaback.unete.presentation.view_model.UserViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -38,17 +40,17 @@ class LoginFragment : BaseFragment() {
 
         loginViewModel.registeredAndLoguedUser.observe(this, Observer {
             if (it != null) {
-                this.handlerLogin(it.status, it.data, it.message)
+                this.handlerLogin(it.status, it.data, it.throwable)
             }
 
         })
     }
 
-    private fun handlerLogin(state : ResourceState, data : UserDataView?, message : String?){
+    private fun handlerLogin(state : ResourceState, data : UserDataView?, t : Throwable?){
         when (state) {
-            ResourceState.LOADING -> setupScreenForLoadingState()
+            ResourceState.LOADING ->  (activity as BaseActivity).setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForLoginSuccess(data)
-            ResourceState.ERROR -> setupScreenForError(message)
+            ResourceState.ERROR -> (activity as BaseActivity).handlerError(t!!)
         }
     }
 
@@ -56,7 +58,7 @@ class LoginFragment : BaseFragment() {
     private fun setupScreenForLoginSuccess(data: UserDataView?) {
         listener?.let {
             it.onLoginSuccess()
-            dismissLoading()
+            (activity as BaseActivity).dismissLoading()
         }
     }
 
@@ -64,7 +66,23 @@ class LoginFragment : BaseFragment() {
 
     private fun setupUi(){
         btnLogin.setOnClickListener{
-            loginViewModel.loginUser(UserDataView(0, email = etEmail.text.toString(), password = etPassword.text.toString()))
+            val email =  etEmail.text.toString()
+            val password = etPassword.text.toString()
+            val user = UserDataView(0, email = email, password = password)
+            if(loginViewModel.isValid(user, UserAction.LOGIN)){
+                loginViewModel.loginUser(user)
+            }else{
+                var message = ""
+                if (user.email.isNullOrEmpty()){
+                    message += "${getString(R.string.empty_field_error, getString(R.string.email))} \n"
+                }
+
+                if (user.password.isNullOrEmpty()){
+                    message += "${getString(R.string.empty_field_error, getString(R.string.password))} "
+                }
+                (activity as BaseActivity).setupScreenForError(message)
+            }
+
         }
 
         btnRegister.setOnClickListener {

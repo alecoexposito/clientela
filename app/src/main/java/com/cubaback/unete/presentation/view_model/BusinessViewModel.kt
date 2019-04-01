@@ -47,7 +47,7 @@ class BusinessViewModel(private val getBusinessUC: UCGetBusinesses,
         override fun onError(t: Throwable?) {
             when(t){
                 is NoSuchElementException ->    businessLiveData.postValue(Resource(ResourceState.SUCCESS, emptyList(), null))
-                else -> businessLiveData.postValue(Resource(ResourceState.ERROR, null , t?.message))
+                else -> businessLiveData.postValue(Resource(ResourceState.ERROR, null , t))
             }
 
         }
@@ -61,7 +61,7 @@ class BusinessViewModel(private val getBusinessUC: UCGetBusinesses,
         }
 
         override fun onError(t: Throwable?) {
-            selectedBusiness.postValue(Resource(ResourceState.ERROR, null, t?.message))
+            selectedBusiness.postValue(Resource(ResourceState.ERROR, null, t))
         }
     }
 }

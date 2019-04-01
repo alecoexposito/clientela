@@ -15,7 +15,7 @@ class TestBottomBar : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
 //            R.id.navigation_dashboard -> {
-//                message.setText(R.string.title_dashboard)
+//                throwable.setText(R.string.title_dashboard)
 //                return@OnNavigationItemSelectedListener true
 //            }
             R.id.navigation_notifications -> {

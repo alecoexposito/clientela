@@ -9,6 +9,7 @@ import com.cubaback.unete.R
 import com.cubaback.unete.presentation.model.BusinessDataView
 import com.cubaback.unete.presentation.model.CategoryDataView
 import com.cubaback.unete.presentation.data.ResourceState
+import com.cubaback.unete.presentation.ui.activity.BaseActivity
 import com.cubaback.unete.presentation.ui.fragment.BaseFragment
 import com.cubaback.unete.presentation.view_model.BusinessViewModel
 import com.cubaback.unete.presentation.view_model.CategoryViewModel
@@ -90,7 +91,7 @@ open class BusinessFragment : BaseFragment() {
    private fun bindBusinessViewModel(){
         businessViewModel.businessLiveData.observe(this, Observer {
             if (it != null){
-                handlerBusinessResponse(it.status, it.data, it.message)
+                handlerBusinessResponse(it.status, it.data, it.throwable)
             }
         })
     }
@@ -98,24 +99,24 @@ open class BusinessFragment : BaseFragment() {
    private fun bindCategoryViewModel(){
         categoryViewModel.categoriesLiveData.observe(this, Observer {
             it?.apply {
-                handlerCategoryResponse(it.status, it.data, it.message)
+                handlerCategoryResponse(it.status, it.data, it.throwable)
             }
         })
     }
 
-   private fun handlerBusinessResponse(state: ResourceState?, data : List<BusinessDataView>?, message : String?){
+   private fun handlerBusinessResponse(state: ResourceState?, data : List<BusinessDataView>?, t : Throwable?){
         when(state){
-            ResourceState.LOADING -> setupScreenForLoadingState()
+            ResourceState.LOADING -> (activity as BaseActivity).setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForLoadedBusinesses(data)
-            ResourceState.ERROR -> setupScreenForError(message)
+            ResourceState.ERROR -> (activity as BaseActivity).handlerError(t!!)
         }
     }
 
-   private fun handlerCategoryResponse(state: ResourceState?, data : List<CategoryDataView>?, message : String?){
+   private fun handlerCategoryResponse(state: ResourceState?, data : List<CategoryDataView>?, t : Throwable?){
         when(state){
-            ResourceState.LOADING -> setupScreenForLoadingState()
+            ResourceState.LOADING -> (activity as BaseActivity).setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForLoadedCategories(data)
-            ResourceState.ERROR -> setupScreenForError(message)
+            ResourceState.ERROR -> (activity as BaseActivity).handlerError(t!!)
         }
     }
 
@@ -133,7 +134,7 @@ open class BusinessFragment : BaseFragment() {
                 it.mValues = data
             }
         }
-        dismissLoading()
+        (activity as BaseActivity).dismissLoading()
     }
 
     interface BusinessFragmentCallback {

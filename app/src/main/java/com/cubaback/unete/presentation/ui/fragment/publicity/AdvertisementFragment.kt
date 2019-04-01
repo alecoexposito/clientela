@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cubaback.unete.R
 import com.cubaback.unete.presentation.data.ResourceState
 import com.cubaback.unete.presentation.model.AdvertisementDataView
+import com.cubaback.unete.presentation.ui.activity.BaseActivity
 import com.cubaback.unete.presentation.ui.fragment.BaseFragment
 import com.cubaback.unete.presentation.view_model.AdvertisementViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -59,17 +60,17 @@ class AdvertisementFragment : BaseFragment() {
 
         advertisementViewModel.advertisementLiveData.observe(this, Observer {
             it?.apply {
-                handlerAdvertisements(it.status, it.data, it.message)
+                handlerAdvertisements(it.status, it.data, it.throwable)
             }
         })
         setupUi()
     }
 
-    private fun handlerAdvertisements(status: ResourceState, data: List<AdvertisementDataView>?, message: String?) {
+    private fun handlerAdvertisements(status: ResourceState, data: List<AdvertisementDataView>?, t: Throwable?) {
         when(status){
-            ResourceState.LOADING -> setupScreenForLoadingState()
+            ResourceState.LOADING ->  (activity as BaseActivity).setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupForAdvertisementSuccessLoaded(data)
-            ResourceState.ERROR -> setupScreenForError(message)
+            ResourceState.ERROR -> (activity as BaseActivity).handlerError(t!!)
         }
     }
 
@@ -78,7 +79,7 @@ class AdvertisementFragment : BaseFragment() {
             if(data != null){
                 it.mAdvertisements = data
             }
-            dismissLoading()
+            (activity as BaseActivity).dismissLoading()
         }
     }
 

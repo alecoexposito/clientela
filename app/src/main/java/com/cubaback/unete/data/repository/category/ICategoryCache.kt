@@ -47,4 +47,6 @@ interface ICategoryCache {
 
     fun getBusinessById(id : Long): Single<EntityCategory>
 
+    fun getLastCached() : Long
+
 }

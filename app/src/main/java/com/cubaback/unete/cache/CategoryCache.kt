@@ -51,6 +51,10 @@ open class CategoryCache(private val cachedCategoryMapper: CachedCategoryMapper,
         return preferencesHelper.lastCacheCategories
     }
 
+    override fun getLastCached(): Long {
+        return preferencesHelper.lastCacheCategories
+    }
+
     override fun isExpired(): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

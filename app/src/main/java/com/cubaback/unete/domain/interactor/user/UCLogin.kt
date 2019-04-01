@@ -8,8 +8,8 @@ import com.cubaback.unete.domain.executor.ThreadExecutor
 import com.cubaback.unete.domain.interactor.base.FlowableUseCase
 
 open class UCLogin(val userDataRepository: IUserRepository,
-                   val threadExecutor: ThreadExecutor,
-                   val porExecutionThread: PostExecutionThread) : FlowableUseCase<UserBo, UserBo?>(threadExecutor, porExecutionThread){
+                   threadExecutor: ThreadExecutor,
+                   porExecutionThread: PostExecutionThread) : FlowableUseCase<UserBo, UserBo?>(threadExecutor, porExecutionThread){
 
 
 

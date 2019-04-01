@@ -10,9 +10,11 @@ import androidx.lifecycle.Observer
 import com.cubaback.unete.R
 import com.cubaback.unete.presentation.data.ResourceState
 import com.cubaback.unete.presentation.model.UserDataView
+import com.cubaback.unete.presentation.ui.activity.BaseActivity
 import com.cubaback.unete.presentation.ui.dialog.DatePickerFragment
 import com.cubaback.unete.presentation.ui.fragment.BaseFragment
 import com.cubaback.unete.presentation.utils.Utils
+import com.cubaback.unete.presentation.view_model.UserAction
 import com.cubaback.unete.presentation.view_model.UserViewModel
 import kotlinx.android.synthetic.main.fragment_register_step_two.*
 import org.jetbrains.anko.AnkoLogger
@@ -58,23 +60,23 @@ class SecondStepRegisterFragment : BaseFragment(), AnkoLogger {
     private fun bidUserViewModel(){
         userViewModel.registeredAndLoguedUser.observe(this, Observer {
             it?.let { it1 ->
-                handlerGetUserById(it1.status, it1.data, it1.message)
+                handlerGetUserById(it1.status, it1.data, it1.throwable)
             }
         })
     }
 
-    private fun handlerGetUserById(status: ResourceState, data: UserDataView?, message: String?) {
+    private fun handlerGetUserById(status: ResourceState, data: UserDataView?, throwable: Throwable?) {
         when(status){
-            ResourceState.LOADING -> setupScreenForLoadingState()
+            ResourceState.LOADING ->  (activity as BaseActivity).setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForUser(data)
-            ResourceState.ERROR -> setupScreenForError(message)
+            ResourceState.ERROR -> (activity as BaseActivity).handlerError(throwable!!)
         }
     }
 
     private fun setupScreenForUser(data: UserDataView?) {
         if (data != null) {
             listener?.onRegisterCompleted(data)
-            dismissLoading()
+            (activity as BaseActivity).dismissLoading()
         }
     }
 
@@ -94,7 +96,20 @@ class SecondStepRegisterFragment : BaseFragment(), AnkoLogger {
         btnRegister.setOnClickListener {
             val userView = userViewModel.savedUser.value?.data
             val newUser = userView?.copy(birdDate = cal.time, phone = etPhone.text.toString(), isCompleted = true)
-            newUser?.let { activity?.let { it1 -> userViewModel.registerUser(it1,it) } }
+
+            if (userViewModel.isValid(newUser!!, UserAction.REGISTER)){
+                userViewModel.registerUser(newUser)
+            } else{
+                var message = ""
+                if(newUser.birdDate.toString().isNullOrEmpty()){
+                    message += "${getString(R.string.empty_field_error, getString(R.string.birth_date))} \n"
+                }
+
+                if(newUser.phone.isNullOrEmpty()){
+                    message += "${getString(R.string.empty_field_error, getString(R.string.phone_number))} \n"
+                }
+                (activity as BaseActivity).setupScreenForError(message)
+            }
         }
     }
 

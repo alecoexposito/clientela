@@ -34,8 +34,8 @@ interface IJoinUsService {
     fun getBusinesses(@Header("Authorization") token: String ) : Flowable<List<BusinessModel>>
 
     @Headers("Content-Type:application/json")
-    @POST("business/has-changed")
-    fun businessesHasChanged(@Header("Authorization") token: String,  @Field("updated_at") date : Date  ) : Single<HasChangedModel>
+    @GET("business/has-changed")
+    fun businessesHasChanged(@Header("Authorization") token: String,  @Query("updated_at") date : String  ) : Call<HasChangedModel>
 
 
 
@@ -49,8 +49,8 @@ interface IJoinUsService {
     fun getCategories(@Header("Authorization") token: String ) : Flowable<List<CategoryModel>>
 
     @Headers("Content-Type:application/json")
-    @POST("business-category/has-changed")
-    fun categoriesHasChanged(@Header("Authorization") token: String,  @Field("updated_at") date : Date  ) : Single<HasChangedModel>
+    @GET("business-category/has-changed")
+    fun categoriesHasChanged(@Header("Authorization") token: String,  @Query("updated_at") date : String  ) : Call<HasChangedModel>
 
 
 
@@ -63,9 +63,8 @@ interface IJoinUsService {
     fun getAdvertisement(@Header("Authorization") token: String ) : Flowable<List<AdvertisementModel>>
 
     @Headers("Content-Type:application/x-www-form-urlencoded")
-    @FormUrlEncoded
-    @POST("advertisement/has-changed")
-    fun advertisementsHasChanged(@Header("Authorization") token: String, @Field("updated_at")  date : String ) : Call<HasChangedModel>
+    @GET("advertisement/has-changed")
+    fun advertisementsHasChanged(@Header("Authorization") token: String, @Query("updated_at")  date : String ) : Call<HasChangedModel>
 
 
 

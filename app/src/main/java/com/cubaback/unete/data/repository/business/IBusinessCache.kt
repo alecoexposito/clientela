@@ -48,4 +48,6 @@ interface IBusinessCache {
 
     fun getBusinessById(id : Long): Single<EntityBusiness>
 
+    fun getLastCached() : Long
+
 }

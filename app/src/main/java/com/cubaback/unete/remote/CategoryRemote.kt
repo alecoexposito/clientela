@@ -6,6 +6,8 @@ import com.cubaback.unete.presentation.utils.Utils
 import com.cubaback.unete.remote.model.mapper.ModelCategoryMapper
 import io.reactivex.Flowable
 import io.reactivex.Single
+import retrofit2.HttpException
+import java.io.IOException
 import java.util.*
 
 open class CategoryRemote(private val joinUsService: IJoinUsService,
@@ -24,6 +26,19 @@ open class CategoryRemote(private val joinUsService: IJoinUsService,
     }
 
     override fun hasChanged(date: Date): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return try{
+            val response = joinUsService.categoriesHasChanged("Bearer ${Utils.token}", Utils.formatStrDateTime(date)).execute()
+            val code = response.code()
+            if(code == 200){
+                response.body()!!.hasChanged
+            } else{
+                if(code == 401){
+                    throw HttpException(response)
+                }
+                false
+            }
+        }catch (e : IOException){
+            false
+        }
     }
 }

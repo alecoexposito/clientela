@@ -44,7 +44,7 @@ open class CategoryViewModel(private val getCategoriesUC: UCGetCategories,
         }
 
         override fun onError(t: Throwable?) {
-            categoriesLiveData.postValue(Resource(ResourceState.ERROR,null, t?.message))
+            categoriesLiveData.postValue(Resource(ResourceState.ERROR,null, t))
         }
     }
 }

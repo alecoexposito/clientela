@@ -1,6 +1,5 @@
 package com.cubaback.unete.data.repository.advertisement
 
-import android.util.Log
 import com.cubaback.unete.data.model.EntityAdvertisements
 import io.reactivex.Completable
 import io.reactivex.Flowable

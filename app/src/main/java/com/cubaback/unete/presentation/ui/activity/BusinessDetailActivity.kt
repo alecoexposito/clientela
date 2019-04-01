@@ -9,8 +9,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.cubaback.unete.R
 import com.cubaback.unete.presentation.data.ResourceState
 import com.cubaback.unete.presentation.model.BusinessDataView
-import com.cubaback.unete.presentation.ui.custom.detail.BaseDetailView
-import com.cubaback.unete.presentation.ui.custom.ItemsType
 import com.cubaback.unete.presentation.ui.custom.detail.DependencesView
 import com.cubaback.unete.presentation.ui.custom.detail.DescriptionView
 import com.cubaback.unete.presentation.ui.custom.detail.RelatedCategoriesView
@@ -45,16 +43,16 @@ class BusinessDetailActivity : BaseActivity() {
     private fun bindBusinessViewModel(){
         businessViewModel.selectedBusiness.observe(this, Observer {
             it?.let { it1 ->
-                handlerBusinessResource(it1.status, it1.data, it1.message)
+                handlerBusinessResource(it1.status, it1.data, it1.throwable)
             }
         })
     }
 
-    private fun handlerBusinessResource(status: ResourceState, data: BusinessDataView?, message: String?) {
+    private fun handlerBusinessResource(status: ResourceState, data: BusinessDataView?, t: Throwable?) {
         when(status){
             ResourceState.LOADING -> setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForBusiness(data)
-            ResourceState.ERROR -> setupScreenForError(message)
+            ResourceState.ERROR -> handlerError(t!!)
         }
     }
 

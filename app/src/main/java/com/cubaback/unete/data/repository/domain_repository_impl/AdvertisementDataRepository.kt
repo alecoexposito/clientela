@@ -26,6 +26,7 @@ class AdvertisementDataRepository(private val factory : AdvertisementDataStoreFa
     }
 
     override fun getAdvertisements(): Flowable<List<AdvertisementBo>> {
+
          return factory.retrieveCacheDataStore().isCached()
                  .flatMapPublisher {
                      factory.retrieveDataStore(it).getAdvertisements()
@@ -33,8 +34,8 @@ class AdvertisementDataRepository(private val factory : AdvertisementDataStoreFa
                  .flatMap {
                      Flowable.just(it.map { it1 -> entityAdvertisementMapper.map(it1) })
                  }
-                 .flatMap {
-                     saveAdvertisements(it).toSingle{it}.toFlowable()
+                 .flatMap {it2 ->
+                     saveAdvertisements(it2).toSingle{it2}.toFlowable()
                  }
 
 

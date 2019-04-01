@@ -70,7 +70,7 @@ class BusinessCache(
             }.map { cachedBusinessMapper.reverseMap(it) }
     }
 
-
-
-
+    override fun getLastCached(): Long {
+        return preferencesHelper.lastCacheBusinesses
+    }
 }

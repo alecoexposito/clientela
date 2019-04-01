@@ -37,7 +37,7 @@ class AdvertisementViewModel(private val getAdvertisementsUC: UCGetAdvertisement
         override fun onError(t: Throwable?) {
             when(t){
                 is NoSuchElementException ->   advertisementLiveData.postValue(Resource(ResourceState.SUCCESS, emptyList(), null))
-                else -> advertisementLiveData.postValue(Resource(ResourceState.ERROR, null, t?.message))
+                else -> advertisementLiveData.postValue(Resource(ResourceState.ERROR, null, t))
             }
 
         }

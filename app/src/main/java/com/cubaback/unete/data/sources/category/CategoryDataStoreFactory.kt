@@ -2,6 +2,7 @@ package com.cubaback.unete.data.sources.category
 
 import com.cubaback.unete.data.repository.category.ICategoryCache
 import com.cubaback.unete.data.repository.category.ICategoryDataStore
+import java.util.*
 
 open class CategoryDataStoreFactory (val categoryCache : ICategoryCache,
                                      val categoryCacheDataStore : CategoryCacheDataStore,
@@ -9,7 +10,7 @@ open class CategoryDataStoreFactory (val categoryCache : ICategoryCache,
 
 
     open fun retrieveDataStore(isCached: Boolean): ICategoryDataStore {
-        if (isCached) {
+        if (isCached && !categoryRemoteDataStore.hasChanged(Date(categoryCache.getLastCached()))) {
             return retrieveCacheDataStore()
         }
         return retrieveRemoteDataStore()

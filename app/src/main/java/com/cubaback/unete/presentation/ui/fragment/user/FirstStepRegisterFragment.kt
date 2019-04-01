@@ -9,7 +9,9 @@ import androidx.lifecycle.Observer
 import com.cubaback.unete.R
 import com.cubaback.unete.presentation.model.UserDataView
 import com.cubaback.unete.presentation.data.ResourceState
+import com.cubaback.unete.presentation.ui.activity.BaseActivity
 import com.cubaback.unete.presentation.ui.fragment.BaseFragment
+import com.cubaback.unete.presentation.view_model.UserAction
 import com.cubaback.unete.presentation.view_model.UserViewModel
 import kotlinx.android.synthetic.main.fragment_register_step_one.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -35,18 +37,18 @@ class FirstStepRegisterFragment : BaseFragment() {
 
         userViewModel.registeredAndLoguedUser.observe(this, Observer {
             it?.let {
-                handlerRegister(it.status, it.data, it.message)
+                handlerRegister(it.status, it.data, it.throwable)
             }
         })
 
         setupUi()
     }
 
-    private fun handlerRegister(status: ResourceState, data: UserDataView?, message: String?) {
+    private fun handlerRegister(status: ResourceState, data: UserDataView?, t: Throwable?) {
         when(status){
-            ResourceState.LOADING -> setupScreenForLoadingState()
+            ResourceState.LOADING ->  (activity as BaseActivity).setupScreenForLoadingState()
             ResourceState.SUCCESS -> setupScreenForRegisterSucess(data)
-            ResourceState.ERROR -> setupScreenForError(message)
+            ResourceState.ERROR -> (activity as BaseActivity).handlerError(t!!)
         }
     }
 
@@ -60,7 +62,7 @@ class FirstStepRegisterFragment : BaseFragment() {
                         it.registerImcompleted(data)
                     }
                 }
-                dismissLoading()
+                (activity as BaseActivity).dismissLoading()
             }
         }
 
@@ -78,7 +80,29 @@ class FirstStepRegisterFragment : BaseFragment() {
         val lastName = etLastName.text.toString()
         val email = etEmail.text.toString()
         val password = etPassword.text.toString()
-        activity?.let { userViewModel.registerUser(it, UserDataView(null, name, lastName, email, password)) }
+        val user =  UserDataView(null, name, lastName, email, password)
+
+        if (userViewModel.isValid(user, UserAction.REGISTER)){
+            userViewModel.registerUser(user)
+        } else{
+            var message = ""
+            if(user.name.isNullOrEmpty()){
+                message = "${getString(R.string.empty_field_error, getString(R.string.name))} \n"
+            }
+
+            if(user.lastName.isNullOrEmpty()){
+                message += "${getString(R.string.empty_field_error, getString(R.string.last_name))} \n"
+            }
+
+            if (user.email.isNullOrEmpty()){
+                message += "${getString(R.string.empty_field_error, getString(R.string.email))} \n"
+            }
+
+            if (user.password.isNullOrEmpty()){
+                message += "${getString(R.string.empty_field_error, getString(R.string.password))} "
+            }
+            (activity as BaseActivity).setupScreenForError(message)
+        }
     }
 
 

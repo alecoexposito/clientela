@@ -30,6 +30,10 @@
     <string name="you_can_register">Si aun no eres miembro de Unete: </string>
     <string name="description">Descripción</string>
     <string name="dependences">Dependencias</string>
+
+    <string name="unautorized">Usuario no autorizado</string>
+    <string name="user_not_found">Usuario no encontrado</string>
+
     <string name="advertisement">Cedes</string>
     <string name="categories_related">Categorias relacionadas</string>
     <string name="not_such_element">No se encontraron %1$s</string>

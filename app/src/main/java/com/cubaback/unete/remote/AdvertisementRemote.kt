@@ -6,6 +6,7 @@ import com.cubaback.unete.presentation.utils.Utils
 import com.cubaback.unete.remote.model.mapper.ModelAdvertisementMapper
 import io.reactivex.Flowable
 import io.reactivex.Single
+import retrofit2.HttpException
 import java.io.IOException
 import java.util.*
 
@@ -27,13 +28,17 @@ class AdvertisementRemote(private val joinUsService: IJoinUsService,
 
     override fun hasChanged(date: Date): Boolean {
         return try{
-            var response = joinUsService.advertisementsHasChanged("Bearer ${Utils.token}", Utils.formatStrDateTime(date)).execute().body()
-            if(response != null){
-                response.hasChanged
+            val response = joinUsService.advertisementsHasChanged("Bearer ${Utils.token}", Utils.formatStrDateTime(date)).execute()
+            val code = response.code()
+            if(code == 200){
+                response.body()!!.hasChanged
             } else{
+                if(code == 401){
+                    throw HttpException(response)
+                }
                 false
             }
-        } catch (e : IOException){
+        }catch (e : IOException){
             false
         }
     }

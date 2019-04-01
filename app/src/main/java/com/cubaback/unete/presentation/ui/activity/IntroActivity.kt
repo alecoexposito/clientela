@@ -9,7 +9,7 @@ import com.cubaback.unete.presentation.ui.fragment.user.FirstStepRegisterFragmen
 import com.cubaback.unete.presentation.ui.fragment.user.SecondStepRegisterFragment
 import org.jetbrains.anko.startActivity
 
-class IntroActivity : AppCompatActivity(), SecondStepRegisterFragment.RegisterTwoFragmentCallback{
+class IntroActivity : BaseActivity(), SecondStepRegisterFragment.RegisterTwoFragmentCallback{
 
     private var loginFragment :  LoginFragment? = null
     private var registerFragment: FirstStepRegisterFragment? = null

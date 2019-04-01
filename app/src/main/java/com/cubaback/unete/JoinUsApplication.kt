@@ -35,10 +35,7 @@ import com.cubaback.unete.domain.interactor.advertisement.UCGetAdvertisements
 import com.cubaback.unete.domain.interactor.business.UCGetBusinessById
 import com.cubaback.unete.domain.interactor.business.UCGetBusinesses
 import com.cubaback.unete.domain.interactor.category.UCGetCategories
-import com.cubaback.unete.domain.interactor.user.UCGetCurrentUser
-import com.cubaback.unete.domain.interactor.user.UCGetUserByEmail
-import com.cubaback.unete.domain.interactor.user.UCLogin
-import com.cubaback.unete.domain.interactor.user.UCRegister
+import com.cubaback.unete.domain.interactor.user.*
 import com.cubaback.unete.domain.model.mapper.*
 import com.cubaback.unete.domain.repository.IAdvertisementRepository
 import com.cubaback.unete.domain.repository.IBusinessRepository
@@ -183,6 +180,7 @@ class JoinUsApplication : Application(){
         factory { UCRegister(get(), get(), get()) }
         factory { UCGetUserByEmail(get(), get(), get()) }
         factory { UCGetCurrentUser(get()) }
+        factory { UCLogout(get(), get(), get()) }
 
             // Businesses
         factory { UCGetBusinesses(get(), get(), get()) }
@@ -211,7 +209,7 @@ class JoinUsApplication : Application(){
         single { getRealm() }
 
         // view models
-        viewModel{ UserViewModel(get(), get(), get(), get(), get())}
+        viewModel{ UserViewModel(get(), get(), get(), get(), get(), get())}
         viewModel{ BusinessViewModel(get(), get(), get())}
         viewModel{ CategoryViewModel(get(), get()) }
         viewModel{ AdvertisementViewModel(get(), get()) }
