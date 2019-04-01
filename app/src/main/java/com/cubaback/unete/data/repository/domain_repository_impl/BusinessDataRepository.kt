@@ -20,7 +20,9 @@ open class BusinessDataRepository(private val factory : BusinessDataStoreFactory
     override fun saveBusinesses(businesses: List<BusinessBo>): Completable {
         val businessesEntities = mutableListOf<EntityBusiness>()
         businesses.map { businessesEntities.add(businessEntityMapper.reverseMap(it)) }
-        return factory.retrieveCacheDataStore().saveBusinesses(businessesEntities)
+        return factory.retrieveCacheDataStore().saveBusinesses(businessesEntities).doOnComplete {
+        val lastTime = businesses.sortedBy { it.updatedAt }.last().updatedAt
+        lastTime?.let { factory.retrieveCacheDataStore().setLastCacheTime(it.time)  }}
     }
 
     override fun getBusinesses(): Flowable<List<BusinessBo>> {

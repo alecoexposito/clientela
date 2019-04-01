@@ -21,5 +21,16 @@ interface IBusinessDataStore {
 
     fun getBusinessesByCategory(catID : Long) : Flowable<List<EntityBusiness>>
 
+    /**
+     * Cambia la fecha de la ultima cache
+     * */
+    fun setLastCacheTime(lastCache : Long)
+
+
+    fun getLastCacheTime() : Long
+
+    fun getLastCached() : Long
+
+
 
 }

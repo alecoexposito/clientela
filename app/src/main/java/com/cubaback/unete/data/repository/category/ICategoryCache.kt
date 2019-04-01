@@ -36,6 +36,8 @@ interface ICategoryCache {
 
     fun getLastCacheTime() : Long
 
+    fun getLastCached() : Long
+
 
     fun getCategoriesByParentId(parentId : Long): Flowable<List<EntityCategory>>
 
@@ -47,6 +49,6 @@ interface ICategoryCache {
 
     fun getBusinessById(id : Long): Single<EntityCategory>
 
-    fun getLastCached() : Long
+
 
 }

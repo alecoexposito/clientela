@@ -37,4 +37,16 @@ open class BusinessCacheDataStore(private val businessCache : IBusinessCache) : 
     override fun hasChanged(date: Date): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun setLastCacheTime(lastCache: Long) {
+        return businessCache.setLastCacheTime(lastCache)
+    }
+
+    override fun getLastCacheTime(): Long {
+         return businessCache.getLastCacheTime()
+    }
+
+    override fun getLastCached(): Long {
+       return businessCache.getLastCached()
+    }
 }

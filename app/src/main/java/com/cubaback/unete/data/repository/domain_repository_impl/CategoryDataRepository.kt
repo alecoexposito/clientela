@@ -19,7 +19,9 @@ open class CategoryDataRepository(private val factory : CategoryDataStoreFactory
     override fun saveCategories(categories: List<CategoryBo>): Completable {
         val categoriesEntities = mutableListOf<EntityCategory>()
         categories.map { categoriesEntities.add(categoryEntityMapper.reverseMap(it)) }
-        return factory.retrieveCacheDataStore().saveCategories(categoriesEntities)
+        return factory.retrieveCacheDataStore().saveCategories(categoriesEntities).doOnComplete {
+            val lastTime = categories.sortedBy { it.updateAt }.last().updateAt
+            lastTime?.let { factory.retrieveCacheDataStore().setLastCacheTime(it.time)  }}
     }
 
     override fun getCategories(): Flowable<List<CategoryBo>> {

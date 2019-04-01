@@ -11,13 +11,13 @@ open class ModelBusinessMapper(private val modelCategoryMapper: ModelCategoryMap
     override fun map(type: BusinessModel): EntityBusiness {
         return EntityBusiness(type.id, type.name, type.description, "${API_URL}uploads/business/${type.image}",
                 type.dependences?.let { modelDependenceMapper.map(it) },
-                type.categories?.let { modelCategoryMapper.map(it) })
+                type.categories?.let { modelCategoryMapper.map(it) }, type.createdAt, type.updatedAt)
     }
 
     override fun reverseMap(type: EntityBusiness): BusinessModel {
         return BusinessModel(type.id, type.name, type.description, type.image,
                 type.dependence?.let { modelDependenceMapper.reverseMap(it) },
-                type.categories?.let { modelCategoryMapper.reverseMap(it) })
+                type.categories?.let { modelCategoryMapper.reverseMap(it) }, type.createdAt, type.updatedAt)
     }
 
 }

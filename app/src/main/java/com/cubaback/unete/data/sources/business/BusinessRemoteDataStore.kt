@@ -38,4 +38,16 @@ open class BusinessRemoteDataStore(private val businessRemote : IBusinessRemote)
     override fun getBusinessesByCategory(catID: Long): Flowable<List<EntityBusiness>> {
         throw UnsupportedOperationException()
     }
+
+    override fun setLastCacheTime(lastCache: Long) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getLastCacheTime(): Long {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getLastCached(): Long {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

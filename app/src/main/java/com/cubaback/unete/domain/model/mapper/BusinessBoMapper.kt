@@ -17,6 +17,7 @@ open class BusinessBoMapper(private val dependenceBoMapper: DependenceBoMapper,
     override fun reverseMap(type: BusinessDataView): BusinessBo {
         return BusinessBo(type.id, type.name, type.description, type.image,
                 type.dependence?.let { dependenceBoMapper.reverseMap(it) },
-                type.categories?.let { categoryBoMapper.reverseMap(it) })
+                type.categories?.let { categoryBoMapper.reverseMap(it) },
+                null, null)
     }
 }

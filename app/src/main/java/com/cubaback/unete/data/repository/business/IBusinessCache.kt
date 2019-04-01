@@ -40,6 +40,8 @@ interface IBusinessCache {
 
     fun getLastCacheTime() : Long
 
+    fun getLastCached() : Long
+
     /**
      * Verifica que la cache no halla expirado
      * retorna true, si la cache ha espirado, de lo contrario retorna false
@@ -48,6 +50,6 @@ interface IBusinessCache {
 
     fun getBusinessById(id : Long): Single<EntityBusiness>
 
-    fun getLastCached() : Long
+
 
 }

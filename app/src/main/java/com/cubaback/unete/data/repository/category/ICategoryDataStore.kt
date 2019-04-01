@@ -21,4 +21,10 @@ interface ICategoryDataStore {
     fun getCategoriesByParentId(parentId : Long): Flowable<List<EntityCategory>>
 
     fun hasChanged(date : Date) : Boolean
+
+    fun setLastCacheTime(lastCache : Long)
+
+    fun getLastCacheTime() : Long
+
+    fun getLastCached() : Long
 }

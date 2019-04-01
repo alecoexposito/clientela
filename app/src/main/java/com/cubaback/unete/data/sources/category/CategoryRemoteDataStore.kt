@@ -36,4 +36,16 @@ open class CategoryRemoteDataStore(private val categoryRemote : ICategoryRemote)
     override fun hasChanged(date: Date): Boolean {
         return categoryRemote.hasChanged(date)
     }
+
+    override fun setLastCacheTime(lastCache: Long) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getLastCacheTime(): Long {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getLastCached(): Long {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }

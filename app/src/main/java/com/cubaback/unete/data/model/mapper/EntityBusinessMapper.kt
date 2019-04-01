@@ -11,12 +11,14 @@ open class EntityBusinessMapper(private val entityDependenceMapper: EntityDepend
     override fun map(type: EntityBusiness): BusinessBo {
         return BusinessBo(type.id, type.name, type.description, type.image,
                 type.dependence?.let { entityDependenceMapper.map(it) },
-                type.categories?.let { entityCategoryMapper.map(it) })
+                type.categories?.let { entityCategoryMapper.map(it) },
+                type.createdAt, type.updatedAt)
     }
 
     override fun reverseMap(type: BusinessBo): EntityBusiness {
         return EntityBusiness(type.id, type.name, type.description, type.image,
                 type.dependence?.let { entityDependenceMapper.reverseMap(it) },
-                type.categories?.let { entityCategoryMapper.reverseMap(it) })
+                type.categories?.let { entityCategoryMapper.reverseMap(it) },
+                type.createdAt, type.updatedAt)
     }
 }

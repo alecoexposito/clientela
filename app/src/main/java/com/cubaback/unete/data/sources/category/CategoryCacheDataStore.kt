@@ -37,4 +37,16 @@ open class CategoryCacheDataStore(private val categoryCache : ICategoryCache) : 
     override fun hasChanged(date: Date): Boolean {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+    override fun setLastCacheTime(lastCache: Long) {
+        return categoryCache.setLastCacheTime(lastCache)
+    }
+
+    override fun getLastCacheTime(): Long {
+        return categoryCache.getLastCacheTime()
+    }
+
+    override fun getLastCached(): Long {
+        return categoryCache.getLastCached()
+    }
 }

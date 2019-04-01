@@ -16,6 +16,6 @@ class BusinessViewMapper(private val categoryViewMapper: CategoryViewMapper,
     override fun reverseMap(type: BusinessDataView): BusinessBo {
         return BusinessBo(type.id, type.name, type.description, type.image,
                 type.dependence?.let { dependencesViewMapper.reverseMap(it) },
-                type.categories?.let { categoryViewMapper.reverseMap(it) })
+                type.categories?.let { categoryViewMapper.reverseMap(it) }, null, null)
     }
 }
